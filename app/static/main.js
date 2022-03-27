@@ -235,21 +235,10 @@ function createShareable() {
     html2canvas(div).then((canvas) => {
         canvas.toBlob((blob) => {
             let d = [new ClipboardItem({ 'image/png': blob })];
-            if (navigator.userAgent.toLowerCase().indexOf('firefox') > -1) {
-                navigator.clipboard.write(d).then(() => {
-                    document.body.removeChild(div);
-                    showToast();
-                });
-            } else {
-                navigator.permissions.query({name: "clipboard-write"}).then(result => {
-                    if (result.state == "granted" || result.state == "prompt") {
-                        navigator.clipboard.write(d).then(() => {
-                            document.body.removeChild(div);
-                            showToast();
-                        });
-                    }
-                });
-            }
+            navigator.clipboard.write(d).then(() => {
+                document.body.removeChild(div);
+                showToast();
+            });
         });
     });
 }
