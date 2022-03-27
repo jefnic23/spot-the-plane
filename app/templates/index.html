@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <script type="text/javascript">
+        var data = {{ data | tojson }}
+        var day = {{ day }}
+    </script>
+    <div id="main">
+        <div id="pregame" class="overlay">
+            <div class="overlay-content animate__animated animate__faster">
+                <div class='pregame-text'>
+                    <p>See how quickly you can identify ten aircraft.</p>
+                    <p>When you click <strong>START SPOTTING</strong>, a timer begins.</p>
+                    <p>Incorrect guesses add <strong>10 seconds</strong> to the timer.</p>
+                    <p>A new set of planes is available each day. Share your results and see who is the faster spotter!</p>
+                </div>
+                <hr>
+                <button id="start" class="answer-button">START SPOTTING</button>
+            </div>
+        </div>
+        <div id="game" class="overlay animate__animated animate__faster">
+            <div id="timer"></div>
+            <div id="counter" class="miniplane-container">
+                {% for i in range(10) %}
+                    <span class="miniplane"></span>
+                {% endfor %}
+            </div>
+            <div class="img-container">
+                <a id="link" href="" target="_blank"><img id='image'/></a>
+            </div>
+            <div id="answers">
+                <button class="answer-button animate__animated animate__faster" id="answer-1" onClick="getAnswer('answer-1')"></button>
+                <button class="answer-button animate__animated animate__faster" id="answer-2" onClick="getAnswer('answer-2')"></button>
+                <button class="answer-button animate__animated animate__faster" id="answer-3" onClick="getAnswer('answer-3')"></button>
+                <button class="answer-button animate__animated animate__faster" id="answer-4" onClick="getAnswer('answer-4')"></button>
+            </div>
+        </div>
+        <div id="postgame" class="overlay">
+            <div class="overlay-content animate__animated animate__faster">
+                <div class="overlay-container">
+                    <h1>Completion Time</h1>
+                    <span id="completion-time"></span>
+                </div>
+                <div class="overlay-container">
+                    <h1>Answers</h1>
+                    <div id="answer-times" class="miniplane-container">
+                        {% for i in range(10) %}
+                            <span class="miniplane"></span>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class='footer'>
+                    <div id="countdown">
+                        <h1>Next Planes</h1>
+                        <span></span>
+                    </div>
+                    <div id='share'>
+                        <button class='answer-button' onClick='createShareable()'>
+                            Share
+                            <span class=icon>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
+                            </span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="stats" class="overlay">
+            <h1>Statistics</h1>
+            <div class="avg-container">
+                <div id="avg-completion">
+                    <span></span>
+                    <p>Average completion time</p>
+                </div>
+                <div id="avg-question">
+                    <span></span>
+                    <p>Average question time</p>
+                </div>
+            </div>
+        </div>
+        <div id="settings" class="overlay"></div>
+        <div id="toast" class="animate__animated animate__faster">Results copied to clipboard</div>
+    </div>
+    {# <div class="footer">
+        <p style="margin: 0;">
+            Photos courtesy <a href="https://www.planespotters.net/" id="planespotters" target="_blank">planespotters.net</a>.
+            Click photo for more info. 
+            <a href="mailto: jefnic23@gmail.com" target="_blank" style="color: blue">Contact me</a>
+        </p>
+    </div> #}
+    <script type="text/javascript" src="{{ url_for('static', filename='html2canvas.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='timer.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='main.js') }}"></script>
+{% endblock %}

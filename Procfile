@@ -1,0 +1,1 @@
+web: gunicorn spot_the_plane:app --preload
