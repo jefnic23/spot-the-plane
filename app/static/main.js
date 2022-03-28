@@ -281,11 +281,21 @@ function showToast(text) {
     }, 3000);
 }
 
+function openInfo() {
+    info.classList.remove('animate__fadeOutDownBig')
+    info.style.display = "block";
+    info.classList.add('animate__fadeInUpBig');
+}
+
 function getStats() {
     days_played.children[1].innerHTML = statistics.daysPlayed;
     avg_completion.children[1].innerHTML = getTimeFromMs(statistics.avgCompletionTime);
     avg_question.children[1].innerHTML = getTimeFromMs(statistics.avgTimePerQuestion);
-    last_played.children[1].innerHTML = getDay(statistics.lastPlayed);
+    if (statistics.lastPlayed == 'Never') {
+        last_played.children[1].innerHTML = statistics.lastPlayed;
+    } else {
+        last_played.children[1].innerHTML = getDay(statistics.lastPlayed);
+    }
 }
 
 function openStats() {
@@ -295,7 +305,7 @@ function openStats() {
     stats.classList.add('animate__fadeInUpBig');
 }
 
-function close_menu(el) {
+function closeMenu(el) {
     let parent = el.parentElement;
     parent.classList.remove('animate__fadeInUpBig')
     parent.classList.add('animate__fadeOutDownBig');

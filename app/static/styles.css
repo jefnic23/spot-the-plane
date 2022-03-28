@@ -9,6 +9,10 @@ h1 {
 	color: #fff;
 }
 
+a {
+	color: #6399ae;
+}
+
 .overlay {
 	position: fixed;
 	display: none;
@@ -316,6 +320,42 @@ form {
 	top: 13px;
 	right: 13px;
 	padding: 0;
+}
+
+.info-container {
+	position: fixed;
+	top: 50px;
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+}
+
+.info-item {
+	display: flex;
+	justify-content: space-between;
+	padding: 21px 13px;
+	width: 100%;
+	max-width: 500px;
+	margin: auto;
+	border-bottom: 1px solid #b7c9d3;
+}
+
+.info-item > h1 {
+	margin-bottom: 0;
+}
+
+.footnote {
+	color: #b7c9d3;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	padding: 13px;
+	font-size: 11px;
+	text-align: left;
+	width: 100%;
+	max-width: 500px;
+	margin: auto;
 }
 
 .stat-container {
