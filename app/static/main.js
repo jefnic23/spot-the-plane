@@ -232,7 +232,7 @@ function createShareable() {
     div.append(footer);
     div.className = 'shareable';
     document.body.appendChild(div);
-    html2canvas(div, {useCORS: true}).then((canvas) => {
+    html2canvas(div).then((canvas) => {
         canvas.toBlob((blob) => {
             let d = [new ClipboardItem({ 'image/png': blob })];
             navigator.clipboard.write(d).then(() => {
