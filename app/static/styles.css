@@ -54,7 +54,6 @@ h1 {
 	height: 50px;
 	background-color: #121213;
 	border-bottom: 1px solid #818384;
-	z-index: 999;
 }
 
 .navbar-edge {
@@ -256,11 +255,6 @@ form {
 	transition: background-color 0.13s;
 }
 
-.answer-button:hover {
-	cursor: pointer;
-	background-color: #005587;
-}
-
 #completion-time {
 	font-size: 34px;
 	color: #fff;
@@ -296,6 +290,32 @@ form {
 	font-size: 13px;
 }
 
+.share-overlay {
+	display: none;
+	position: fixed;
+	height: 100%;
+	width: 100%;
+	top: 0;
+	left: 0;
+	z-index: 99;
+	background: rgba(18,18,19, 1);
+}
+
+.results-image {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%,-113%);
+	width: 300px;
+}
+
+.close {
+	position: fixed;
+	top: 13px;
+	right: 13px;
+	padding: 0;
+}
+
 #toast {
 	visibility: hidden;
 	min-width: 250px;
@@ -317,6 +337,13 @@ form {
 
 #postgame > div {
 	row-gap: 34px;
+}
+
+@media (hover: hover) {
+	.answer-button:hover {
+		cursor: pointer;
+		background-color: #005587;
+	}
 }
 
 @media (max-width: 500px) {

@@ -10,6 +10,7 @@ var counter = document.getElementById('counter').children,
     answer_times = document.getElementById('answer-times'),
     stats = document.getElementById('stats'),
     settings = document.getElementById('settings'),
+    results = document.getElementById('results'),
     toast = document.getElementById('toast')
 ;
 var idx = 0, 
@@ -211,6 +212,14 @@ function getDay() {
     return `${m.join('')}/${a.join('')}/${y.join('')}`;
 }
 
+function closeResults() {
+    results.classList.remove('animate__fadeInUpBig');
+    results.classList.add('animate__fadeOutDownBig');
+    setTimeout(() => {
+        results.removeChild(results.children[1]);
+    }, 500);
+}
+
 function createShareable() {
     let div = document.createElement('div');
     let header = document.createElement('div');
@@ -233,17 +242,31 @@ function createShareable() {
     div.className = 'shareable';
     document.body.appendChild(div);
     html2canvas(div).then((canvas) => {
-        canvas.toBlob((blob) => {
-            let d = [new ClipboardItem({ 'image/png': blob })];
-            navigator.clipboard.write(d).then(() => {
-                document.body.removeChild(div);
-                showToast();
+        if (typeof ClipboardItem != 'undefined') {
+            canvas.toBlob((blob) => {
+                let d = [new ClipboardItem({ 'image/png': blob })];
+                navigator.clipboard.write(d).then(() => {
+                    document.body.removeChild(div);
+                    showToast('Results copied to clipboard');
+                });
             });
-        });
+        } else {
+            results.classList.remove('animate__fadeOutDownBig');
+            let img = new Image();
+            img.src = canvas.toDataURL();
+            img.className = 'results-image';
+            results.appendChild(img);
+            results.style.display = "block";
+            results.classList.add('animate__fadeInUpBig');
+            setTimeout(() => {
+                showToast('Right click/hold to copy');
+            }, 500);
+        }
     });
 }
 
-function showToast() {
+function showToast(text) {
+    toast.innerHTML = text;
     toast.style.visibility = 'visible';
     toast.classList.remove('animate__fadeOutUp');
     toast.classList.add('animate__fadeInDown');
