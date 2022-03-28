@@ -65,24 +65,37 @@
                 </div>
             </div>
         </div>
-        <div id="stats" class="overlay">
-            <h1>Statistics</h1>
-            <div class="avg-container">
-                <div id="avg-completion">
-                    <span></span>
-                    <p>Average completion time</p>
-                </div>
-                <div id="avg-question">
-                    <span></span>
-                    <p>Average question time</p>
+        <div id="info" class="share-overlay animate__animated animate__faster"></div>
+        <div id="stats" class="share-overlay animate__animated animate__faster">
+            <button class="close icon" onclick="close_menu(this)">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            </button>
+            <div class="stat-container">
+                <h1>Statistics</h1>
+                <div class="avg-container">
+                    <div id="avg-completion" class="avg-item">
+                        <p>Average completion time</p>
+                        <span></span>
+                    </div>
+                    <div id="avg-question" class="avg-item">
+                        <p>Average question time</p>
+                        <span></span>
+                    </div>
+                    <div id="days-played" class="avg-item">
+                        <p>Days played</p>
+                        <span></span>
+                    </div>
+                    <div id="last-played" class="avg-item">
+                        <p>Last played</p>
+                        <span></span>
+                    </div>
                 </div>
             </div>
         </div>
-        <div id="settings" class="overlay"></div>
         <div id="results" class="share-overlay animate__animated animate__faster">
-            <span class="close icon" onclick="closeResults()">
+            <button class="close icon" onclick="closeResults()">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-            </span>
+            </button>
         </div>
         <div id="toast" class="animate__animated animate__faster"></div>
     </div>

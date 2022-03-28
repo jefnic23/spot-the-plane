@@ -6,6 +6,7 @@
 h1 {
 	font-size: 21px;
 	text-transform: uppercase;
+	color: #fff;
 }
 
 .overlay {
@@ -54,6 +55,7 @@ h1 {
 	height: 50px;
 	background-color: #121213;
 	border-bottom: 1px solid #818384;
+	z-index: 99;
 }
 
 .navbar-edge {
@@ -316,6 +318,41 @@ form {
 	padding: 0;
 }
 
+.stat-container {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	position: fixed;
+	top: 50px;
+	row-gap: 34px;
+}
+
+.avg-container {
+	width: 100%;
+	min-width: 600px;
+	max-width: 800px;
+	color: #fff;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+}
+
+.avg-item {
+	flex-basis: 25%;
+	text-align: center;
+}
+
+.avg-item > p {
+	margin-bottom: 0;
+	font-size: 13px;
+}
+
+.avg-item > span {
+	font-weight: bold;
+	font-size: 21px;
+}
+
 #toast {
 	visibility: hidden;
 	min-width: 250px;
@@ -346,7 +383,7 @@ form {
 	}
 }
 
-@media (max-width: 500px) {
+@media (max-width: 600px) {
 	.pregame-text {
 		width: 100%;
 	}
@@ -362,5 +399,15 @@ form {
 
 	#countdown {
 		border-right: 0;
+	}
+
+	.stat-container {
+		width: 95%;
+		left: 2.5%;
+	}
+
+	.avg-container {
+		flex-direction: column;
+		row-gap: 21px;
 	}
 }

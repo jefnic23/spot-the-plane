@@ -8,8 +8,12 @@ var counter = document.getElementById('counter').children,
     postgame = document.getElementById('postgame'),
     completion_time = document.getElementById('completion-time'),
     answer_times = document.getElementById('answer-times'),
+    info = document.getElementById('info'),
     stats = document.getElementById('stats'),
-    settings = document.getElementById('settings'),
+    days_played = document.getElementById('days-played'),
+    avg_completion = document.getElementById('avg-completion'),
+    avg_question= document.getElementById('avg-question'),
+    last_played = document.getElementById('last-played'),
     results = document.getElementById('results'),
     toast = document.getElementById('toast')
 ;
@@ -28,7 +32,7 @@ var idx = 0,
 if (statistics) {
     statistics = JSON.parse(statistics);
 } else {
-    statistics = {'daysPlayed': 0, 'totalGameTime': 0, 'avgCompletionTime': '', 'avgTimePerQuestion': '', 'lastPlayed': ''};
+    statistics = {'daysPlayed': 0, 'totalGameTime': 0, 'avgCompletionTime': 0, 'avgTimePerQuestion': 0, 'lastPlayed': 'Never'};
 }
 
 if (!game_state || compDay() > statistics.lastPlayed) { 
@@ -204,8 +208,8 @@ function getTimeFromMs(t) {
     return `${leadZeroTime[0]}:${leadZeroTime[1]}.${leadZeroTime[2]}`;
 }
 
-function getDay() {
-    let d = day.toString().split('');
+function getDay(da) {
+    let d = da.toString().split('');
     let m = d.slice(4,6);
     let a = d.slice(6);
     let y = d.slice(0,4);
@@ -229,7 +233,7 @@ function createShareable() {
     let today = document.createElement('p');
     let a = completion_time.cloneNode(true);
     let b = answer_times.cloneNode(true);
-    let x = getDay();
+    let x = getDay(day);
     today.innerHTML =` SPOT THE PLANE<br>${x}`;
     header1.append(today);
     header2.append(a);
@@ -275,6 +279,29 @@ function showToast(text) {
         toast.classList.remove('animate__fadeInDown');
         toast.classList.add('animate__fadeOutUp');
     }, 3000);
+}
+
+function getStats() {
+    days_played.children[1].innerHTML = statistics.daysPlayed;
+    avg_completion.children[1].innerHTML = getTimeFromMs(statistics.avgCompletionTime);
+    avg_question.children[1].innerHTML = getTimeFromMs(statistics.avgTimePerQuestion);
+    last_played.children[1].innerHTML = getDay(statistics.lastPlayed);
+}
+
+function openStats() {
+    getStats();
+    stats.classList.remove('animate__fadeOutDownBig')
+    stats.style.display = "block";
+    stats.classList.add('animate__fadeInUpBig');
+}
+
+function close_menu(el) {
+    let parent = el.parentElement;
+    parent.classList.remove('animate__fadeInUpBig')
+    parent.classList.add('animate__fadeOutDownBig');
+    setTimeout(() => {
+        parent.style.display = "none";
+    }, 500);
 }
 
 function getAnswer(answer) {
