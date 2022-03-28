@@ -241,8 +241,9 @@ function createShareable() {
     div.append(footer);
     div.className = 'shareable';
     document.body.appendChild(div);
+    var isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
     html2canvas(div).then((canvas) => {
-        if (typeof ClipboardItem != 'undefined') {
+        if (typeof ClipboardItem != 'undefined' && !isSafari) {
             canvas.toBlob((blob) => {
                 let d = [new ClipboardItem({ 'image/png': blob })];
                 navigator.clipboard.write(d).then(() => {
