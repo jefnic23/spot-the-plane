@@ -254,11 +254,11 @@ form {
 	background-color: #00205b;
 	border-color: #fff;
 	border-style: solid;
-	border-width: 0.1;
-	border-radius: 4px;
+	border-radius: 5px;
 	font-size: 1rem;
 	font-weight: 500;
 	transition: background-color 0.13s;
+	-webkit-tap-highlight-color: #005587;
 }
 
 #completion-time {
@@ -414,6 +414,10 @@ form {
 
 #postgame > div {
 	row-gap: 34px;
+}
+
+.answer-button:active:hover {
+	background-color: #005587;
 }
 
 @media (hover: hover) {
