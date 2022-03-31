@@ -6,13 +6,13 @@ from app.planes import get_planes, get_answers, shuffle_planes
 from app.models import Aircraft
 from app import app
 
-@app.route('/')
+@app.route('/') 
 def index():
     data = []
     seed = int(date.today().strftime('%Y%m%d'))
     chaos_seed = seed / 100000000
     plane_types = Counter(get_planes(seed))
-    for i, ptype in enumerate(plane_types,1):
+    for ptype in plane_types:
         random.seed(seed)
         p = random.sample(Aircraft.query.filter_by(model=ptype).all(), k=plane_types[ptype])
         for plane in p:
