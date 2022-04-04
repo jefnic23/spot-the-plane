@@ -80,6 +80,7 @@ var countdown = setInterval(() => {
     var leadZeroTime = [hh, mm, ss].map(time => time < 10 ? `0${time}` : time);
     document.getElementById('countdown').children[1].innerHTML = `${leadZeroTime[0]}:${leadZeroTime[1]}:${leadZeroTime[2]}`;
     if (distance < 0) {
+        document.getElementById('countdown').children[1].innerHTML = 'Refresh to play now!';
         clearInterval(countdown);
     }
 }, 1000);
