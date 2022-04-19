@@ -248,36 +248,33 @@ function createShareable() {
     var isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
     html2canvas(div).then((canvas) => {
         let url = canvas.toDataURL();
-        let f = [];
         canvas.toBlob((blob) => {
-            f.push(new File([blob], 'spottheplane.png', {type: blob.type, lastModified: day}))
-        });
-        if (navigator.canShare({files: f})) {
-            navigator.share({files: f})
-            .then(() => console.log('Share was successful.'))
-            .catch((error) => console.log('Sharing failed', error));
-        } else {
-            if (typeof ClipboardItem != 'undefined' && !isSafari) {
-                canvas.toBlob((blob) => {
+            let f = [new File([blob], 'spottheplane.png', {type: blob.type, lastModified: day})];
+            if (navigator.canShare && navigator.canShare({files: f})) {
+                navigator.share({files: f})
+                .then(() => console.log('Share was successful.'))
+                .catch((error) => console.log('Sharing failed', error));
+            } else {
+                if (typeof ClipboardItem != 'undefined' && !isSafari) {
                     let d = [new ClipboardItem({ 'image/png': blob })];
                     navigator.clipboard.write(d).then(() => {
                         document.body.removeChild(div);
                         showToast('Results copied to clipboard');
                     });
-                })
-            } else {
-                results.classList.remove('animate__fadeOutDownBig');
-                let img = new Image();
-                img.src = url;
-                img.className = 'results-image';
-                results.appendChild(img);
-                results.style.display = "block";
-                results.classList.add('animate__fadeInUpBig');
-                setTimeout(() => {
-                    showToast('Right click/hold to copy');
-                }, 500);
+                } else {
+                    results.classList.remove('animate__fadeOutDownBig');
+                    let img = new Image();
+                    img.src = url;
+                    img.className = 'results-image';
+                    results.appendChild(img);
+                    results.style.display = "block";
+                    results.classList.add('animate__fadeInUpBig');
+                    setTimeout(() => {
+                        showToast('Right click/hold to copy');
+                    }, 500);
+                }
             }
-        }
+        });
     });
 }
 
