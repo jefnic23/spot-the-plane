@@ -247,14 +247,15 @@ function createShareable() {
     document.body.appendChild(div);
     var isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
     html2canvas(div).then((canvas) => {
-        if (navigator.canShare) {
-            canvas.toBlob((blob) => {
-                navigator.share({
-                    files: [new File([blob], {type: "image/png"})]
-                })
-                .then(() => console.log('Share was successful.'))
-                .catch((error) => console.log('Sharing failed', error));
-            })
+        let url = canvas.toDataURL();
+        let f = [];
+        canvas.toBlob((blob) => {
+            f.push(new File([blob], 'spottheplane.png', {type: blob.type, lastModified: day}))
+        });
+        if (navigator.canShare({files: f})) {
+            navigator.share({files: f})
+            .then(() => console.log('Share was successful.'))
+            .catch((error) => console.log('Sharing failed', error));
         } else {
             if (typeof ClipboardItem != 'undefined' && !isSafari) {
                 canvas.toBlob((blob) => {
@@ -267,7 +268,7 @@ function createShareable() {
             } else {
                 results.classList.remove('animate__fadeOutDownBig');
                 let img = new Image();
-                img.src = canvas.toDataURL();
+                img.src = url;
                 img.className = 'results-image';
                 results.appendChild(img);
                 results.style.display = "block";
