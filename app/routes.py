@@ -26,4 +26,4 @@ def index():
     return render_template('index.html', data=shuffle_planes(seed, data), day=seed)
 
 if __name__ == '__main__':
-    app.run()
+    app.run(ssl_context='adhoc')

@@ -81,6 +81,7 @@ var countdown = setInterval(() => {
     document.getElementById('countdown').children[1].innerHTML = `${leadZeroTime[0]}:${leadZeroTime[1]}:${leadZeroTime[2]}`;
     if (distance < 0) {
         document.getElementById('countdown').children[1].innerHTML = 'Refresh to play now!';
+        document.getElementById('countdown').children[1].style.fontSize = '21px';
         clearInterval(countdown);
     }
 }, 1000);
