@@ -2,7 +2,7 @@ import time
 import random
 import requests
 from collections import Counter
-from api.models import Aircraft
+from models import Aircraft
 
 # weights applied to each model
 models = {
