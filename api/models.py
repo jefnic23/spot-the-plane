@@ -1,4 +1,4 @@
-from app import db
+from api.app import db
 
 class Aircraft(db.Model):
     __tablename__ = "aircraft"

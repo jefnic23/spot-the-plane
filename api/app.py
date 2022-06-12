@@ -1,5 +1,5 @@
 from flask import Flask
-from config import Config
+from api.config import Config
 from flask_sqlalchemy import SQLAlchemy
 from flask_talisman import Talisman
 
@@ -16,7 +16,7 @@ def create_app(config_class=Config):
     talisman.init_app(app, content_security_policy=None)
 
     # blueprints
-    from game import bp
+    from api.game import bp
     app.register_blueprint(bp)    
 
     return app
