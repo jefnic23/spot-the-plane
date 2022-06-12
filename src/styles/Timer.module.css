@@ -1,0 +1,14 @@
+.timer {
+	text-align: center;
+	margin: 1rem auto;
+	font-size: 34px;
+}
+
+@keyframes animate {
+	0% {
+		color: red;
+	}
+	100% {
+		color: #fff;
+	}
+}

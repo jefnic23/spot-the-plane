@@ -1,0 +1,33 @@
+.pregame {
+    width: 95%;
+    margin: 0 auto;
+    max-width: 377px;
+}
+
+.start {
+	padding: 13px 0;
+	margin: 1rem auto;
+    width: 144px;
+	height: 55px;
+	flex-basis: 34%;
+	color: #fff;
+	background-color: #00205b;
+	border-color: #fff;
+	border-style: solid;
+	border-radius: 5px;
+	font-size: 1rem;
+	font-weight: 500;
+	transition: background-color 0.13s;
+	-webkit-tap-highlight-color: #005587;
+}
+
+.start:active:hover {
+	background-color: #005587;
+}
+
+@media (hover: hover) {
+	.start:hover:enabled {
+		cursor: pointer;
+		background-color: #005587;
+	}
+}

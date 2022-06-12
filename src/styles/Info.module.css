@@ -1,0 +1,36 @@
+.info_container {
+	position: fixed;
+	top: 50px;
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+}
+
+.info_item {
+	display: flex;
+	justify-content: space-between;
+	padding: 21px 13px;
+	width: 100%;
+	max-width: 500px;
+	margin: auto;
+	border-bottom: 1px solid #b7c9d3;
+	align-items: center;
+}
+
+.info_item > h1 {
+	margin-bottom: 0;
+}
+
+.footnote {
+	color: #b7c9d3;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	padding: 13px;
+	font-size: 11px;
+	text-align: left;
+	width: 100%;
+	max-width: 500px;
+	margin: auto;
+}

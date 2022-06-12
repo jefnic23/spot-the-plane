@@ -1,0 +1,30 @@
+.completion_time {
+    font-size: 34px;
+	color: #fff;
+}
+
+.miniplane_container {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	column-gap: 5px;
+}
+
+.footer {
+    display: flex;
+	width: 100%;
+	align-items: center;
+}
+
+.countdown {
+    text-align: center;
+	margin: auto;
+	font-size: 34px;
+	width: 50%;
+	border-right: 1px solid #fff;
+}
+
+.share {
+    display: flex;
+	width: 50%;
+}

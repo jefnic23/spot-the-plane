@@ -1,0 +1,185 @@
+* {
+	font-family: "Roboto", sans-serif;
+	overflow: hidden;
+	color: #fff;
+	box-sizing: border-box;
+}
+
+body {
+    background: #121213;
+	margin: 0;
+}
+
+hr {
+	margin: 1rem 0;
+	color: inherit;
+	background-color: currentColor;
+	border: 0;
+	opacity: .25;
+}
+
+hr:not([size]) {
+	height: 1px;
+}
+
+h1 {
+	font-size: 21px;
+	text-transform: uppercase;
+	color: #fff;
+	margin-top: 0;
+	font-weight: 100;
+}
+
+a {
+	color: #6399ae;
+}
+
+button:not(:disabled) {
+	cursor: pointer;
+}
+
+.close {
+	position: fixed;
+	top: 13px;
+	right: 13px;
+	padding: 0;
+}
+
+.icon {
+	line-height: 0;
+	background: none;
+	border: none;
+}
+
+.icon:hover {
+	box-shadow: none;
+}
+
+.share_overlay {
+	position: fixed;
+	height: 100%;
+	width: 100%;
+	top: 0;
+	left: 0;
+	z-index: 99;
+	background: rgba(18,18,19, 1);
+}
+
+.overlay_content {
+	display: flex;
+	flex-direction: column;
+	width: 90%;
+	max-width: 500px;
+	color: #fff;
+	background-color: #121213;
+	margin: 0 auto;
+	row-gap: 34px;
+}
+
+.overlay_container {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	align-items: center;
+}
+
+.miniplane {
+	width: 24px;
+	height: 24px;
+	mask: url('plane.png') center/contain;
+	-webkit-mask: url('plane.png') center/contain;
+}
+
+.miniplane span {
+	visibility: hidden;
+}
+
+/* site-wide above, old below */
+
+
+form {
+	padding-top: 1rem;
+}
+
+#main {
+	-webkit-animation-duration: 1s;
+    animation-duration: 1s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+}
+
+#score {
+	color: #FFF;
+	font-size: 1rem;
+	font-weight: 300;
+	padding: 0.5rem 1rem;
+}
+
+#planespotters{
+	text-decoration: none; 
+	color: black;
+	background-position: center right;
+    background-repeat: no-repeat;
+    background-image: linear-gradient(transparent,transparent),url('/public/external.svg');
+    padding-right: 13px;
+}
+
+
+.show {
+	opacity: 1;
+	transition: opacity 1000ms;
+}
+
+.hide {
+	opacity: 0;
+	transition: opacity 1000ms;
+}
+
+
+
+
+
+
+#toast {
+	visibility: hidden;
+	min-width: 250px;
+	color: #fff;
+	background-color: #005587;
+	border-radius: 4px;
+	text-align: center;
+	position: fixed;
+	z-index: 100;
+	left: 50%;
+	margin-left: -125px;
+	top: 55px;
+}
+
+#postgame > div {
+	row-gap: 34px;
+}
+
+@media (max-width: 600px) {
+
+	.img-container {
+		width: 95%;
+	}
+
+	.footer {
+		flex-direction: column;
+		row-gap: 34px;
+	}
+
+	#countdown {
+		border-right: 0;
+	}
+
+	.stat-container {
+		width: 95%;
+		left: 2.5%;
+	}
+
+	.avg-container {
+		flex-direction: column;
+		row-gap: 21px;
+	}
+}

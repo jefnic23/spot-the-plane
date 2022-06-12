@@ -1,0 +1,20 @@
+.img_container {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin: auto;
+	padding-top: 1rem;
+	padding-bottom: 1rem;
+}
+
+.link {
+	text-decoration: none;
+	color: #fff;
+	font-size: 11px;
+	text-align: start;
+}
+
+.image {
+	display: block;
+	width: 100%;
+}

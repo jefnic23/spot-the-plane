@@ -1,0 +1,15 @@
+.miniplane_container {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	column-gap: 5px;
+}
+
+.answers {
+	display: flex;
+	flex-wrap: wrap;
+	grid-gap: 13px;
+	width: 100%;
+	max-width: 500px;
+	margin: 0 auto;
+}

@@ -1,0 +1,49 @@
+.navbar {
+    display: flex;
+    position: relative;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    height: 50px;
+    background-color: #121213;
+    border-bottom: 1px solid #818384;
+    z-index: 99;
+    margin-bottom: 8%;
+}
+
+.container_fluid {
+    display: flex;
+    flex-wrap: inherit;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 0 13px;
+    margin: 0 auto;
+}
+
+.navbar_edge {
+	display: flex;
+	width: 20%;
+	margin: 0;
+	padding: 0;
+}
+
+.navbar_left {
+	justify-content: flex-start;
+}
+
+.navbar_center {
+	margin: auto;
+	width: 60%;
+	max-width: 377px;
+}
+
+.navbar_right {
+	justify-content: flex-end;
+}
+
+.logo {
+	width: 100%;
+	max-width: 377px;
+    vertical-align: middle;
+}

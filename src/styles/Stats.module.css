@@ -1,0 +1,34 @@
+.stat_container {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	position: fixed;
+	top: 50px;
+	row-gap: 34px;
+}
+
+.avg_container {
+	width: 100%;
+	min-width: 600px;
+	max-width: 800px;
+	color: #fff;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+}
+
+.avg_item {
+	flex-basis: 25%;
+	text-align: center;
+}
+
+.avg_item > p {
+	margin-bottom: 0;
+	font-size: 13px;
+}
+
+.avg_item > span {
+	font-weight: bold;
+	font-size: 21px;
+}

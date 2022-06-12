@@ -1,0 +1,34 @@
+.answerbutton {
+	width: 144px;
+	height: 55px;
+	flex-basis: 34%;
+	margin: auto auto;
+	color: #fff;
+	background-color: #00205b;
+	border-color: #fff;
+	border-style: solid;
+	border-radius: 5px;
+	font-size: 1rem;
+	font-weight: 500;
+	transition: background-color 0.13s;
+	-webkit-tap-highlight-color: #005587;
+}
+
+.answerbutton:active:hover {
+	background-color: #005587;
+}
+
+@media (hover: hover) {
+	.answerbutton:hover:enabled {
+		cursor: pointer;
+		background-color: #005587;
+	}
+}
+
+.wrong {
+	background-color: red;
+}
+
+.correct {
+	background-color: green;
+}
