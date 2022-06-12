@@ -17,6 +17,10 @@ def create_app(config_class=Config):
 
     # blueprints
     from api.game import bp
-    app.register_blueprint(bp)    
+    app.register_blueprint(bp) 
+
+    @app.route('/')
+    def index():
+        return app.send_static_file('index.html')
 
     return app
