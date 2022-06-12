@@ -1,1 +1,1 @@
-web: gunicorn spot_the_plane:app --preload
+web: gunicorn --chdir api spot_the_plane:app --preload
