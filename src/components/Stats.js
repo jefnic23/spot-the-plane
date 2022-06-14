@@ -9,11 +9,15 @@ function getTimeFromMs(t) {
 }
 
 function getDay(da) {
-    let d = da.toString().split('');
-    let m = d.slice(4,6);
-    let a = d.slice(6);
-    let y = d.slice(0,4);
-    return `${m.join('')}/${a.join('')}/${y.join('')}`;
+    if (da !== "Never") {
+        let d = da.toString().split('');
+        let m = d.slice(4,6);
+        let a = d.slice(6);
+        let y = d.slice(0,4);
+        return `${m.join('')}/${a.join('')}/${y.join('')}`;
+    } else {
+        return da;
+    }
 }
 
 export default function Stats({ animation, closeMenu, statistics }) {

@@ -28,3 +28,14 @@
     display: flex;
 	width: 50%;
 }
+
+@media (max-width: 500px) {
+	.footer {
+		flex-direction: column;
+		row-gap: 34px;
+	}
+	
+	.countdown {
+		border-right: 0;
+	}
+}

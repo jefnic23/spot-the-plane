@@ -32,3 +32,10 @@
 	font-weight: bold;
 	font-size: 21px;
 }
+
+@media (max-width: 768px) {
+	.avg_container {
+		flex-direction: column;
+		row-gap: 21px;
+	}
+}

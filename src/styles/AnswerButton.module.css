@@ -14,10 +14,6 @@
 	-webkit-tap-highlight-color: #005587;
 }
 
-.answerbutton:active:hover {
-	background-color: #005587;
-}
-
 @media (hover: hover) {
 	.answerbutton:hover:enabled {
 		cursor: pointer;

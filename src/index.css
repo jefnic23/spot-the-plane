@@ -96,50 +96,6 @@ button:not(:disabled) {
 
 /* site-wide above, old below */
 
-
-form {
-	padding-top: 1rem;
-}
-
-#main {
-	-webkit-animation-duration: 1s;
-    animation-duration: 1s;
-    -webkit-animation-fill-mode: both;
-    animation-fill-mode: both;
-}
-
-#score {
-	color: #FFF;
-	font-size: 1rem;
-	font-weight: 300;
-	padding: 0.5rem 1rem;
-}
-
-#planespotters{
-	text-decoration: none; 
-	color: black;
-	background-position: center right;
-    background-repeat: no-repeat;
-    background-image: linear-gradient(transparent,transparent),url('/public/external.svg');
-    padding-right: 13px;
-}
-
-
-.show {
-	opacity: 1;
-	transition: opacity 1000ms;
-}
-
-.hide {
-	opacity: 0;
-	transition: opacity 1000ms;
-}
-
-
-
-
-
-
 #toast {
 	visibility: hidden;
 	min-width: 250px;
@@ -152,34 +108,4 @@ form {
 	left: 50%;
 	margin-left: -125px;
 	top: 55px;
-}
-
-#postgame > div {
-	row-gap: 34px;
-}
-
-@media (max-width: 600px) {
-
-	.img-container {
-		width: 95%;
-	}
-
-	.footer {
-		flex-direction: column;
-		row-gap: 34px;
-	}
-
-	#countdown {
-		border-right: 0;
-	}
-
-	.stat-container {
-		width: 95%;
-		left: 2.5%;
-	}
-
-	.avg-container {
-		flex-direction: column;
-		row-gap: 21px;
-	}
 }
