@@ -59,6 +59,7 @@ def call_api(plane_id, base_url=BASE_URL, headers=HEADERS):
 
 def create_game(seed):
     data = []
+    images = []
     chaos_seed = seed / 100000000
     plane_types = Counter(get_planes(seed))
     for ptype in plane_types:
@@ -66,11 +67,12 @@ def create_game(seed):
         p = random.sample(Aircraft.query.filter_by(model=ptype).all(), k=plane_types[ptype])
         for plane in p:
             question = [[plane.id, plane.model, call_api(plane.id)]]
+            images.append(question[0][2]['link'])
             answers = get_answers(chaos_seed, plane.model)
             for a in answers:
                 question.append(a)
             data.append(shuffle_planes(chaos_seed, question))
             chaos_seed = get_chaos(chaos_seed)
         time.sleep(0.34)    # how low can this need to be to not get 429 error?
-    return shuffle_planes(seed, data)
+    return shuffle_planes(seed, data), images
     

@@ -50,6 +50,10 @@ export default function MainPage() {
             .then(data => {
                 setDay(data.day);
                 setData(data.data);
+                [...data.images].forEach((f) => {
+                    let img = new Image();
+                    img.src = f;
+                });
                 setLoaded(true);
             });
         } else {

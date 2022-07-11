@@ -7,5 +7,5 @@ bp = Blueprint('game', __name__)
 @bp.route('/api/game', methods=['POST']) 
 def game():
     seed = request.get_json()['seed']
-    data = create_game(seed)
-    return {'data': data, 'day': seed}
+    data, images = create_game(seed)
+    return {'data': data, 'images': images, 'day': seed}
