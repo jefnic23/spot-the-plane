@@ -70,12 +70,11 @@
 }
 
 .plane::before {
-	content: "\2708";
+	content: "\002708\00fe0e";
 	font-size: 55px;
 	position: absolute;
 	top: -45px;
 	left: 0px;
-	color: #fff;
 	transform: rotate(-30deg);
 }
 
