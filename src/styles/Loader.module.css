@@ -70,12 +70,16 @@
 }
 
 .plane::before {
-	content: "\002708\00fe0e";
-	font-size: 55px;
+	content: '';
+	display: block;
+	background-image: url('../plane.png');
+	background-size: 40px;
+	width: 40px;
+	height: 40px;
 	position: absolute;
-	top: -45px;
+	top: -25px;
 	left: 0px;
-	transform: rotate(-30deg);
+	transform: rotate(0deg);
 }
 
 @keyframes rotating {
