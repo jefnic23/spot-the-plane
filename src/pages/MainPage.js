@@ -99,7 +99,7 @@ export default function MainPage() {
             <Navbar openMenu={openMenu} />
             {info && <Info animation={menuAnimation} closeMenu={closeMenu} />}
             {stats && <Stats animation={menuAnimation} closeMenu={closeMenu} statistics={JSON.parse(localStorage.getItem('statistics'))} />}
-            {/* {loaded ? 
+            {loaded ? 
                 <>
                     {!begun && <Pregame startGame={startGame} animation={animation} />}
                     {begun && !done && <Game data={data} endGame={endGame} animation={animation} />}
@@ -107,8 +107,7 @@ export default function MainPage() {
                 </>
             :
                 <Loader />
-            } */}
-            <Loader />
+            }
             <Toaster />
         </>
     );
