@@ -38,6 +38,10 @@ button:not(:disabled) {
 	cursor: pointer;
 }
 
+.text_center {
+	text-align: center;
+}
+
 .close {
 	position: fixed;
 	top: 13px;

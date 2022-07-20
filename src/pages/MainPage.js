@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
 import Loader from "../components/Loader";
+import Error from "../components/Error";
 import Navbar from "../components/Navbar";
 import Game from "../components/Game";
 import Pregame from '../components/Pregame';
@@ -19,6 +20,7 @@ function compDay() {
 const notify = (msg) => toast(msg);
 
 export default function MainPage() {
+    const [error, setError] = useState(false);
     const [loaded, setLoaded] = useState(false);
     const [animation, setAnimation] = useState('animate__fadeIn');
     const [menuAnimation, setMenuAnimation] = useState();
@@ -51,11 +53,15 @@ export default function MainPage() {
                 setDay(data.day);
                 setData(data.data);
                 [...data.images].forEach((f) => {
-                    let img = new Image();
-                    img.src = f;
+                    new Image().src = f;
                 });
                 setLoaded(true);
-            });
+            })
+            .catch(err => {
+                console.log(err);
+                setLoaded(true);
+                setError(true);
+            });                
         } else {
             setDay(statistics.lastPlayed);
             setTime(gameState.completionTime);
@@ -100,11 +106,14 @@ export default function MainPage() {
             {info && <Info animation={menuAnimation} closeMenu={closeMenu} />}
             {stats && <Stats animation={menuAnimation} closeMenu={closeMenu} statistics={JSON.parse(localStorage.getItem('statistics'))} />}
             {loaded ? 
-                <>
-                    {!begun && <Pregame startGame={startGame} animation={animation} />}
-                    {begun && !done && <Game data={data} endGame={endGame} animation={animation} />}
-                    {done && <Postgame completionTime={completionTime} rgb={rgb} day={day} notify={notify} />}
-                </>
+                error ? 
+                    <Error />
+                :
+                    <>
+                        {!begun && <Pregame startGame={startGame} animation={animation} />}
+                        {begun && !done && <Game data={data} endGame={endGame} animation={animation} />}
+                        {done && <Postgame completionTime={completionTime} rgb={rgb} day={day} notify={notify} />}
+                    </>
             :
                 <Loader />
             }

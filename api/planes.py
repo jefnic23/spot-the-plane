@@ -73,6 +73,6 @@ def create_game(seed):
                 question.append(a)
             data.append(shuffle_planes(chaos_seed, question))
             chaos_seed = get_chaos(chaos_seed)
-        time.sleep(0.21)    # how low can this need to be to not get 429 error?
+        time.sleep(0.34)    # how low can this need to be to not get 429 error?
     return shuffle_planes(seed, data), images
     
