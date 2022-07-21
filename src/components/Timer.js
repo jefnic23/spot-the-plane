@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import styles from '../styles/Timer.module.css';
 
 function render(time) {
@@ -9,24 +9,43 @@ function render(time) {
     return <>{leadZeroTime[0]}:{leadZeroTime[1]}.{leadZeroTime[2]}</>;
 }
 
+function useInterval(callback, delay) {
+    const savedCallback = useRef();
+
+    useEffect(() => {
+        savedCallback.current = callback;
+    }, [callback]);
+
+    useEffect(() => {
+        function tick() {
+            savedCallback.current();
+        }
+        if (delay !== null) {
+            let id = setInterval(tick, delay);
+            return () => clearInterval(id);
+        }
+    }, [delay]);
+}
+
 export default function Timer({ status, addTime, subTime, animate, unanimate, getTime }) {
     const [time, setTime] = useState(0);
-    
+
+    useInterval(() => {
+        setTime(time + 10);
+    }, status ? 10 : null);
+
     useEffect(() => {
-        let interval;
-        if (status) {
-            let offset = Date.now();
-            interval = setInterval(() => {
-                let now = Date.now(), d = now - offset;
-                offset = now;
-                setTime((clock) => addTime ? clock + d + 10000 : clock + d);
-                subTime();
-            });
-        } else {
+        if (addTime) {
+            setTime(clock => clock + 10000);
+            subTime();
+        }
+    }, [addTime, subTime]);
+
+    useEffect(() => {
+        if (!status) {
             getTime(time);
         }
-        return () => clearInterval(interval);
-    }, [status, addTime, subTime, time, getTime]);
+    }, [status, getTime, time]);
 
     return (
         <div className={styles.timer}>
