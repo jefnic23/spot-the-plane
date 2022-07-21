@@ -2,5 +2,6 @@
 
 - [x] POST local time from client
 - [x] Call API server-side
-- [ ] Preload images
+- [x] Preload images (this should be working now?)
 - [ ] Make webshare available only on mobile 
+- [ ] Change timer to recursive setTimeout
