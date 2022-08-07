@@ -23,7 +23,7 @@ export default function CreateShareable ({ completionTime, rgb, day, notify }) {
         html2canvas(el).then((canvas) => {
             setUrl(canvas.toDataURL());
             canvas.toBlob((blob) => {
-                if (navigator.canShare) {
+                if (navigator.canShare && navigator.userAgentData.mobile) {
                     let f = [new File([blob], 'spottheplane.png', {type: blob.type, lastModified: day})];
                     navigator.share({files: f})
                     .then(() => console.log('Share successful.'))
