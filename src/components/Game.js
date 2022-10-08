@@ -9,7 +9,7 @@ function findAnswer(q) {
     return q[0];
 }
 
-export default function Game({ data, endGame, animation}) {
+export default function Game({ data, endGame, animation }) {
     const [status, setStatus] = useState(true);
     const [addTime, setAddTime] = useState(false);
     const [colors, getColors] = useState(false);

@@ -52,10 +52,7 @@ export default function MainPage() {
             .then(data => {
                 setDay(data.day);
                 setData(data.data);
-                [...data.images].forEach((f) => {
-                    new Image().src = f;
-                });
-                setLoaded(true);
+                cacheImages(data.images);
             })
             .catch(err => {
                 console.log(err);
@@ -73,6 +70,20 @@ export default function MainPage() {
         localStorage.setItem('game_state', JSON.stringify(gameState));
         localStorage.setItem('statistics', JSON.stringify(statistics));
     }, []);
+
+    const cacheImages = async (imgs) => {
+        const promises = await imgs.map(src => {
+            return new Promise((resolve, reject) => {
+                const img = new Image();
+                img.src = src;
+
+                img.onload = resolve();
+                img.onerror = reject();
+            });
+        });
+        await Promise.all(promises);
+        setLoaded(true);
+    }
 
     const startGame = () => {
         setAnimation('animate__fadeOut');
