@@ -101,13 +101,27 @@ export default function MainPage() {
 
     const openMenu = (m) => {
         setMenuAnimation('animate__fadeInUpBig');
-        m === 'info' ? setInfo(true) : setStats(true);
+        switch(m) {
+            case 'info':
+                setInfo(true);
+                break;
+            case 'stats':
+                setStats(true);
+                break;
+        }
     }
 
     const closeMenu = (m) => {
         setMenuAnimation('animate__fadeOutDownBig');
         setTimeout(() => {
-            m === 'info' ? setInfo(false) : setStats(false);
+            switch(m) {
+                case 'info':
+                    setInfo(false);
+                    break;
+                case 'stats':
+                    setStats(false);
+                    break;
+            }
         }, 500);
     }
 
