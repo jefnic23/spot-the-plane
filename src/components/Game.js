@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import Timer from "./Timer";
 import Counter from './Counter';
 import Plane from './Plane';

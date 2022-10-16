@@ -67,7 +67,7 @@ def create_game(seed):
         p = random.sample(Aircraft.query.filter_by(model=ptype).all(), k=plane_types[ptype])
         for plane in p:
             question = [[plane.id, plane.model, call_api(plane.id)]]
-            images.append(question[0][2]['link'])
+            images.append(question[0][2]['pic'])
             answers = get_answers(chaos_seed, plane.model)
             for a in answers:
                 question.append(a)

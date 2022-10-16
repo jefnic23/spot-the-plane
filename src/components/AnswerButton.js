@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import styles from '../styles/AnswerButton.module.css';
 
 export default function AnswerButton({ id, answer, index, disabled, checkAnswer, animation }) {

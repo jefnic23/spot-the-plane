@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import Results from './Results';
 import html2canvas from 'html2canvas';
 import endplane from '../endplane.png';

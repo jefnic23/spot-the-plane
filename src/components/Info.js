@@ -1,3 +1,4 @@
+import React from 'react';
 import styles from '../styles/Info.module.css';
 
 export default function Info({ animation, closeMenu }) {
@@ -9,15 +10,15 @@ export default function Info({ animation, closeMenu }) {
             <div className={styles.info_container}>
                 <div className={styles.info_item}>
                     <h1>Contact</h1>
-                    <a href="mailto:jefnic23@gmail.com" target="_blank" rel="noreferrer">Email</a>
+                    <a href="mailto:jefnic23@gmail.com" target="_blank" rel="noopener noreferrer">Email</a>
                 </div>
                 <div className={styles.info_item}>
                     <h1>Photos</h1>
-                    <a href="https://www.planespotters.net/" target="_blank" rel="noreferrer">Planespotters.net</a>
+                    <a href="https://www.planespotters.net/" target="_blank" rel="noopener noreferrer">Planespotters.net</a>
                 </div>
                 <div className={styles.info_item}>
                     <h1>Support</h1>
-                    <a href="https://www.buymeacoffee.com/jefnic23" target="_blank" rel="noreferrer">Buy me a coffee</a>
+                    <a href="https://www.buymeacoffee.com/jefnic23" target="_blank" rel="noopener noreferrer">Buy me a coffee</a>
                 </div>
             </div>
             <div className={styles.footnote}>&copy; 2022 Jeff Nicholas</div>

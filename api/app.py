@@ -1,8 +1,7 @@
 from flask import Flask
-from api.config import Config
 from flask_sqlalchemy import SQLAlchemy
-from flask_talisman import Talisman
 
+from api.config import Config
 
 db = SQLAlchemy()
 

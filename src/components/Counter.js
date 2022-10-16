@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 
 export default function Counter({ id, index, incCounter, decCounter, stopCount, colors, getMiniPlaneColors }) {
     const [used, setUsed] = useState(false);

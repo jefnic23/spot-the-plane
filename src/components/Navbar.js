@@ -1,3 +1,4 @@
+import React from 'react';
 import logo from '../logo.png';
 import styles from '../styles/Navbar.module.css';
 
