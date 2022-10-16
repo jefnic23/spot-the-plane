@@ -1,3 +1,4 @@
+import React from 'react';
 import styles from '../styles/Pregame.module.css';
 
 export default function Pregame({ startGame, animation }) {

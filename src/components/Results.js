@@ -1,3 +1,4 @@
+import React from 'react';
 import styles from '../styles/Results.module.css';
 
 export default function Results({ url, closeResults, animation }) {

@@ -1,11 +1,9 @@
 from flask import Flask
-from api.config import Config
 from flask_sqlalchemy import SQLAlchemy
-from flask_talisman import Talisman
 
+from api.config import Config
 
 db = SQLAlchemy()
-talisman = Talisman()
 
 
 def create_app(config_class=Config):
@@ -15,7 +13,6 @@ def create_app(config_class=Config):
 
     # extensions
     db.init_app(app)
-    talisman.init_app(app, content_security_policy=None)
 
 
     # blueprints
