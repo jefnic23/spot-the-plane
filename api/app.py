@@ -5,7 +5,6 @@ from flask_talisman import Talisman
 
 
 db = SQLAlchemy()
-talisman = Talisman()
 
 
 def create_app(config_class=Config):
@@ -15,7 +14,6 @@ def create_app(config_class=Config):
 
     # extensions
     db.init_app(app)
-    talisman.init_app(app, content_security_policy=None)
 
 
     # blueprints
