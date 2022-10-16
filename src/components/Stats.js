@@ -1,3 +1,4 @@
+import React from 'react';
 import styles from '../styles/Stats.module.css';
 
 function getTimeFromMs(t) {

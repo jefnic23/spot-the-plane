@@ -1,3 +1,5 @@
+import React from 'react';
+
 export default function Error() {
     return (
         <div className={`overlay_content animate__animated animate__fadeIn animate__faster`}>
