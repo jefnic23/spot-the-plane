@@ -93,7 +93,7 @@ export default function Game({ data, endGame, animation }) {
             <Timer status={status} addTime={addTime} subTime={subTime} animate={animate} unanimate={unanimate} getTime={getTime} />
             <div className={styles.miniplane_container}>
                 {data && 
-                    data.map((d, i) =>
+                    data.map((_, i) =>
                         <Counter key={i} id={i} index={index} incCounter={incCounter} decCounter={decCounter} stopCount={stopCount} colors={colors} getMiniPlaneColors={getMiniPlaneColors} />
                     )
                 }

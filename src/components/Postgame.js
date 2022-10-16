@@ -1,5 +1,5 @@
-import { useEffect } from "react";
-import Countdown from "./Countdown";
+import { useEffect } from 'react';
+import Countdown from './Countdown';
 import CreateShareable from './CreateShareable';
 import styles from '../styles/Postgame.module.css';
 
