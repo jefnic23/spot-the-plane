@@ -15,6 +15,7 @@ for typecode in typecodes:
 
 ##########
 
+# todo: group df by typcode and sort by count
 
 # todo: write code to generate distribution
 # def beta(a, b, size):
