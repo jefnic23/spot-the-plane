@@ -1,7 +1,9 @@
-import time
 import random
-import requests
+import time
 from collections import Counter
+
+import requests
+
 from api.models import Aircraft
 
 # weights applied to each model
@@ -23,24 +25,31 @@ models = {
     'MD-11': 0.333
 }
 
+
 def get_planes(seed, models=models):
     random.seed(seed)
     return random.choices(list(models.keys()), weights=list(models.values()), k=10)
+
 
 def get_answers(seed, plane, models=models):
     random.seed(seed)
     return random.sample([[False, p] for p in list(models.keys()) if p != plane], k=3)
 
+
 def shuffle_planes(seed, data):
     random.seed(seed)
     return random.sample(data, len(data)) 
 
+
 def get_chaos(seed):
     return 3.9 * seed * (1 - seed)
 
+
 # planespotters.net api
 BASE_URL = 'https://api.planespotters.net/pub/photos/reg/'
-HEADERS = {'user-agent': 'spot-the-plane'}
+HEADERS  = {'user-agent': 'spot-the-plane'}
+
+
 def call_api(plane_id, base_url=BASE_URL, headers=HEADERS):
     url = f'{base_url}{plane_id}'
     res = requests.get(url, headers=headers)
@@ -56,6 +65,7 @@ def call_api(plane_id, base_url=BASE_URL, headers=HEADERS):
             "link": link,
             "copyright": f'\u00a9 {photog}'
         }
+
 
 def create_game(seed):
     data = []

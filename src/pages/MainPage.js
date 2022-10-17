@@ -43,7 +43,11 @@ export default function MainPage() {
             {'daysPlayed': 0, 'totalGameTime': 0, 'avgCompletionTime': 0, 'avgTimePerQuestion': 0, 'lastPlayed': 'Never'}
         ;
         if (!gameState || gameState.status === 'in_progress' || compDay() > statistics.lastPlayed) {
-            callApi()
+            fetch("/api/game", {
+                method: "POST",
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ seed: compDay() })
+            })
             .then(res => res.json())
             .then(data => {
                 setDay(data.day);
@@ -66,14 +70,6 @@ export default function MainPage() {
         localStorage.setItem('game_state', JSON.stringify(gameState));
         localStorage.setItem('statistics', JSON.stringify(statistics));
     }, []);
-
-    const callApi = async () => {
-        await fetch("/api/game", {
-            method: "POST",
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ seed: compDay() })
-        });
-    }
 
     const cacheImages = async (imgs) => {
         const promises = await imgs.map(src => {
