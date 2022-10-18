@@ -4,11 +4,11 @@ import pandas as pd
 from typecodes import typecodes
 
 url = 'https://opensky-network.org/datasets/metadata/aircraftDatabase.csv'
-df = pd.read_csv(url)
+df = pd.read_csv(url, index_col='registration')
 
 
-for typecode in typecodes:
-    model = df[df['model'].str.contains(typecode, na=False)][['registration', 'manufacturericao', 'model', 'typecode']].dropna()
+for model, typecode in typecodes.items():
+    model = df[df['model'].str.contains(typecode, na=False)][['manufacturericao', 'model', 'typecode']].dropna()
     # todo: append to local db
     # model.to_sql()
 
