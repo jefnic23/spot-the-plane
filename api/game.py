@@ -1,6 +1,6 @@
 from flask import Blueprint, request
-from api.planes import create_game
 
+from api.planes import create_game
 
 bp = Blueprint('game', __name__)
 
