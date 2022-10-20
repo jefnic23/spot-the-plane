@@ -4,3 +4,4 @@
 - [ ] Keep track of game state in local storage so that users can't reload page to restart game
 - [ ] Add support buttons (BuyMeACoffee, etc.) to postgame screen 
 - [x] Add Google analytics
+- [ ] Store best time in local storage
