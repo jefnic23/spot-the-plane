@@ -24,7 +24,7 @@ def get_aircraft_data():
     return pd.read_csv(url, index_col='registration', usecols=['registration', 'manufacturericao', 'model', 'typecode'])
 
 
-def main():
+def generate_tables():
     engine = db_engine()
     df = get_aircraft_data()
 
@@ -38,25 +38,21 @@ def main():
         planetypes.to_sql('planetypes', engine, if_exists='append')
 
 
-if __name__ == "__main__":
-    main()
+def generate_weights():
+    engine = db_engine()
+
+    df = pd.read_sql('planetypes', engine, index_col='model')
+    df.sort_values(by='num_planes', ascending=False, inplace=True)
+    weights = [round(n,3) for n in np.random.uniform(0.34, 0.89, len(df.index))]
+    weights.sort(reverse=True)
+    df['weight'] = weights
+
+    df.to_sql('planetypes', engine, if_exists='replace')
 
 
-##########
-
-# todo: group df by typcode and sort by count
-
-# todo: write code to generate distribution
-# def beta(a, b, size):
-#     e = np.random.beta(a, b, size=size)
-#     return [round(n,3) for n in e]
-
-# df = pd.read_csv('top_types.csv', index_col='typecode')
-# x = beta(3, 3, 15)
-# x.sort(reverse=True)
-# i = df.index
-
-# for n, index in enumerate(i):
-#     print(f"'{i[n]}': {x[n]},")
-
-##########
+if __name__ == '__main__':
+    # todo: combine these two functions; in generate_tables, first check if table exists and delete if it does
+    # todo: write function that prints model: weight for copying into planes.py
+    # todo: write function that copies data to production db
+    generate_tables()
+    generate_weights()

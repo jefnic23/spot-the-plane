@@ -8,21 +8,28 @@ from api.models import Aircraft
 
 # weights applied to each model
 models = {
-    'A320': 0.754,
-    '737': 0.732,
-    '777': 0.684,
-    'A330': 0.678,
-    'CRJ': 0.671,
-    'ERJ': 0.639,
-    '767': 0.597,
-    '787': 0.589,
-    '757': 0.552,
-    '747': 0.409,
-    'MD-80': 0.408,
-    'A380': 0.394,
-    'A340': 0.383,
-    'A350': 0.363,
-    'MD-11': 0.333
+    '737'    : 0.865,
+    'A320'   : 0.846,
+    'Learjet': 0.79,
+    '777'    : 0.758,
+    'E-Jet'  : 0.739,
+    'CRJ'    : 0.707,
+    'A330'   : 0.697,
+    'Dash 8' : 0.673,
+    '767'    : 0.602,
+    '757'    : 0.586,
+    '787'    : 0.551,
+    '747'    : 0.535,
+    'ERJ'    : 0.519,
+    'MD-80'  : 0.508,
+    'C-130'  : 0.503,
+    'A350'   : 0.478,
+    'A380'   : 0.473,
+    'DC-3'   : 0.47,
+    'A340'   : 0.424,
+    'MD-11'  : 0.41,
+    '727'    : 0.405,
+    '707'    : 0.341
 }
 
 
@@ -68,6 +75,7 @@ def call_api(plane_id, base_url=BASE_URL, headers=HEADERS):
 
 
 def create_game(seed):
+    # todo: check for registration viability; if no pics, mark not-viable and load new registration
     data = []
     images = []
     chaos_seed = seed / 100000000
