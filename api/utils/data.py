@@ -34,7 +34,7 @@ def generate_tables():
         aircraft.to_sql('aircraft', engine, if_exists='append')
 
         num_planes = aircraft[aircraft.columns[0]].count()  # supposedly faster than just getting len(index)
-        planetypes = pd.DataFrame({'model': [model], 'num_planes': [num_planes], 'weight': [np.nan]}).set_index('model')
+        planetypes = pd.DataFrame({'model': [model], 'num_planes': [num_planes], 'weight': [np.nan]}, 'viable': True).set_index('model')
         planetypes.to_sql('planetypes', engine, if_exists='append')
 
 
@@ -49,10 +49,14 @@ def generate_weights():
 
     df.to_sql('planetypes', engine, if_exists='replace')
 
+    for index, row in df.iterrows():
+        print(f"'{index}': {row['weight']}{',' if index != df.index[-1] else ''}")
+
 
 if __name__ == '__main__':
     # todo: combine these two functions; in generate_tables, first check if table exists and delete if it does
     # todo: write function that prints model: weight for copying into planes.py
     # todo: write function that copies data to production db
+
     generate_tables()
     generate_weights()

@@ -6,7 +6,7 @@ import AnswerButton from './AnswerButton';
 import styles from '../styles/Game.module.css';
 
 function findAnswer(q) {
-    return q[0];
+    return q.answer;
 }
 
 export default function Game({ data, endGame, animation }) {
@@ -71,7 +71,7 @@ export default function Game({ data, endGame, animation }) {
 
     const checkAnswer = (e) => {
         let answer = data[index].filter(findAnswer)[0];
-        if (e.target.value === answer[1]) {
+        if (e.target.value == answer.model) {
             getColors(true);
         } else {
             e.target.disabled = true;
@@ -98,11 +98,11 @@ export default function Game({ data, endGame, animation }) {
                     )
                 }
             </div>
-            {data && <Plane data={answer[2]} animation={planeAnimation} />}
+            {data && <Plane data={answer.details} animation={planeAnimation} />}
             <div className={styles.answers}>
                 {data && 
                     data[index].map((d, i) =>
-                        <AnswerButton key={i} id={d[1]} answer={answer} index={index} disabled={disabled} checkAnswer={checkAnswer} animation={buttonAnimation} />
+                        <AnswerButton key={i} id={d.model} answer={answer} index={index} disabled={disabled} checkAnswer={checkAnswer} animation={buttonAnimation} />
                     )
                 }
             </div>

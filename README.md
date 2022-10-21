@@ -6,3 +6,4 @@
 - [x] Add Google analytics
 - [ ] Store best time in local storage
 - [ ] Blur images before they fully load
+- [ ] Logging
