@@ -101,7 +101,7 @@ def create_game(seed):
                     question.append(a)
                 data.append(shuffle_planes(chaos_seed, question))
                 chaos_seed = get_chaos(chaos_seed)
-            time.sleep(random.uniform(0.13, 0.34))    # how low can this be to avoid 429 error?
+                time.sleep(random.uniform(0.13, 0.34))    # how low can this be to avoid 429 error?
         if len([image for image in images if image]) == 10:
             break
 

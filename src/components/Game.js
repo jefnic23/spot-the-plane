@@ -71,7 +71,7 @@ export default function Game({ data, endGame, animation }) {
 
     const checkAnswer = (e) => {
         let answer = data[index].filter(findAnswer)[0];
-        if (e.target.value == answer.model) {
+        if (e.target.value === answer.model) {
             getColors(true);
         } else {
             e.target.disabled = true;
