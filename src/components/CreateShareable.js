@@ -41,9 +41,6 @@ export default function CreateShareable ({ completionTime, rgb, day, notify }) {
                         notify('Right click/hold to copy.');
                     }
                 }
-                setAnimation('animate__fadeInUpBig');
-                setNoShare(true);
-                notify('Right click/hold to copy.');
             });
         });
     }
