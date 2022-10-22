@@ -5,7 +5,7 @@ export default function AnswerButton({ id, answer, index, disabled, checkAnswer,
     const [status, setStatus] = useState('');
 
     const checkGuess = (e) => {
-        if (e === answer[1]) {
+        if (e === answer.model) {
             setStatus(styles.correct);
         } else {
             setStatus(styles.wrong);

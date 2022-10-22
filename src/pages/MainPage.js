@@ -35,12 +35,10 @@ export default function MainPage() {
 
     useEffect(() => {
         let gameState = localStorage.getItem('game_state') ? 
-            JSON.parse(localStorage.getItem('game_state')) : 
-            {'completionTime': '', 'answers': [], 'status': 'in_progress', 'rgb': []}
+            JSON.parse(localStorage.getItem('game_state')) :  {'completionTime': '', 'answers': [], 'status': 'in_progress', 'rgb': []}
         ;
-        let statistics = localStorage.getItem('statistics') ?
-            JSON.parse(localStorage.getItem('statistics')) :
-            {'daysPlayed': 0, 'totalGameTime': 0, 'avgCompletionTime': 0, 'avgTimePerQuestion': 0, 'lastPlayed': 'Never'}
+        let statistics = (localStorage.getItem('statistics') && !JSON.parse(localStorage.getItem('statistics')).avgTimePerQuestion) ?
+            JSON.parse(localStorage.getItem('statistics')) : {'daysPlayed': 0, 'totalGameTime': 0, 'avgTime': 0, 'bestTime': null, 'lastPlayed': 'Never'}
         ;
         if (!gameState || gameState.status === 'in_progress' || compDay() > statistics.lastPlayed) {
             fetch("/api/game", {
@@ -101,6 +99,7 @@ export default function MainPage() {
 
     const openMenu = (m) => {
         setMenuAnimation('animate__fadeInUpBig');
+        // eslint-disable-next-line
         switch(m) {
             case 'info':
                 setInfo(true);
@@ -114,6 +113,7 @@ export default function MainPage() {
     const closeMenu = (m) => {
         setMenuAnimation('animate__fadeOutDownBig');
         setTimeout(() => {
+            // eslint-disable-next-line
             switch(m) {
                 case 'info':
                     setInfo(false);

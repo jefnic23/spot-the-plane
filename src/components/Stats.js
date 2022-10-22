@@ -31,12 +31,12 @@ export default function Stats({ animation, closeMenu, statistics }) {
                 <h1>Statistics</h1>
                 <div className={styles.avg_container}>
                     <div className={styles.avg_item}>
-                        <p>Average completion time</p>
-                        <span>{ getTimeFromMs(statistics.avgCompletionTime) }</span>
+                        <p>Average time</p>
+                        <span>{ getTimeFromMs(statistics.avgTime) }</span>
                     </div>
                     <div className={styles.avg_item}>
-                        <p>Average question time</p>
-                        <span>{ getTimeFromMs(statistics.avgTimePerQuestion) }</span>
+                        <p>Best time</p>
+                        <span>{ getTimeFromMs(statistics.bestTime) }</span>
                     </div>
                     <div className={styles.avg_item}>
                         <p>Days played</p>
