@@ -37,7 +37,7 @@ export default function MainPage() {
         let gameState = localStorage.getItem('game_state') ? 
             JSON.parse(localStorage.getItem('game_state')) :  {'completionTime': '', 'answers': [], 'status': 'in_progress', 'rgb': []}
         ;
-        let statistics = (localStorage.getItem('statistics') && !JSON.parse(localStorage.getItem('statistics')).avgTimePerQuestion) ?
+        let statistics = localStorage.getItem('statistics') ?
             JSON.parse(localStorage.getItem('statistics')) : {'daysPlayed': 0, 'totalGameTime': 0, 'avgTime': 0, 'bestTime': null, 'lastPlayed': 'Never'}
         ;
         if (!gameState || gameState.status === 'in_progress' || compDay() > statistics.lastPlayed) {
