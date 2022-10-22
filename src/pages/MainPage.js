@@ -37,10 +37,10 @@ export default function MainPage() {
         let gameState = localStorage.getItem('game_state') ? 
             JSON.parse(localStorage.getItem('game_state')) :  {'completionTime': '', 'answers': [], 'status': 'in_progress', 'rgb': []}
         ;
-        let statistics = localStorage.getItem('statistics') ?
+        let statistics = (localStorage.getItem('statistics') && !JSON.parse(localStorage.getItem('statistics')).avgTimePerQuestion) ?
             JSON.parse(localStorage.getItem('statistics')) : {'daysPlayed': 0, 'totalGameTime': 0, 'avgTime': 0, 'bestTime': null, 'lastPlayed': 'Never'}
         ;
-        if (!gameState || gameState.status === 'in_progress' || compDay() > statistics.lastPlayed) {
+        if (!gameState || gameState.status === 'in_progress' || compDay() > statistics.lastPlayed || statistics.lastPlayed === 'Never') {
             fetch("/api/game", {
                 method: "POST",
                 headers: { 'Content-Type': 'application/json' },
@@ -66,6 +66,9 @@ export default function MainPage() {
             setDone(true);
         }
         localStorage.setItem('game_state', JSON.stringify(gameState));
+        if (JSON.parse(localStorage.getItem('statistics')).avgTimePerQuestion) {
+            localStorage.removeItem('statistics');
+        }
         localStorage.setItem('statistics', JSON.stringify(statistics));
     }, []);
 
