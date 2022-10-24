@@ -66,9 +66,6 @@ export default function MainPage() {
             setDone(true);
         }
         localStorage.setItem('game_state', JSON.stringify(gameState));
-        if (JSON.parse(localStorage.getItem('statistics')).avgTimePerQuestion) {
-            localStorage.removeItem('statistics');
-        }
         localStorage.setItem('statistics', JSON.stringify(statistics));
     }, []);
 
