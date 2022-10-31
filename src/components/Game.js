@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { useDispatch } from "react-redux";
-import { endGame } from './gameSlice';
-import { findAnswer } from '../Helpers';
-import Timer from "../timer/Timer";
-import Counter from '../counter/Counter';
-import Plane from '../Plane';
-import AnswerButton from '../AnswerButton';
-import styles from './Game.module.css';
+import { endGame } from '../store/gameSlice';
+import { findAnswer } from '../utils/Helpers';
+import Timer from "./Timer";
+import Counter from './Counter';
+import Plane from './Plane';
+import AnswerButton from './AnswerButton';
+import styles from '../styles/Game.module.css';
 
 export default function Game({ data, animation }) {
     const [status, setStatus] = useState(true);
@@ -85,7 +85,7 @@ export default function Game({ data, animation }) {
 
     return (
         <div className={`animate__animated ${compAnimation} animate__faster`}>
-            <Timer status={status} addTime={addTime} subTime={subTime} animate={animate} unanimate={unanimate} getTime={getTime} />
+            <Timer status={status} addTime={addTime} subTime={subTime} animate={animate} unanimate={unanimate} />
             <div className={styles.miniplane_container}>
                 {data && 
                     data.map((_, i) =>

@@ -1,8 +1,8 @@
 import React, { useEffect, useRef } from 'react';
-import { render } from '../Helpers';
+import { render } from '../utils/Helpers';
 import { useSelector, useDispatch } from "react-redux";
-import { increment } from './timerSlice';
-import styles from './Timer.module.css';
+import { increment, selectTime } from '../store/timerSlice';
+import styles from '../styles/Timer.module.css';
 
 function useInterval(callback, delay) {
     const savedCallback = useRef();
@@ -23,7 +23,7 @@ function useInterval(callback, delay) {
 }
 
 export default function Timer({ status, addTime, subTime, animate, unanimate }) {
-    const time = useSelector((state) => state.timer.value);
+    const time = useSelector(selectTime);
     const dispatch = useDispatch();
 
     useInterval(() => {
@@ -35,7 +35,7 @@ export default function Timer({ status, addTime, subTime, animate, unanimate }) 
             dispatch(increment(10000));
             subTime();
         }
-    }, [addTime, subTime]);
+    }, [addTime, subTime, dispatch]);
 
     return (
         <div className={styles.timer}>

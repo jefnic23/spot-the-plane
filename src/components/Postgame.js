@@ -1,17 +1,18 @@
 import React, { useEffect } from "react";
+import { getTimeFromMs } from '../utils/Helpers';
+import { useSelector } from "react-redux";
+import { selectDay } from "../store/mainSlice";
+import { selectTime } from "../store/timerSlice";
+import { selectMiniplanes } from "../store/counterSlice";
 import Countdown from "./Countdown";
-import CreateShareable from './CreateShareable';
+import Shareable from './Shareable';
 import styles from '../styles/Postgame.module.css';
 
-function getTimeFromMs(t) {
-    let mm = parseInt((t / (1000 * 60)) % 60);
-    let ss = parseInt((t / 1000) % 60);
-    let ms = parseInt((t % 1000) / 10);
-    let leadZeroTime = [mm, ss, ms].map(time => time < 10 ? `0${time}` : time);
-    return <>{leadZeroTime[0]}:{leadZeroTime[1]}.{leadZeroTime[2]}</>;
-}
+export default function Postgame({ notify }) {
+    const completionTime = useSelector(selectTime);
+    const day = useSelector(selectDay);
+    const miniplanes = useSelector(selectMiniplanes);
 
-export default function Postgame({ completionTime, rgb, day, notify }) {
     useEffect(() => {
         let gameState = localStorage.getItem('game_state') ? 
             JSON.parse(localStorage.getItem('game_state')) :  {'completionTime': '', 'answers': [], 'status': 'in_progress', 'rgb': []}
@@ -22,7 +23,7 @@ export default function Postgame({ completionTime, rgb, day, notify }) {
         if (day > statistics.lastPlayed || statistics.lastPlayed === "Never") {
             gameState.completionTime = completionTime;
             gameState.status = 'complete';
-            gameState.rgb = rgb;
+            gameState.rgb = miniplanes;
             localStorage.setItem('game_state', JSON.stringify(gameState));
             statistics.daysPlayed += 1;
             statistics.totalGameTime += completionTime;
@@ -34,7 +35,7 @@ export default function Postgame({ completionTime, rgb, day, notify }) {
             }
             localStorage.setItem('statistics', JSON.stringify(statistics));
         }
-    }, [completionTime, rgb, day]);
+    }, [completionTime, miniplanes, day]);
 
     return (
         <div className="overlay_content animate__animated animate__fadeIn">
@@ -47,12 +48,12 @@ export default function Postgame({ completionTime, rgb, day, notify }) {
             <div className="overlay_container">
                 <h1>Answers</h1>
                 <div className={styles.miniplane_container}>
-                    {rgb &&
-                        rgb.map((c, i) => 
+                    {miniplanes &&
+                        miniplanes.map((miniplane, i) => 
                             <span 
                                 key={i} 
                                 className="miniplane"
-                                style={{backgroundColor: `rgb(${c.r}, ${c.g}, ${c.b})`}} 
+                                style={{backgroundColor: `rgb(${miniplane.r}, ${miniplane.g}, ${miniplane.b})`}} 
                             ></span>
                         )
                     }
@@ -64,7 +65,7 @@ export default function Postgame({ completionTime, rgb, day, notify }) {
                     <Countdown />
                 </div>
                 <div className={styles.share}>
-                    <CreateShareable completionTime={getTimeFromMs(completionTime)} rgb={rgb} day={day} notify={notify} />
+                    <Shareable notify={notify} />
                 </div>
             </div>
         </div>

@@ -14,4 +14,6 @@ export const gameSlice = createSlice({
 
 export const { endGame } = gameSlice.actions
 
+export const selectGameOver = (state) => state.game.value
+
 export default gameSlice.reducer

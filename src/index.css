@@ -90,8 +90,8 @@ button:not(:disabled) {
 .miniplane {
 	width: 24px;
 	height: 24px;
-	mask: url('plane.png') center/contain;
-	-webkit-mask: url('plane.png') center/contain;
+	mask: url('./assets/plane.png') center/contain;
+	-webkit-mask: url('./assets/plane.png') center/contain;
 }
 
 .miniplane span {

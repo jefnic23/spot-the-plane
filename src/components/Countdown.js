@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { getTomorrow, render } from './Helpers.js';
+import { getTomorrow, renderCountdown } from '../utils/Helpers';
 
 export default function Countdown() {
     const tmrw = getTomorrow();
@@ -15,7 +15,7 @@ export default function Countdown() {
 
     return (
         <>
-            { render(time) }
+            { renderCountdown(time) }
         </>
     );
 }

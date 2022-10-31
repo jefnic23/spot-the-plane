@@ -14,4 +14,6 @@ export const timerSlice = createSlice({
 
 export const { increment } = timerSlice.actions
 
+export const selectTime = (state) => state.timer.value
+
 export default timerSlice.reducer

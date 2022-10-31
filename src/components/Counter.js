@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { updateMiniplanes } from './counterSlice';
+import { updateMiniplanes } from '../store/counterSlice';
 
 export default function Counter({ id, index, incCounter, decCounter, stopCount, answered, nextQuestion }) {
     const [used, setUsed] = useState(false);
@@ -33,7 +33,7 @@ export default function Counter({ id, index, incCounter, decCounter, stopCount, 
             }
             return () => clearInterval(interval);
         } 
-    }, [id, index, red, green, blue, incCounter, decCounter, stopCount, answered, nextQuestion]);
+    }, [id, index, red, green, blue, incCounter, decCounter, stopCount, answered, nextQuestion, dispatch]);
 
     return (
         <span 

@@ -14,4 +14,6 @@ export const pregameSlice = createSlice({
 
 export const { startGame } = pregameSlice.actions
 
+export const selectGameStarted = (state) => state.pregame.value
+
 export default pregameSlice.reducer

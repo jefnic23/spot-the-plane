@@ -1,20 +1,24 @@
 import React, { useState, useEffect } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
-import { useSelector } from "react-redux";
-import { compDay } from '../components/Helpers';
-import Loader from "../components/Loader";
-import Error from "../components/Error";
-import Navbar from "../components/Navbar";
-import Game from "../components/game/Game";
-import Pregame from '../components/pregame/Pregame';
-import Postgame from '../components/Postgame';
-import Info from '../components/Info';
-import Stats from '../components/Stats';
-import { dispatch } from 'react-hot-toast/dist/core/store';
+import { useSelector, useDispatch } from "react-redux";
+import { endGame, selectGameOver } from '../store/gameSlice';
+import { setDay } from '../store/mainSlice';
+import { increment } from '../store/timerSlice';
+import { setMiniplanes } from '../store/counterSlice';
+import { selectGameStarted } from '../store/pregameSlice';
+import { compDay } from '../utils/Helpers';
+import Loader from "./Loader";
+import Error from "./Error";
+import Navbar from "./Navbar";
+import Game from "./Game";
+import Pregame from './Pregame';
+import Postgame from './Postgame';
+import Info from './Info';
+import Stats from './Stats';
 
 const notify = (msg) => toast(msg);
 
-export default function MainPage() {
+export default function Main() {
     const [error, setError] = useState(false);
     const [loaded, setLoaded] = useState(false);
     const [animation, setAnimation] = useState('animate__fadeIn');
@@ -22,12 +26,10 @@ export default function MainPage() {
     const [info, setInfo] = useState(false);
     const [stats, setStats] = useState(false);
     const [begun, setBegun] = useState(false);
-    const [day, setDay] = useState();
     const [data, setData] = useState();
-    const [completionTime, setTime] = useState(0);
-    const [rgb, setRGB] = useState();
-    const gameOver = useSelector((state) => state.game.value);
-    const gameStarted = useSelector((state) => state.pregame.value);
+    const gameStarted = useSelector(selectGameStarted);
+    const gameOver = useSelector(selectGameOver);
+    const dispatch = useDispatch();
 
     useEffect(() => {
         let gameState = localStorage.getItem('game_state') ? 
@@ -44,7 +46,7 @@ export default function MainPage() {
             })
             .then(res => res.json())
             .then(data => {
-                setDay(data.day);
+                dispatch(setDay(data.day));
                 setData(data.data);
                 cacheImages(data.images);
             })
@@ -54,16 +56,16 @@ export default function MainPage() {
                 setError(true);
             });                
         } else {
-            setDay(statistics.lastPlayed);
-            setTime(gameState.completionTime);
-            setRGB(gameState.rgb);
+            dispatch(setDay(statistics.lastPlayed));
+            dispatch(increment(gameState.completionTime));
+            dispatch(setMiniplanes(gameState.rgb));
             setBegun(true);
             setLoaded(true);
             dispatch(endGame());
         }
         localStorage.setItem('game_state', JSON.stringify(gameState));
         localStorage.setItem('statistics', JSON.stringify(statistics));
-    }, []);
+    }, [dispatch]);
 
     useEffect(() => {
         if (gameStarted){
@@ -129,7 +131,7 @@ export default function MainPage() {
                     <>
                         {!begun && <Pregame animation={animation} />}
                         {begun && !gameOver && <Game data={data} animation={animation} />}
-                        {gameOver && <Postgame completionTime={completionTime} rgb={rgb} day={day} notify={notify} />}
+                        {gameOver && <Postgame notify={notify} />}
                     </>
             :
                 <Loader />
