@@ -1,21 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
+import { useSelector } from "react-redux";
+import { compDay } from '../components/Helpers';
 import Loader from "../components/Loader";
 import Error from "../components/Error";
 import Navbar from "../components/Navbar";
-import Game from "../components/Game";
-import Pregame from '../components/Pregame';
+import Game from "../components/game/Game";
+import Pregame from '../components/pregame/Pregame';
 import Postgame from '../components/Postgame';
 import Info from '../components/Info';
 import Stats from '../components/Stats';
-
-function compDay() {
-    let today = new Date();
-    let yyyy = today.getFullYear();
-    let mm = String(today.getMonth() + 1).padStart(2, '0');
-    let dd = String(today.getDate()).padStart(2, '0');
-    return parseInt(`${yyyy}${mm}${dd}`);
-}
+import { dispatch } from 'react-hot-toast/dist/core/store';
 
 const notify = (msg) => toast(msg);
 
@@ -27,11 +22,12 @@ export default function MainPage() {
     const [info, setInfo] = useState(false);
     const [stats, setStats] = useState(false);
     const [begun, setBegun] = useState(false);
-    const [done, setDone] = useState(false);
     const [day, setDay] = useState();
     const [data, setData] = useState();
     const [completionTime, setTime] = useState(0);
     const [rgb, setRGB] = useState();
+    const gameOver = useSelector((state) => state.game.value);
+    const gameStarted = useSelector((state) => state.pregame.value);
 
     useEffect(() => {
         let gameState = localStorage.getItem('game_state') ? 
@@ -63,14 +59,21 @@ export default function MainPage() {
             setRGB(gameState.rgb);
             setBegun(true);
             setLoaded(true);
-            setDone(true);
+            dispatch(endGame());
         }
         localStorage.setItem('game_state', JSON.stringify(gameState));
-        if (JSON.parse(localStorage.getItem('statistics')).avgTimePerQuestion) {
-            localStorage.removeItem('statistics');
-        }
         localStorage.setItem('statistics', JSON.stringify(statistics));
     }, []);
+
+    useEffect(() => {
+        if (gameStarted){
+            setAnimation('animate__fadeOut');
+            setTimeout(() => {
+                setAnimation('animate__fadeIn');
+                setBegun(true);
+            }, 500); 
+        }
+    }, [gameStarted]);
 
     const cacheImages = async (imgs) => {
         const promises = await imgs.map(src => {
@@ -85,20 +88,6 @@ export default function MainPage() {
         await Promise.all(promises);
         setLoaded(true);
     }
-
-    const startGame = () => {
-        setAnimation('animate__fadeOut');
-        setTimeout(() => {
-            setAnimation('animate__fadeIn');
-            setBegun(true);
-        }, 500);
-    }
-
-    const endGame = (t, rgb) => {
-        setTime(t);
-        setRGB(rgb);
-        setDone(true);
-    };
 
     const openMenu = (m) => {
         setMenuAnimation('animate__fadeInUpBig');
@@ -138,9 +127,9 @@ export default function MainPage() {
                     <Error />
                 :
                     <>
-                        {!begun && <Pregame startGame={startGame} animation={animation} />}
-                        {begun && !done && <Game data={data} endGame={endGame} animation={animation} />}
-                        {done && <Postgame completionTime={completionTime} rgb={rgb} day={day} notify={notify} />}
+                        {!begun && <Pregame animation={animation} />}
+                        {begun && !gameOver && <Game data={data} animation={animation} />}
+                        {gameOver && <Postgame completionTime={completionTime} rgb={rgb} day={day} notify={notify} />}
                     </>
             :
                 <Loader />

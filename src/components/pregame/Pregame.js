@@ -1,7 +1,11 @@
 import React from 'react';
-import styles from '../styles/Pregame.module.css';
+import { useDispatch } from "react-redux";
+import { startGame } from './pregameSlice';
+import styles from './Pregame.module.css';
 
-export default function Pregame({ startGame, animation }) {
+export default function Pregame({ animation }) {
+    const dispatch = useDispatch();
+
     return (
         <div className={`overlay_content animate__animated ${animation} animate__faster`}>
             <div className={styles.pregame}>
@@ -13,7 +17,7 @@ export default function Pregame({ startGame, animation }) {
             <hr />
             <button 
                 className={styles.start}
-                onClick={startGame}
+                onClick={dispatch(startGame())}
             >
                 START SPOTTING
             </button>
