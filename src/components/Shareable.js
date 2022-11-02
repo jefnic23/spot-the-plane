@@ -1,21 +1,21 @@
 import React, { useState } from 'react';
+import { getDay, getTimeFromMs } from '../utils/Helpers';
+import { useSelector } from 'react-redux';
+import { selectDay } from '../store/mainSlice';
+import { selectTime } from '../store/timerSlice';
+import { selectMiniplanes } from '../store/counterSlice';
 import Results from './Results';
 import html2canvas from 'html2canvas';
-import endplane from '../endplane.png';
-import styles from '../styles/CreateShareable.module.css';
+import endplane from '../assets/endplane.png';
+import styles from '../styles/Shareable.module.css';
 
-function getDay(day) {
-    let d = day.toString().split('');
-    let m = d.slice(4,6);
-    let a = d.slice(6);
-    let y = d.slice(0,4);
-    return <>{m.join('')}/{a.join('')}/{y.join('')}</>;
-}
-
-export default function CreateShareable ({ completionTime, rgb, day, notify }) {
+export default function Shareable ({ notify }) {
     const [noShare, setNoShare] = useState();
     const [url, setUrl] = useState();
     const [animation, setAnimation] = useState();
+    const completionTime = useSelector(selectTime);
+    const day = useSelector(selectDay);
+    const miniplanes = useSelector(selectMiniplanes);
 
     const HtmlToImage = () => {
         let isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
@@ -66,17 +66,17 @@ export default function CreateShareable ({ completionTime, rgb, day, notify }) {
                         <p>SPOT THE PLANE {getDay(day)}</p>
                     </div>
                     <div style={{fontSize: '34px'}}>
-                        {completionTime}
+                        {getTimeFromMs(completionTime)}
                     </div>
                 </div>
                 <div className={styles.miniplane_container}>
-                    {rgb.map((c, i) => 
+                    {miniplanes.map((miniplane, i) => 
                         <img 
                             key={i} 
                             src={endplane}
                             alt="miniplane.png"
                             style={{
-                                backgroundColor: `rgb(${c.r}, ${c.g}, ${c.b})`,
+                                backgroundColor: `rgb(${miniplane.r}, ${miniplane.g}, ${miniplane.b})`,
                                 width: '24px',
                                 height: '24px',
                             }} 

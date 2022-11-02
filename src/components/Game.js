@@ -1,19 +1,17 @@
 import React, { useState } from 'react';
+import { useDispatch } from "react-redux";
+import { endGame } from '../store/gameSlice';
+import { findAnswer } from '../utils/Helpers';
 import Timer from "./Timer";
 import Counter from './Counter';
 import Plane from './Plane';
 import AnswerButton from './AnswerButton';
 import styles from '../styles/Game.module.css';
 
-function findAnswer(q) {
-    return q.answer;
-}
-
-export default function Game({ data, endGame, animation }) {
+export default function Game({ data, animation }) {
     const [status, setStatus] = useState(true);
     const [addTime, setAddTime] = useState(false);
-    const [colors, getColors] = useState(false);
-    const [minicolors, setMinicolors] = useState([]);
+    const [answered, setAnswered] = useState(false);
     const [animate, setAnimate] = useState(false);
     const [incCounter, setIncCounter] = useState(false);
     const [stopCount, setStopCount] = useState(false);
@@ -23,6 +21,7 @@ export default function Game({ data, endGame, animation }) {
     const [planeAnimation, setPlaneAnimation] = useState();
     const [buttonAnimation, setButtonAnimation] = useState();
     const answer = data[index].filter(findAnswer)[0];
+    const dispatch = useDispatch();
 
     const subTime = () => {
         setAddTime(false);
@@ -36,8 +35,7 @@ export default function Game({ data, endGame, animation }) {
         setIncCounter(false);
     }
 
-    const getMiniPlaneColors = (rgb) => {
-        setMinicolors(prev => [...prev, rgb]);
+    const nextQuestion = () => {
         setDisabled(true);
         setStopCount(true);
         if (index === data.length - 1) {
@@ -45,6 +43,9 @@ export default function Game({ data, endGame, animation }) {
             setTimeout(() => {
                 setAnimation('animate__fadeOut');
             }, 1000);
+            setTimeout(() => {
+                dispatch(endGame());
+            }, 1500);
         } else {
             setTimeout(() => {
                 setButtonAnimation('animate__flipOutX');
@@ -60,19 +61,13 @@ export default function Game({ data, endGame, animation }) {
                 setStopCount(false);
             }, 2000);
         }
-        getColors(false);
-    }
-
-    const getTime = (t) => {
-        setTimeout(() => {
-            endGame(t, minicolors);
-        }, 1500);
+        setAnswered(false);
     }
 
     const checkAnswer = (e) => {
         let answer = data[index].filter(findAnswer)[0];
         if (e.target.value === answer.model) {
-            getColors(true);
+            setAnswered(true);
         } else {
             e.target.disabled = true;
             setAddTime(true);
@@ -90,11 +85,11 @@ export default function Game({ data, endGame, animation }) {
 
     return (
         <div className={`animate__animated ${compAnimation} animate__faster`}>
-            <Timer status={status} addTime={addTime} subTime={subTime} animate={animate} unanimate={unanimate} getTime={getTime} />
+            <Timer status={status} addTime={addTime} subTime={subTime} animate={animate} unanimate={unanimate} />
             <div className={styles.miniplane_container}>
                 {data && 
                     data.map((_, i) =>
-                        <Counter key={i} id={i} index={index} incCounter={incCounter} decCounter={decCounter} stopCount={stopCount} colors={colors} getMiniPlaneColors={getMiniPlaneColors} />
+                        <Counter key={i} id={i} index={index} incCounter={incCounter} decCounter={decCounter} stopCount={stopCount} answered={answered} nextQuestion={nextQuestion} />
                     )
                 }
             </div>
