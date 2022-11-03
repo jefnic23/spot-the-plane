@@ -16,7 +16,14 @@ import Postgame from './Postgame';
 import Info from './Info';
 import Stats from './Stats';
 
-const notify = (msg) => toast(msg);
+const notify = (msg) => toast(msg, {
+    style: {
+        border: '1px solid #fff',
+        padding: '13px',
+        color: '#fff',
+        background: '#333'
+    }
+});
 
 export default function Main() {
     const [error, setError] = useState(false);
@@ -121,6 +128,7 @@ export default function Main() {
 
     return (
         <>  
+            <Toaster />
             <Navbar openMenu={openMenu} />
             {info && <Info animation={menuAnimation} closeMenu={closeMenu} />}
             {stats && <Stats animation={menuAnimation} closeMenu={closeMenu} statistics={JSON.parse(localStorage.getItem('statistics'))} />}
@@ -136,7 +144,6 @@ export default function Main() {
             :
                 <Loader />
             }
-            <Toaster />
         </>
     );
 }
