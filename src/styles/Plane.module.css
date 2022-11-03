@@ -7,16 +7,16 @@
 	padding-bottom: 1rem;
 }
 
+.image {
+	display: block;
+	width: 100%;
+}
+
 .link {
 	text-decoration: none;
 	color: #fff;
 	font-size: 11px;
 	text-align: start;
-}
-
-.image {
-	display: block;
-	width: 100%;
 }
 
 @media (max-width: 450px) {

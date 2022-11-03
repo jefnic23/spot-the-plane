@@ -1,4 +1,5 @@
 import React from 'react';
+import Coffee from './Coffee';
 import styles from '../styles/Info.module.css';
 
 export default function Info({ animation, closeMenu }) {
@@ -17,8 +18,7 @@ export default function Info({ animation, closeMenu }) {
                     <a href="https://www.planespotters.net/" target="_blank" rel="noopener noreferrer">Planespotters.net</a>
                 </div>
                 <div className={styles.info_item}>
-                    <h1>Support</h1>
-                    <a href="https://www.buymeacoffee.com/jefnic23" target="_blank" rel="noopener noreferrer">Buy me a coffee</a>
+                    <Coffee />
                 </div>
             </div>
             <div className={styles.footnote}>&copy; 2022 Jeff Nicholas</div>

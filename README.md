@@ -5,7 +5,6 @@
 - [ ] Add support buttons (BuyMeACoffee, etc.) to postgame screen 
 - [x] Add Google analytics
 - [x] Store best time in local storage
-- [ ] Blur images before they fully load
 - [x] Move as many state variables to redux as possible
 - [ ] localStorage hooks
 - [ ] Logging
