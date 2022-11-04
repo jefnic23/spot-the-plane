@@ -8,3 +8,4 @@
 - [x] Move as many state variables to redux as possible
 - [ ] localStorage hooks
 - [ ] Logging
+- [ ] Refactor animations (to avoid using classes with timeouts)
