@@ -9,4 +9,5 @@
 - [ ] localStorage hooks
 - [ ] Logging
 - [ ] Refactor animations (to avoid using classes with timeouts)
-- [ ] Add quotes to loading screen
+- [ ] Sass modules?
+- [ ] Add quotes to loading screen (get permission first)
