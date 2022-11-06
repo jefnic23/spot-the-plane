@@ -18,6 +18,10 @@ export default function Info({ animation, closeMenu }) {
                     <a href="https://www.planespotters.net/" target="_blank" rel="noopener noreferrer">Planespotters.net</a>
                 </div>
                 <div className={styles.info_item}>
+                    <h1>Quotes</h1>
+                    <a href="https://www.aviationquotations.com/" target="_blank" rel="noopener noreferrer">aviationquotations.com</a>
+                </div>
+                <div className={styles.info_item}>
                     <Coffee />
                 </div>
             </div>

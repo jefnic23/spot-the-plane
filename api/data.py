@@ -3,34 +3,34 @@ import time
 from collections import Counter
 
 import requests
+from sqlalchemy import func
 
 from api.app import db
-from api.models import Aircraft
-
+from api.models import Aircraft, Quote
 
 # weights applied to each model
 models = {
-    '737': 0.875,
-    'A320': 0.813,
+    '737'    : 0.875,
+    'A320'   : 0.813,
     'Learjet': 0.768,
-    '777': 0.726,
-    'E-Jet': 0.72,
-    'CRJ': 0.702,
-    'A330': 0.679,
-    'Dash 8': 0.678,
-    '767': 0.661,
-    '757': 0.616,
-    '787': 0.568,
-    '747': 0.558,
-    'ERJ': 0.548,
-    'MD-80': 0.516,
-    'C-130': 0.497,
-    'A350': 0.47,
-    'A380': 0.447,
-    'DC-3': 0.436,
-    'A340': 0.39,
-    'MD-11': 0.371,
-    '727': 0.344
+    '777'    : 0.726,
+    'E-Jet'  : 0.72,
+    'CRJ'    : 0.702,
+    'A330'   : 0.679,
+    'Dash 8' : 0.678,
+    '767'    : 0.661,
+    '757'    : 0.616,
+    '787'    : 0.568,
+    '747'    : 0.558,
+    'ERJ'    : 0.548,
+    'MD-80'  : 0.516,
+    'C-130'  : 0.497,
+    'A350'   : 0.47,
+    'A380'   : 0.447,
+    'DC-3'   : 0.436,
+    'A340'   : 0.39,
+    'MD-11'  : 0.371,
+    '727'    : 0.344
 }
 
 
@@ -80,6 +80,13 @@ def call_api(plane, base_url=BASE_URL, headers=HEADERS):
             db.session.commit()
 
             return {'pic': False}
+
+
+def get_quote():
+    num_rows = db.session.execute(db.select(func.count(Quote.index))).scalar_one()
+    id = random.randint(0, num_rows)
+    query = db.session.execute(db.select(Quote).where(Quote.index == id)).scalar_one()
+    return {'quote': query.quote, 'author': query.author}
 
 
 def create_game(seed):

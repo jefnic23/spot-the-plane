@@ -1,4 +1,5 @@
 import React from 'react';
+import Quote from './Quote';
 import styles from '../styles/Loader.module.css';
 
 export default function Loader() {
@@ -17,6 +18,7 @@ export default function Loader() {
                 {bubbles()}
                 <div className={styles.plane}></div>
             </div>
+            <Quote />
         </div>
     );
 }

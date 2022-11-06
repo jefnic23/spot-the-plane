@@ -1,6 +1,6 @@
 from flask import Blueprint, request
 
-from api.planes import create_game
+from api.data import create_game, get_quote
 
 bp = Blueprint('game', __name__)
 
@@ -10,3 +10,8 @@ def game():
     seed = request.get_json()['seed']
     data, images = create_game(seed)
     return {'data': data, 'images': images, 'day': seed}
+
+
+@bp.route('/api/quote', methods=['GET'])
+def quote():
+    return get_quote()
