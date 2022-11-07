@@ -11,4 +11,6 @@
 - [ ] HamQuest
 - [ ] Refactor animations (to avoid using classes with timeouts)
 - [ ] Sass modules?
-- [ ] Add quotes to loading screen (get permission first)
+- [x] Add quotes to loading screen (get permission first)
+- [ ] Quote reveal animation: slide border from right to left
+- [ ] Normalize quotes/authors in database
