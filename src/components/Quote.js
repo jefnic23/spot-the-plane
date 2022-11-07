@@ -18,9 +18,11 @@ export default function Quote() {
     }, [])
     
     return (
-        <blockquote className={styles.blockquote}>
-            <p className={styles.quote}>{quote}</p>
-            <p className={styles.author}>&mdash; {author}</p>
-        </blockquote>
+        <div className={styles.container}>
+            <blockquote className={styles.blockquote}>
+                <p className={styles.quote}>{quote}</p>
+                <p className={styles.author}>&mdash; {author}</p>
+            </blockquote>
+        </div>
     );
 }
