@@ -8,6 +8,7 @@
 - [x] Move as many state variables to redux as possible
 - [ ] localStorage hooks
 - [ ] Logging
+- [ ] HamQuest
 - [ ] Refactor animations (to avoid using classes with timeouts)
 - [ ] Sass modules?
 - [ ] Add quotes to loading screen (get permission first)
