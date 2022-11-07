@@ -9,3 +9,4 @@
 - [x] Move as many state variables to redux as possible
 - [ ] localStorage hooks
 - [ ] Logging
+- [ ] HamQuest
