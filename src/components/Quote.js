@@ -19,7 +19,7 @@ export default function Quote() {
     
     return (
         <div className={styles.container}>
-            <blockquote className={styles.blockquote}>
+            <blockquote className={`${styles.blockquote} animate__animated animate__zoomIn animate__faster`}>
                 <p className={styles.quote}>{quote}</p>
                 <p className={styles.author}>&mdash; {author}</p>
             </blockquote>

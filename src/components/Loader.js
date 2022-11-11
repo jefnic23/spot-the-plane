@@ -14,7 +14,7 @@ export default function Loader() {
     return (
         <div className={styles.container}>
             <div className={styles.wrapper}>
-                <div className={styles.loader}>
+                <div className={`${styles.loader} animate__animated animate__zoomIn animate__faster`}>
                     <div className={styles.title}>loading</div>
                     {bubbles()}
                     <div className={styles.plane}></div>

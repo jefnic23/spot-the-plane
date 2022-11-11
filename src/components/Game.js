@@ -84,7 +84,7 @@ export default function Game({ data, animation }) {
     }
 
     return (
-        <div className={`animate__animated ${compAnimation} animate__faster`}>
+        <div className={`${styles.game_container} animate__animated ${compAnimation} animate__faster`}>
             <Timer status={status} addTime={addTime} subTime={subTime} animate={animate} unanimate={unanimate} />
             <div className={styles.miniplane_container}>
                 {data && 

@@ -14,4 +14,4 @@
 - [x] Add quotes to loading screen (get permission first)
 - [ ] Quote reveal animation: slide border from right to left
 - [ ] Normalize quotes/authors in database
-- [ ] Instead of ERJ and E-Jet, use specific models
+- [x] Instead of ERJ and E-Jet, use specific models

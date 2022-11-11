@@ -1,4 +1,4 @@
-from flask import Blueprint, request
+from flask import Blueprint, request, jsonify
 
 from api.data import create_game, get_quote
 
@@ -8,8 +8,7 @@ bp = Blueprint('game', __name__)
 @bp.route('/api/game', methods=['POST']) 
 def game():
     seed = request.get_json()['seed']
-    data, images = create_game(seed)
-    return {'data': data, 'images': images, 'day': seed}
+    return create_game(seed)
 
 
 @bp.route('/api/quote', methods=['GET'])

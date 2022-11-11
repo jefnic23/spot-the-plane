@@ -1,6 +1,5 @@
 import random
 import time
-from collections import Counter
 
 import requests
 from sqlalchemy import func
@@ -10,27 +9,29 @@ from api.models import Aircraft, Quote
 
 # weights applied to each model
 models = {
-    '737'    : 0.875,
-    'A320'   : 0.813,
-    'Learjet': 0.768,
-    '777'    : 0.726,
-    'E-Jet'  : 0.72,
-    'CRJ'    : 0.702,
-    'A330'   : 0.679,
-    'Dash 8' : 0.678,
-    '767'    : 0.661,
-    '757'    : 0.616,
-    '787'    : 0.568,
-    '747'    : 0.558,
-    'ERJ'    : 0.548,
-    'MD-80'  : 0.516,
-    'C-130'  : 0.497,
-    'A350'   : 0.47,
-    'A380'   : 0.447,
-    'DC-3'   : 0.436,
-    'A340'   : 0.39,
-    'MD-11'  : 0.371,
-    '727'    : 0.344
+    '737'    : 0.886,
+    'A320'   : 0.837,
+    'Learjet': 0.76,
+    '777'    : 0.745,
+    'A330'   : 0.726,
+    'CRJ'    : 0.722,
+    'Dash 8' : 0.69,
+    '767'    : 0.683,
+    '757'    : 0.682,
+    'ERJ 190': 0.661,
+    '787'    : 0.597,
+    'ERJ 170': 0.588,
+    '747'    : 0.586,
+    'ERJ 140': 0.559,
+    'MD-80'  : 0.538,
+    'C-130'  : 0.537,
+    'A350'   : 0.502,
+    'A380'   : 0.484,
+    'DC-3'   : 0.458,
+    'A340'   : 0.453,
+    'MD-11'  : 0.427,
+    '727'    : 0.384,
+    'ERJ 135': 0.379
 }
 
 
@@ -79,7 +80,7 @@ def call_api(plane, base_url=BASE_URL, headers=HEADERS):
             plane.viable = False
             db.session.commit()
 
-            return {'pic': False}
+            return False
 
 
 def get_quote():
@@ -90,27 +91,26 @@ def get_quote():
 
 
 def create_game(seed):
-    plane_types = Counter(get_planes(seed))
+    plane_types = get_planes(seed) # Counter?
 
-    while True:
-        data = []
-        images = []
-        chaos_seed = seed / 100000000
-        for ptype in plane_types:
-            random.seed(seed)
-            p = random.sample(db.session.execute(db.select(Aircraft).where(Aircraft.typecode == ptype, Aircraft.viable == True)).scalars().all(), k=plane_types[ptype])
-            for plane in p:
-                details = call_api(plane)
-                images.append(details['pic'])
-                question = [{'id': plane.registration, 'model': plane.typecode, 'answer': True, 'details': details}]
-                answers = get_answers(chaos_seed, plane.typecode)
-                for a in answers:
-                    question.append(a)
-                data.append(shuffle_planes(chaos_seed, question))
-                chaos_seed = get_chaos(chaos_seed)
-                time.sleep(random.uniform(0.13, 0.34))    # how low can this be to avoid 429 error?
-        if len([image for image in images if image]) == 10:
-            break
+    data = []
+    images = []
+    used = []
+    chaos_seed = seed / 100000000
+    for ptype in plane_types:
+        random.seed(seed)
+        plane = random.choice(db.session.execute(db.select(Aircraft).where(Aircraft.typecode == ptype, Aircraft.viable == True, Aircraft.registration not in used)).scalars().all())
+        details = False
+        while not details:
+            details = call_api(plane)
+            time.sleep(random.uniform(0.13, 0.34))    # how low can this be to avoid 429 error?
+        used.append(plane.registration)
+        images.append(details['pic'])
+        question = [{'id': plane.registration, 'model': plane.typecode, 'answer': True, 'details': details}]
+        answers = get_answers(chaos_seed, plane.typecode)
+        question.extend(answers)
+        data.append(shuffle_planes(chaos_seed, question))
+        chaos_seed = get_chaos(chaos_seed)
 
-    return shuffle_planes(seed, data), images
+    return {'data': shuffle_planes(seed, data), 'images': images, 'day': seed}
     

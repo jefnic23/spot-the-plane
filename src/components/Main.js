@@ -46,22 +46,22 @@ export default function Main() {
             JSON.parse(localStorage.getItem('statistics')) : {'daysPlayed': 0, 'totalGameTime': 0, 'avgTime': 0, 'bestTime': null, 'lastPlayed': 'Never'}
         ;
         if (!gameState || gameState.status === 'in_progress' || compDay() > statistics.lastPlayed || statistics.lastPlayed === 'Never') {
-            // fetch("/api/game", {
-            //     method: "POST",
-            //     headers: { 'Content-Type': 'application/json' },
-            //     body: JSON.stringify({ seed: compDay() })
-            // })
-            // .then(res => res.json())
-            // .then(data => {
-            //     dispatch(setDay(data.day));
-            //     setData(data.data);
-            //     cacheImages(data.images);
-            // })
-            // .catch(err => {
-            //     console.log(err);
-            //     setLoaded(true);
-            //     setError(true);
-            // });                
+            fetch("/api/game", {
+                method: "POST",
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ seed: compDay() })
+            })
+            .then(res => res.json())
+            .then(data => {
+                dispatch(setDay(data.day));
+                setData(data.data);
+                cacheImages(data.images);
+            })
+            .catch(err => {
+                console.log(err);
+                setLoaded(true);
+                setError(true);
+            });                
         } else {
             dispatch(setDay(statistics.lastPlayed));
             dispatch(increment(gameState.completionTime));
@@ -95,7 +95,7 @@ export default function Main() {
             });
         });
         await Promise.all(promises);
-        // setLoaded(true);
+        setLoaded(true);
     }
 
     const openMenu = (m) => {
