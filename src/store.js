@@ -11,6 +11,6 @@ export default configureStore({
         game: gameReducer,
         main: mainReducer,
         timer: timerReducer,
-        pregame: pregameReducer,
+        pregame: pregameReducer
     },
 });

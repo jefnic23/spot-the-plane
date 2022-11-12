@@ -7,6 +7,11 @@ from sqlalchemy import func
 from api.app import db
 from api.models import Aircraft, Quote
 
+# planespotters.net api
+BASE_URL = 'https://api.planespotters.net/pub/photos/reg/'
+HEADERS  = {'user-agent': 'spottheplane'}
+
+
 # weights applied to each model
 models = {
     '737'    : 0.886,
@@ -42,7 +47,7 @@ def get_planes(seed, models=models):
 
 def get_answers(seed, plane, models=models):
     random.seed(seed)
-    return random.sample([{'model': p, 'answer': False} for p in list(models.keys()) if p != plane], k=3)
+    return random.sample([{'model': model, 'answer': False} for model in list(models.keys()) if model != plane and model[:3] != plane[:3]], k=3)
 
 
 def shuffle_planes(seed, data):
@@ -52,11 +57,6 @@ def shuffle_planes(seed, data):
 
 def get_chaos(seed):
     return 3.9 * seed * (1 - seed)
-
-
-# planespotters.net api
-BASE_URL = 'https://api.planespotters.net/pub/photos/reg/'
-HEADERS  = {'user-agent': 'spottheplane'}
 
 
 def call_api(plane, base_url=BASE_URL, headers=HEADERS):

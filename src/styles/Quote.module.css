@@ -3,10 +3,11 @@
     flex-direction: column;
     flex: 2;
     justify-content: flex-start;
+    width: 100%;
+    max-width: 500px;
 }
 
 .blockquote {
-    max-width: 500px;
     margin-left: 24px;
     padding-left: 8px;
     border-left: 1px solid #fff;
