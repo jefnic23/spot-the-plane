@@ -2,9 +2,14 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	margin: auto;
+	margin: 0 auto;
 	padding-top: 1rem;
 	padding-bottom: 1rem;
+}
+
+.image {
+	display: block;
+	width: 100%;
 }
 
 .link {
@@ -12,11 +17,6 @@
 	color: #fff;
 	font-size: 11px;
 	text-align: start;
-}
-
-.image {
-	display: block;
-	width: 100%;
 }
 
 @media (max-width: 450px) {

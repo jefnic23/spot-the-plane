@@ -84,22 +84,26 @@ export default function Game({ data, animation }) {
     }
 
     return (
-        <div className={`animate__animated ${compAnimation} animate__faster`}>
-            <Timer status={status} addTime={addTime} subTime={subTime} animate={animate} unanimate={unanimate} />
-            <div className={styles.miniplane_container}>
-                {data && 
-                    data.map((_, i) =>
-                        <Counter key={i} id={i} index={index} incCounter={incCounter} decCounter={decCounter} stopCount={stopCount} answered={answered} nextQuestion={nextQuestion} />
-                    )
-                }
+        <div className={`${styles.container} animate__animated ${compAnimation} animate__faster`}>
+            <div className={styles.timer_wrapper}>
+                <Timer status={status} addTime={addTime} subTime={subTime} animate={animate} unanimate={unanimate} />
+                <div className={styles.miniplane_container}>
+                    {data && 
+                        data.map((_, i) =>
+                            <Counter key={i} id={i} index={index} incCounter={incCounter} decCounter={decCounter} stopCount={stopCount} answered={answered} nextQuestion={nextQuestion} />
+                        )
+                    }
+                </div>
             </div>
-            {data && <Plane data={answer.details} animation={planeAnimation} />}
-            <div className={styles.answers}>
-                {data && 
-                    data[index].map((d, i) =>
-                        <AnswerButton key={i} id={d.model} answer={answer} index={index} disabled={disabled} checkAnswer={checkAnswer} animation={buttonAnimation} />
-                    )
-                }
+            <div className={styles.plane_wrapper}>
+                {data && <Plane data={answer.details} animation={planeAnimation} />}
+                <div className={styles.answers}>
+                    {data && 
+                        data[index].map((d, i) =>
+                            <AnswerButton key={i} id={d.model} answer={answer} index={index} disabled={disabled} checkAnswer={checkAnswer} animation={buttonAnimation} />
+                        )
+                    }
+                </div>
             </div>
         </div>
     );

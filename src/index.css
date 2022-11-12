@@ -97,19 +97,3 @@ button:not(:disabled) {
 .miniplane span {
 	visibility: hidden;
 }
-
-/* site-wide above, old below */
-
-#toast {
-	visibility: hidden;
-	min-width: 250px;
-	color: #fff;
-	background-color: #005587;
-	border-radius: 4px;
-	text-align: center;
-	position: fixed;
-	z-index: 100;
-	left: 50%;
-	margin-left: -125px;
-	top: 55px;
-}

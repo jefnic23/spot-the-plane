@@ -9,14 +9,14 @@ db = SQLAlchemy()
 def create_app(config_class=Config):
     app = Flask(__name__, static_folder='../build', static_url_path='/')
     app.config.from_object(config_class)
-
+    
 
     # extensions
     db.init_app(app)
 
 
     # blueprints
-    from api.game import bp
+    from api.routes import bp
     app.register_blueprint(bp) 
 
 

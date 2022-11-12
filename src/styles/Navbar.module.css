@@ -8,7 +8,6 @@
     background-color: #121213;
     border-bottom: 1px solid #818384;
     z-index: 99;
-    margin-bottom: 34px;
 }
 
 .container_fluid {
@@ -46,10 +45,4 @@
 	width: 100%;
 	max-width: 377px;
     vertical-align: middle;
-}
-
-@media (max-height: 568px) {
-    .navbar {
-        margin-bottom: 0;
-    }
 }

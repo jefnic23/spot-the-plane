@@ -1,0 +1,53 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    flex: 2;
+    justify-content: flex-start;
+    width: 100%;
+    max-width: 500px;
+}
+
+.blockquote {
+    margin-left: 24px;
+    padding-left: 8px;
+    border-left: 1px solid #fff;
+    border-left-width: 8px;
+    text-align: justify;
+}
+
+.blockquote::before {
+    font-family: 'B612', sans-serif;
+    font-size: 89px;
+    display: block;
+    margin-top: -13px;
+    margin-bottom: -55px;
+    content: "\201c";
+}
+
+.quote {
+    font-family: 'B612', sans-serif;
+    font-style: italic;
+    font-size: 1.13em;
+    line-height: 1.5;
+    margin: 0;
+}
+
+.author {
+    font-family: 'B612', sans-serif;
+    font-style: bold;
+    font-size: 1.08em;
+    text-align: right;
+}
+
+@media only screen and (max-height: 1000px) {
+    .container {
+        flex: 1;
+    }
+}
+
+@media only screen and (max-height: 600px) {
+    .container {
+        visibility: hidden;
+        flex: 0;
+    }
+}
