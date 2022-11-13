@@ -31,11 +31,12 @@ def generate_tables():
     for model, typecode in tqdm(typecodes.items()):
         aircraft = df[df['typecode'].str.contains(typecode, na=False)].dropna()
         aircraft["typecode"] = model  # override typecode column with model name, to normalize data
+        aircraft['viable'] = True
         aircraft.to_sql('aircraft', engine, if_exists='append')
 
         num_planes = aircraft[aircraft.columns[0]].count()  # supposedly faster than just getting len(index)
-        planetypes = pd.DataFrame({'model': [model], 'num_planes': [num_planes], 'weight': [np.nan], 'viable': True}).set_index('model')
-        planetypes.to_sql('planetypes', engine, if_exists='append')
+        planetype = pd.DataFrame({'model': [model], 'num_planes': [num_planes], 'weight': [np.nan]}).set_index('model')
+        planetype.to_sql('planetypes', engine, if_exists='append')
 
 
 def generate_weights():
@@ -51,6 +52,7 @@ def generate_weights():
 
     for index, row in df.iterrows():
         print(f"'{index}': {row['weight']}{',' if index != df.index[-1] else ''}")
+
 
 def transfer_data():
     dev = db_engine()

@@ -38,14 +38,14 @@ export default function Postgame({ notify }) {
     }, [completionTime, miniplanes, day]);
 
     return (
-        <div className="overlay_content animate__animated animate__fadeIn">
-            <div className="overlay_container">
+        <div className={`${styles.container} animate__animated animate__fadeIn`}>
+            <div className={styles.time_wrapper}>
                 <h1>Completion Time</h1>
                 <span className={styles.completion_time}>
                     { getTimeFromMs(completionTime) }
                 </span>
             </div>
-            <div className="overlay_container">
+            <div className={styles.results_wrapper}>
                 <h1>Answers</h1>
                 <div className={styles.miniplane_container}>
                     {miniplanes &&

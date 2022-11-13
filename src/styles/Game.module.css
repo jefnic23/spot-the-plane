@@ -1,3 +1,25 @@
+.container {
+	position: relative;
+    display: flex;
+    flex-direction: column;
+	width: 100%;
+	height: calc(100vh - 50px);
+	overflow: visible;
+}
+
+.timer_wrapper {
+	display: flex;
+	flex-direction: column;
+	flex: 1;
+	justify-content: flex-end;
+}
+
+.plane_wrapper {
+	display: flex;
+	flex-direction: column;
+	flex: 4;
+}
+
 .miniplane_container {
 	display: flex;
 	flex-direction: row;
@@ -11,5 +33,11 @@
 	grid-gap: 13px;
 	width: 100%;
 	max-width: 500px;
-	margin: 0 auto;
+	margin: 0 auto 2em;
+}
+
+@media only screen and (max-height: 1000px) {
+    .plane_wrapper {
+        justify-content: space-between;
+    }
 }
