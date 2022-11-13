@@ -56,19 +56,10 @@ def transfer_data():
     dev = db_engine()
     prod = create_engine(os.getenv('PROD'))
 
-    aircraft = pd.read_sql('aircraft', dev, index_col='registration')
-    planetypes = pd.read_sql('planetypes', dev, index_col='model')
+    # aircraft = pd.read_sql('aircraft', dev, index_col='registration')
+    # planetypes = pd.read_sql('planetypes', dev, index_col='model')
+    quotes = pd.read_sql('quotes', dev, index_col='index')
 
-    aircraft.to_sql('aircraft', prod, if_exists='replace')
-    planetypes.to_sql('planetypes', prod, if_exists='replace')
-
-
-if __name__ == '__main__':
-    # todo: combine these two functions; in generate_tables, first check if table exists and delete if it does
-    # todo: write function that prints model: weight for copying into planes.py
-    # todo: write function that copies data to production db
-
-    # generate_tables()
-    # generate_weights()
-    
-    transfer_data()
+    # aircraft.to_sql('aircraft', prod, if_exists='replace')
+    # planetypes.to_sql('planetypes', prod, if_exists='replace')
+    quotes.to_sql('quotes', prod, if_exists='replace')
