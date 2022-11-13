@@ -33,11 +33,5 @@
 	grid-gap: 13px;
 	width: 100%;
 	max-width: 500px;
-	margin: 0 auto 2em;
-}
-
-@media only screen and (max-height: 1000px) {
-    .plane_wrapper {
-        justify-content: space-between;
-    }
+	margin: 0 auto;
 }
