@@ -17,7 +17,8 @@
 - [x] Instead of ERJ and E-Jet, use specific models
 - [ ] Add feedback button
 - [ ] Add button to mark planes with incorrect metadata
-- [ ] Fix shareable borders
+- [ ] Fix miniplane borders on shareable
+- [ ] Make sure the same registration numbers aren't being used within the same game
 ---
 - Check all planes in DB for viability
     - [x] ERJ 140
