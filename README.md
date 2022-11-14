@@ -20,6 +20,7 @@
 - [ ] Fix miniplane borders on shareable
 - [ ] Make sure the same registration numbers aren't being used within the same game
 - [ ] Modify weights (0.13 - 0.89?)
+- [ ] Improve Lighthouse scores
 ---
 - Check all planes in DB for viability
     - [x] ERJ 140
