@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { getDay, getTimeFromMs } from '../utils/Helpers';
+import { getDay, render } from '../utils/Helpers';
 import { useSelector } from 'react-redux';
 import { selectDay } from '../store/mainSlice';
 import { selectTime } from '../store/timerSlice';
@@ -66,7 +66,7 @@ export default function Shareable ({ notify }) {
                         <p>SPOT THE PLANE {getDay(day)}</p>
                     </div>
                     <div style={{fontSize: '34px'}}>
-                        {getTimeFromMs(completionTime)}
+                        {render(completionTime)}
                     </div>
                 </div>
                 <div className={styles.miniplane_container}>

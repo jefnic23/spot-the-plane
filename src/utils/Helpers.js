@@ -20,14 +20,6 @@ export function getDay(day) {
     return <>{m.join('')}/{a.join('')}/{y.join('')}</>;
 }
 
-export function getTimeFromMs(t) {
-    let mm = parseInt((t / (1000 * 60)) % 60);
-    let ss = parseInt((t / 1000) % 60);
-    let ms = parseInt((t % 1000) / 10);
-    let leadZeroTime = [mm, ss, ms].map(time => time < 10 ? `0${time}` : time);
-    return <>{leadZeroTime[0]}:{leadZeroTime[1]}.{leadZeroTime[2]}</>;
-}
-
 export function getTomorrow() {
     let tmrw = new Date();
     tmrw.setDate(tmrw.getDate() + 1);

@@ -89,7 +89,7 @@ def check_plane_viability():
     
     with Session(engine) as session:
         with session.begin():
-            rows = session.query(Aircraft).filter_by(typecode = "DC-3").all()
+            rows = session.query(Aircraft).filter_by(typecode = "Learjet").all()
             for row in tqdm(rows):
                 url = f'{BASE_URL}{row.registration}'
                 res = requests.get(url, headers=HEADERS)
