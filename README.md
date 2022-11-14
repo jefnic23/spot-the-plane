@@ -1,6 +1,6 @@
 # TODO
 
-- [ ] Add some sort of "review" tab where photos of the day are stored with links
+- [ ] Add some sort of review tab where photos of the day are stored with links
 - [ ] Keep track of game state in local storage so that users can't reload page to restart game
 - [ ] Add support buttons (BuyMeACoffee, etc.) to postgame screen 
 - [x] Add Google analytics
@@ -18,3 +18,28 @@
 - [ ] Add feedback button
 - [ ] Add button to mark planes with incorrect metadata
 - [ ] Fix shareable borders
+---
+- Check all planes in DB for viability
+    - [x] ERJ 140
+    - [x] C-130
+    - [x] ERJ 190
+    - [ ] 757
+    - [ ] 737
+    - [ ] A330
+    - [x] DC-3
+    - [ ] 767
+    - [ ] A350
+    - [ ] Dash 8
+    - [x] ERJ 135
+    - [ ] A320
+    - [ ] A340
+    - [x] MD-11
+    - [ ] CRJ
+    - [ ] ERJ 170
+    - [ ] 777
+    - [ ] 787
+    - [x] 727
+    - [ ] MD-80
+    - [ ] 747
+    - [ ] Learjet
+    - [ ] A380

@@ -1,11 +1,15 @@
 import os
+import random
+import time
 
 import numpy as np
 import pandas as pd
+import requests
 from dotenv import load_dotenv
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, Boolean, Column, String
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import Session
 from tqdm import tqdm
-
 from typecodes import typecodes
 
 
@@ -58,10 +62,45 @@ def transfer_data():
     dev = db_engine()
     prod = create_engine(os.getenv('PROD'))
 
-    # aircraft = pd.read_sql('aircraft', dev, index_col='registration')
+    aircraft = pd.read_sql('aircraft', dev, index_col='registration')
     # planetypes = pd.read_sql('planetypes', dev, index_col='model')
-    quotes = pd.read_sql('quotes', dev, index_col='index')
+    # quotes = pd.read_sql('quotes', dev, index_col='index')
 
-    # aircraft.to_sql('aircraft', prod, if_exists='replace')
+    aircraft.to_sql('aircraft', prod, if_exists='replace')
     # planetypes.to_sql('planetypes', prod, if_exists='replace')
-    quotes.to_sql('quotes', prod, if_exists='replace')
+    # quotes.to_sql('quotes', prod, if_exists='replace')
+
+
+def check_plane_viability():
+    # planespotters.net api
+    BASE_URL = 'https://api.planespotters.net/pub/photos/reg/'
+    HEADERS  = {'user-agent': 'spottheplane'}
+
+    BASE = declarative_base()
+    class Aircraft(BASE):
+        __tablename__ = "aircraft"
+        registration = Column(String(), primary_key=True)
+        manufacturericao = Column(String(), nullable=False)
+        model = Column(String(), nullable=False)
+        typecode = Column(String(), nullable=False)
+        viable = Column(Boolean, nullable=False, default=True)
+
+    engine = db_engine()
+    
+    with Session(engine) as session:
+        with session.begin():
+            rows = session.query(Aircraft).filter_by(typecode = "DC-3").all()
+            for row in tqdm(rows):
+                url = f'{BASE_URL}{row.registration}'
+                res = requests.get(url, headers=HEADERS)
+                if res.status_code not in [200, 201]:
+                    res.raise_for_status()
+                else:
+                    if not res.json()['photos']:
+                        row.viable = False
+                time.sleep(random.uniform(1, 3)) 
+            session.commit()
+        
+
+if __name__ == '__main__':
+    transfer_data()

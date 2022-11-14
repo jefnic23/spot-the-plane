@@ -78,6 +78,7 @@ def call_api(plane, base_url=BASE_URL, headers=HEADERS):
         else:
             # planespotters.net has no pics of this plane; mark it as non-viable
             plane.viable = False
+            print(plane) # which plane is causing the holdup?
             db.session.commit()
 
             return False
@@ -103,7 +104,7 @@ def create_game(seed):
         details = False
         while not details:
             details = call_api(plane)
-            time.sleep(random.uniform(0.13, 0.34))    # how low can this be to avoid 429 error?
+            time.sleep(random.uniform(0.34, 0.55))    # how low can this be to avoid 429 error?
         used.append(plane.registration)
         images.append(details['pic'])
         question = [{'id': plane.registration, 'model': plane.typecode, 'answer': True, 'details': details}]
