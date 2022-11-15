@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { getTimeFromMs } from '../utils/Helpers';
+import { render } from '../utils/Helpers';
 import { useSelector } from "react-redux";
 import { selectDay } from "../store/mainSlice";
 import { selectTime } from "../store/timerSlice";
@@ -42,7 +42,7 @@ export default function Postgame({ notify }) {
             <div className={styles.time_wrapper}>
                 <h1>Completion Time</h1>
                 <span className={styles.completion_time}>
-                    { getTimeFromMs(completionTime) }
+                    { render(completionTime) }
                 </span>
             </div>
             <div className={styles.results_wrapper}>

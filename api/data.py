@@ -14,29 +14,29 @@ HEADERS  = {'user-agent': 'spottheplane'}
 
 # weights applied to each model
 models = {
-    '737'    : 0.886,
-    'A320'   : 0.837,
-    'Learjet': 0.76,
-    '777'    : 0.745,
-    'A330'   : 0.726,
-    'CRJ'    : 0.722,
-    'Dash 8' : 0.69,
-    '767'    : 0.683,
-    '757'    : 0.682,
-    'ERJ 190': 0.661,
-    '787'    : 0.597,
-    'ERJ 170': 0.588,
-    '747'    : 0.586,
-    'ERJ 140': 0.559,
-    'MD-80'  : 0.538,
-    'C-130'  : 0.537,
-    'A350'   : 0.502,
-    'A380'   : 0.484,
-    'DC-3'   : 0.458,
-    'A340'   : 0.453,
-    'MD-11'  : 0.427,
-    '727'    : 0.384,
-    'ERJ 135': 0.379
+    '737'    : 0.889,
+    'A320'   : 0.853,
+    'Learjet': 0.828,
+    '777'    : 0.811,
+    'A330'   : 0.698,
+    'CRJ'    : 0.665,
+    'Dash 8' : 0.623,
+    '767'    : 0.604,
+    '757'    : 0.591,
+    'ERJ 190': 0.575,
+    '787'    : 0.572,
+    'ERJ 170': 0.556,
+    '747'    : 0.528,
+    'ERJ 140': 0.517,
+    'MD-80'  : 0.481,
+    'C-130'  : 0.387,
+    'A350'   : 0.355,
+    'A380'   : 0.347,
+    'DC-3'   : 0.322,
+    'A340'   : 0.309,
+    'MD-11'  : 0.287,
+    '727'    : 0.262,
+    'ERJ 135': 0.224
 }
 
 
@@ -101,7 +101,7 @@ def create_game(seed):
         details = False
         while not details:
             random.seed(seed)
-            plane = random.choice(db.session.execute(db.select(Aircraft).where(Aircraft.typecode == ptype, Aircraft.viable == True, Aircraft.registration not in used)).scalars().all())
+            plane = random.choice(db.session.execute(db.select(Aircraft).filter_by(typecode=ptype, viable=True).where(~Aircraft.registration.in_(used))).scalars().all())
             details = call_api(plane) 
             time.sleep(random.uniform(0.13, 0.55))    # how low can this be to avoid 429 error?
         used.append(plane.registration)

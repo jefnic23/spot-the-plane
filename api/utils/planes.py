@@ -48,7 +48,7 @@ def generate_weights():
 
     df = pd.read_sql('planetypes', engine, index_col='model')
     df.sort_values(by='num_planes', ascending=False, inplace=True)
-    weights = [round(n,3) for n in np.random.uniform(0.34, 0.89, len(df.index))]
+    weights = [round(n,3) for n in np.random.uniform(0.21, 0.89, len(df.index))]
     weights.sort(reverse=True)
     df['weight'] = weights
 
@@ -62,12 +62,12 @@ def transfer_data():
     dev = db_engine()
     prod = create_engine(os.getenv('PROD'))
 
-    aircraft = pd.read_sql('aircraft', dev, index_col='registration')
-    # planetypes = pd.read_sql('planetypes', dev, index_col='model')
+    # aircraft = pd.read_sql('aircraft', dev, index_col='registration')
+    planetypes = pd.read_sql('planetypes', dev, index_col='model')
     # quotes = pd.read_sql('quotes', dev, index_col='index')
 
-    aircraft.to_sql('aircraft', prod, if_exists='replace')
-    # planetypes.to_sql('planetypes', prod, if_exists='replace')
+    # aircraft.to_sql('aircraft', prod, if_exists='replace')
+    planetypes.to_sql('planetypes', prod, if_exists='replace')
     # quotes.to_sql('quotes', prod, if_exists='replace')
 
 
@@ -89,7 +89,7 @@ def check_plane_viability():
     
     with Session(engine) as session:
         with session.begin():
-            rows = session.query(Aircraft).filter_by(typecode = "DC-3").all()
+            rows = session.query(Aircraft).filter_by(typecode = "Learjet").all()
             for row in tqdm(rows):
                 url = f'{BASE_URL}{row.registration}'
                 res = requests.get(url, headers=HEADERS)

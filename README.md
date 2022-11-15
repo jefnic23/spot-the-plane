@@ -17,7 +17,8 @@
 - [x] Instead of ERJ and E-Jet, use specific models
 - [ ] Add feedback button
 - [ ] Add button to mark planes with incorrect metadata
-- [ ] Fix shareable borders
+- [ ] Fix miniplane borders on shareable
+- [ ] Improve Lighthouse scores
 ---
 - Check all planes in DB for viability
     - [x] ERJ 140
@@ -41,5 +42,9 @@
     - [x] 727
     - [ ] MD-80
     - [ ] 747
-    - [ ] Learjet
+    - [x] Learjet
     - [ ] A380
+---
+### Ongoing
+
+- What are the optimum weights?
