@@ -8,7 +8,6 @@
 - [x] Move as many state variables to redux as possible
 - [ ] localStorage hooks
 - [ ] Logging
-- [ ] HamQuest
 - [ ] Refactor animations (to avoid using classes with timeouts)
 - [ ] CSS overhaul (sass modules?) 
 - [x] Add quotes to loading screen (get permission first)
@@ -19,7 +18,8 @@
 - [ ] Add button to mark planes with incorrect metadata
 - [ ] Fix miniplane borders on shareable
 - [ ] Improve Lighthouse scores
-- [ ] Change fullscreen menus into smaller modals?
+- [ ] Change fullscreen menus into smaller modals (only on desktop)
+- [ ] Create container component to get consistent styling
 ---
 - Check all planes in DB for viability
     - [x] ERJ 140
@@ -49,3 +49,4 @@
 ### Ongoing
 
 - What are the optimum weights?
+- Should I fetch plane data at midnight and store in db for 24 hours? To avoid making a lot of api calls, as well as making it easier to review the data?
