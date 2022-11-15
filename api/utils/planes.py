@@ -6,7 +6,7 @@ import numpy as np
 import pandas as pd
 import requests
 from dotenv import load_dotenv
-from sqlalchemy import create_engine, Boolean, Column, String
+from sqlalchemy import Boolean, Column, String, create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import Session
 from tqdm import tqdm

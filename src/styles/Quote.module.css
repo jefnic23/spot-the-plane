@@ -1,8 +1,4 @@
 .container {
-    display: flex;
-    flex-direction: column;
-    flex: 2;
-    justify-content: flex-start;
     width: 100%;
     max-width: 500px;
 }

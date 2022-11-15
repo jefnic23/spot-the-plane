@@ -1,12 +1,13 @@
 .container {
-	position: relative;
+	position: absolute;
     display: flex;
     flex-direction: column;
 	width: 100%;
-	height: calc(100vh - 50px);
 	overflow: visible;
 	justify-content: center;
 	row-gap: 5em;
+	top: 50%;
+	transform: translate(0, -62%);
 }
 
 .time_wrapper {
@@ -70,5 +71,6 @@
 
 	.container {
 		row-gap: 3em;
+		transform: translate(0, -50%);
 	}
 }

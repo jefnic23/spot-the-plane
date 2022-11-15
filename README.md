@@ -19,6 +19,7 @@
 - [ ] Add button to mark planes with incorrect metadata
 - [ ] Fix miniplane borders on shareable
 - [ ] Improve Lighthouse scores
+- [ ] Change fullscreen menus into smaller modals?
 ---
 - Check all planes in DB for viability
     - [x] ERJ 140

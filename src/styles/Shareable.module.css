@@ -30,7 +30,7 @@
 
 .shareable {
 	position: fixed;
-	top: -100%;
+	top: -1000%;
 	width: 300px;
 	display: flex;
 	flex-direction: column;

@@ -1,21 +1,24 @@
 .container {
-	position: relative;
+	position: absolute;
     display: flex;
     flex-direction: column;
 	width: 100%;
-	height: calc(100vh - 50px);
 	overflow: visible;
+	row-gap: 3em;
+	top: 50%;
+	transform: translate(0, -62%);
+}
+
+@media (max-width: 500px) {
+	.container {
+		transform: translate(0, -50%);
+	}
 }
 
 .pregame {
     width: 89%;
     margin: 0 auto;
     max-width: 377px;
-	display: flex;
-    flex-direction: column;
-	flex: 1;
-	justify-content: flex-end;
-	overflow: visible;
 }
 
 .wrapper {
