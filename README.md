@@ -19,7 +19,7 @@
 - [ ] Fix miniplane borders on shareable
 - [ ] Improve Lighthouse scores
 - [ ] Change fullscreen menus into smaller modals (only on desktop)
-- [ ] Create container component to get consistent styling
+- [x] Create container component to get consistent styling
 - [ ] Create custom global state provider to remove dependency on Redux
 ---
 - Check all planes in DB for viability
