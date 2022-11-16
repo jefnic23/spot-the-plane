@@ -1,20 +1,10 @@
-.container {
-	position: relative;
-    display: flex;
-    flex-direction: column;
-	width: 100%;
-	height: calc(100vh - 50px);
-	overflow: visible;
-	justify-content: center;
-	row-gap: 5em;
-}
-
 .time_wrapper {
 	display: flex;
     flex-direction: column;
     width: 100%;
     align-items: center;
 	justify-content: flex-end;
+	margin: 2em auto;
 }
 
 .results_wrapper {
@@ -23,6 +13,7 @@
     width: 100%;
     align-items: center;
 	justify-content: center;
+	margin: 2em auto;
 }
 
 .completion_time {
@@ -42,7 +33,7 @@
 	align-items: center;
 	width: 100%;
 	max-width: 500px;
-	margin: 0 auto;
+	margin: 2em auto;
 }
 
 .countdown {
@@ -66,9 +57,5 @@
 	
 	.countdown {
 		border-right: 0;
-	}
-
-	.container {
-		row-gap: 3em;
 	}
 }

@@ -1,8 +1,4 @@
 .container {
-    display: flex;
-    flex-direction: column;
-    flex: 2;
-    justify-content: flex-start;
     width: 100%;
     max-width: 500px;
 }
@@ -37,17 +33,4 @@
     font-style: bold;
     font-size: 1.08em;
     text-align: right;
-}
-
-@media only screen and (max-height: 1000px) {
-    .container {
-        flex: 1;
-    }
-}
-
-@media only screen and (max-height: 600px) {
-    .container {
-        visibility: hidden;
-        flex: 0;
-    }
 }

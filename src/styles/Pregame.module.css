@@ -1,27 +1,12 @@
-.container {
-	position: relative;
-    display: flex;
-    flex-direction: column;
-	width: 100%;
-	height: calc(100vh - 50px);
-	overflow: visible;
-}
-
 .pregame {
     width: 89%;
     margin: 0 auto;
     max-width: 377px;
-	display: flex;
-    flex-direction: column;
-	flex: 1;
-	justify-content: flex-end;
-	overflow: visible;
 }
 
 .wrapper {
 	display: flex;
     flex-direction: column;
-    flex: 2;
     justify-content: flex-start;
 	overflow: visible;
 }
@@ -51,10 +36,4 @@
 		cursor: pointer;
 		background-color: #005587;
 	}
-}
-
-@media only screen and (max-height: 1000px) {
-    .wrapper {
-        flex: 1;
-    }
 }

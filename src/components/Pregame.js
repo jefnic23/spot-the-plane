@@ -2,12 +2,13 @@ import React from 'react';
 import { useDispatch } from "react-redux";
 import { startGame } from '../store/pregameSlice';
 import styles from '../styles/Pregame.module.css';
+import Container from './Container';
 
 export default function Pregame({ animation }) {
     const dispatch = useDispatch();
 
     return (
-        <div className={`${styles.container} animate__animated ${animation} animate__faster`}>
+        <Container animation={animation}>
             <div className={styles.pregame}>
                 <p>See how quickly you can identify ten aircraft.</p>
                 <p>When you click <strong>START SPOTTING</strong>, a timer begins.</p>
@@ -22,6 +23,6 @@ export default function Pregame({ animation }) {
                     START SPOTTING
                 </button>
             </div>
-        </div>
+        </Container>
     );
 }
