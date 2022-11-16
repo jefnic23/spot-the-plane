@@ -1,20 +1,3 @@
-.container {
-	position: absolute;
-    display: flex;
-    flex-direction: column;
-	width: 100%;
-	overflow: visible;
-	row-gap: 3em;
-	top: 50%;
-	transform: translate(0, -62%);
-}
-
-@media (max-width: 500px) {
-	.container {
-		transform: translate(0, -50%);
-	}
-}
-
 .pregame {
     width: 89%;
     margin: 0 auto;
@@ -24,7 +7,6 @@
 .wrapper {
 	display: flex;
     flex-direction: column;
-    flex: 2;
     justify-content: flex-start;
 	overflow: visible;
 }
@@ -54,10 +36,4 @@
 		cursor: pointer;
 		background-color: #005587;
 	}
-}
-
-@media only screen and (max-height: 1000px) {
-    .wrapper {
-        flex: 1;
-    }
 }

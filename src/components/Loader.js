@@ -1,6 +1,7 @@
 import React from 'react';
 import Quote from './Quote';
 import styles from '../styles/Loader.module.css';
+import Container from './Container';
 
 export default function Loader() {
     const bubbles = () => {
@@ -12,7 +13,7 @@ export default function Loader() {
     }
 
     return (
-        <div className={`${styles.container} animate__animated animate__zoomIn animate__faster`}>
+        <Container animation='animate__zoomIn'>
             <div className={styles.wrapper}>
                 <div className={styles.loader}>
                     <div className={styles.title}>loading</div>
@@ -21,6 +22,6 @@ export default function Loader() {
                 </div>
             </div>
             <Quote />
-        </div>
+        </Container>
     );
 }

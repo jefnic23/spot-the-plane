@@ -7,6 +7,7 @@ import { selectMiniplanes } from "../store/counterSlice";
 import Countdown from "./Countdown";
 import Shareable from './Shareable';
 import styles from '../styles/Postgame.module.css';
+import Container from "./Container";
 
 export default function Postgame({ notify }) {
     const completionTime = useSelector(selectTime);
@@ -38,7 +39,7 @@ export default function Postgame({ notify }) {
     }, [completionTime, miniplanes, day]);
 
     return (
-        <div className={`${styles.container} animate__animated animate__fadeIn`}>
+        <Container animation="animate__fadeIn">
             <div className={styles.time_wrapper}>
                 <h1>Completion Time</h1>
                 <span className={styles.completion_time}>
@@ -68,6 +69,6 @@ export default function Postgame({ notify }) {
                     <Shareable notify={notify} />
                 </div>
             </div>
-        </div>
+        </Container>
     );
 }

@@ -6,6 +6,7 @@ import Timer from "./Timer";
 import Counter from './Counter';
 import Plane from './Plane';
 import AnswerButton from './AnswerButton';
+import Container from './Container';
 import styles from '../styles/Game.module.css';
 
 export default function Game({ data, animation }) {
@@ -84,7 +85,7 @@ export default function Game({ data, animation }) {
     }
 
     return (
-        <div className={`${styles.container} animate__animated ${compAnimation} animate__faster`}>
+        <Container animation={compAnimation}>
             <div className={styles.timer_wrapper}>
                 <Timer status={status} addTime={addTime} subTime={subTime} animate={animate} unanimate={unanimate} />
                 <div className={styles.miniplane_container}>
@@ -105,6 +106,6 @@ export default function Game({ data, animation }) {
                     }
                 </div>
             </div>
-        </div>
+        </Container>
     );
 }
