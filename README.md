@@ -50,4 +50,3 @@
 ### Ongoing
 
 - What are the optimum weights?
-- Should I fetch plane data at midnight and store in db for 24 hours? To avoid making a lot of api calls, as well as making it easier to review the data?
