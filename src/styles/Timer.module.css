@@ -12,3 +12,14 @@
 		color: #fff;
 	}
 }
+
+@media (max-height: 450px) {
+	.img_container {
+		padding: 1em;
+	}
+
+	.image {
+		width: calc(100vw - 2em);
+		height: calc((100vw - 2em) * (2/3));
+	}
+}

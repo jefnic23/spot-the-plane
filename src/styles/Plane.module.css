@@ -3,13 +3,13 @@
 	align-items: center;
 	justify-content: center;
 	margin: 0 auto;
-	padding-top: 1rem;
-	padding-bottom: 1rem;
+	padding: 1rem 0;
 }
 
 .image {
 	display: block;
-	width: 100%;
+	width: 420px;
+	height: 280px;
 }
 
 .link {
@@ -21,6 +21,11 @@
 
 @media (max-width: 450px) {
 	.img_container {
-		width: 95%;
+		padding: 1em;
+	}
+
+	.image {
+		width: calc(100vw - 2em);
+		height: calc((100vw - 2em) * (2/3));
 	}
 }
