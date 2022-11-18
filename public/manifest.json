@@ -9,6 +9,6 @@
     }
   ],
   "start_url": ".",
-  "display": "fullscreen",
+  "display": "fullscreen", // standalone?
   "theme_color": "#0033a1"
 }
