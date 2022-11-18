@@ -21,6 +21,8 @@
 - [ ] Change fullscreen menus into smaller modals (only on desktop)
 - [x] Create container component to get consistent styling
 - [ ] Create custom global state provider to remove dependency on Redux
+- [ ] PWA (make a shell in app stores)
+- [ ] If a mobile device hits the website, force fullscreen? Or throw a toast notification to go fullscreen?
 ---
 - Check all planes in DB for viability
     - [x] ERJ 140
