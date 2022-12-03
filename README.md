@@ -20,10 +20,12 @@
 - [ ] Improve Lighthouse scores
 - [ ] Change fullscreen menus into smaller modals (only on desktop)
 - [x] Create container component to get consistent styling
-- [ ] Create custom global state provider to remove dependency on Redux
 - [ ] PWA (make a shell in app stores)
 - [ ] If a mobile device hits the website, force fullscreen? Or throw a toast notification to go fullscreen?
+- [ ] create_game() should be a class, not function
+
 ---
+
 - Check all planes in DB for viability
     - [x] ERJ 140
     - [x] C-130
@@ -48,7 +50,9 @@
     - [ ] 747
     - [x] Learjet
     - [ ] A380
+
 ---
+
 ### Ongoing
 
 - What are the optimum weights?

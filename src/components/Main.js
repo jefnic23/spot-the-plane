@@ -6,6 +6,7 @@ import { setDay } from '../store/mainSlice';
 import { increment } from '../store/timerSlice';
 import { setMiniplanes } from '../store/counterSlice';
 import { selectGameStarted } from '../store/pregameSlice';
+import { selectNoShare } from '../store/resultsSlice';
 import { compDay } from '../utils/Helpers';
 import Loader from "./Loader";
 import Error from "./Error";
@@ -15,6 +16,8 @@ import Pregame from './Pregame';
 import Postgame from './Postgame';
 import Info from './Info';
 import Stats from './Stats';
+import Results from './Results';
+
 
 const notify = (msg) => toast(msg, {
     style: {
@@ -36,6 +39,7 @@ export default function Main() {
     const [data, setData] = useState();
     const gameStarted = useSelector(selectGameStarted);
     const gameOver = useSelector(selectGameOver);
+    const noShare = useSelector(selectNoShare);
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -132,6 +136,7 @@ export default function Main() {
             <Navbar openMenu={openMenu} />
             {info && <Info animation={menuAnimation} closeMenu={closeMenu} />}
             {stats && <Stats animation={menuAnimation} closeMenu={closeMenu} statistics={JSON.parse(localStorage.getItem('statistics'))} />}
+            {noShare && <Results />}
             {loaded ? 
                 error ? 
                     <Error />
