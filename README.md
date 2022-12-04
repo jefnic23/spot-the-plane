@@ -16,12 +16,12 @@
 - [x] Instead of ERJ and E-Jet, use specific models
 - [ ] Add feedback button
 - [ ] Add button to mark planes with incorrect metadata
-- [ ] Fix miniplane borders on shareable
+- [x] Fix miniplane borders on shareable
 - [ ] Improve Lighthouse scores
 - [ ] Change fullscreen menus into smaller modals (only on desktop)
 - [x] Create container component to get consistent styling
 - [ ] PWA (make a shell in app stores)
-- [ ] If a mobile device hits the website, force fullscreen? Or throw a toast notification to go fullscreen?
+- [ ] If a mobile device hits the website, prompt to add to home screen
 - [ ] create_game() should be a class, not function
 
 ---

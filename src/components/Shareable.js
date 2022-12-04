@@ -17,11 +17,12 @@ export default function Shareable ({ notify }) {
     const ref = useRef();
 
     const HtmlToImage = (el) => {
+        let isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
         let isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
         html2canvas(el).then((canvas) => {
             dispatch(setUrl(canvas.toDataURL()));
             canvas.toBlob((blob) => {
-                if (navigator.canShare && navigator.userAgentData.mobile) {
+                if (navigator.canShare && !isMobile) {
                     let f = [new File([blob], 'spottheplane.png', {type: blob.type, lastModified: day})];
                     navigator.share({files: f})
                     .then(() => console.log('Share successful.'))
