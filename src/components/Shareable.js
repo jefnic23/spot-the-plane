@@ -9,6 +9,7 @@ import html2canvas from 'html2canvas';
 import endplane from '../assets/endplane.png';
 import styles from '../styles/Shareable.module.css';
 
+
 export default function Shareable ({ notify }) {
     const completionTime = useSelector(selectTime);
     const day = useSelector(selectDay);
@@ -16,31 +17,33 @@ export default function Shareable ({ notify }) {
     const dispatch = useDispatch();
     const ref = useRef();
 
-    const HtmlToImage = (el) => {
-        let isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-        let isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
-        html2canvas(el).then((canvas) => {
-            dispatch(setUrl(canvas.toDataURL()));
-            canvas.toBlob((blob) => {
-                if (navigator.canShare && isMobile) {
-                    let f = [new File([blob], 'spottheplane.png', {type: blob.type, lastModified: day})];
-                    navigator.share({files: f})
-                    .then(() => console.log('Share successful.'))
-                    .catch((error) => console.log('Share failed', error));
+    // regex patterns for determing how shareable image is created/displayed
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+
+    const HtmlToImage = async (el) => {
+        // todo: is htmltoimage a better choice here?
+        let canvas = await html2canvas(el);
+        dispatch(setUrl(canvas.toDataURL()));
+        canvas.toBlob((blob) => {
+            if (navigator.canShare && isMobile) {
+                let f = [new File([blob], 'spottheplane.png', {type: blob.type, lastModified: day})];
+                navigator.share({files: f})
+                .then(() => console.log('Share successful.'))
+                .catch((error) => console.log('Share failed', error));
+            } else {
+                if (typeof window.ClipboardItem != 'undefined' && !isSafari) {
+                    navigator.clipboard.write(
+                        [new window.ClipboardItem({'image/png': blob})]
+                    ).then(() => {
+                        notify('Results copied to clipboard.');
+                    });
                 } else {
-                    if (typeof window.ClipboardItem != 'undefined' && !isSafari) {
-                        navigator.clipboard.write(
-                            [new window.ClipboardItem({'image/png': blob})]
-                        ).then(() => {
-                            notify('Results copied to clipboard.');
-                        });
-                    } else {
-                        dispatch(setAnimation('animate__fadeInUpBig'));
-                        dispatch(setNoShare(true));
-                        notify('Right click/hold to copy.');
-                    }
+                    dispatch(setAnimation('animate__fadeInUpBig'));
+                    dispatch(setNoShare(true));
+                    notify('Right click/hold to copy.');
                 }
-            });
+            }
         });
     }
 
