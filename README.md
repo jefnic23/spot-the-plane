@@ -22,7 +22,7 @@
 - [x] Create container component to get consistent styling
 - [ ] PWA (make a shell in app stores)
 - [ ] If a mobile device hits the website, prompt to add to home screen
-- [ ] create_game() should be a class, not function
+- [x] create_game() should be a class, not function
 
 ---
 
@@ -57,3 +57,4 @@
 
 - What are the optimum weights?
 - Should planes be grouped by make/model?
+- Create ML model to classify images; use the model to guess images and 
