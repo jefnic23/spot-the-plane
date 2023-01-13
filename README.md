@@ -57,4 +57,4 @@
 
 - What are the optimum weights?
 - Should planes be grouped by make/model?
-- Create ML model to classify images; use the model to guess images and 
+- Create ML model to classify images; use the model to score images based on likelihood of being mislabeled
