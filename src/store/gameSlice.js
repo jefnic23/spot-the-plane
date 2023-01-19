@@ -3,12 +3,12 @@ import { createSlice } from "@reduxjs/toolkit";
 export const gameSlice = createSlice({
     name: 'game',
     initialState: {
-        value: false,
+        value: false
     },
     reducers: {
         endGame: (state) => {
             state.value = true;
-        },
+        }
     },
 })
 

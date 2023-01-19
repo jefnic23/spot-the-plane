@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch } from "react-redux";
 import { endGame } from '../store/gameSlice';
 import { findAnswer } from '../utils/Helpers';
+import { getGameState, setGameState } from '../utils/Storage';
 import Timer from "./Timer";
 import Counter from './Counter';
 import Plane from './Plane';
@@ -12,6 +13,7 @@ import styles from '../styles/Game.module.css';
 export default function Game({ data, animation }) {
     const [status, setStatus] = useState(true);
     const [addTime, setAddTime] = useState(false);
+    const [updateCompletionTime, setCompletionTime] = useState(false);
     const [answered, setAnswered] = useState(false);
     const [animate, setAnimate] = useState(false);
     const [incCounter, setIncCounter] = useState(false);
@@ -36,9 +38,14 @@ export default function Game({ data, animation }) {
         setIncCounter(false);
     }
 
+    const stopCompletionTime = () => {
+        setCompletionTime(false);
+    }
+
     const nextQuestion = () => {
         setDisabled(true);
         setStopCount(true);
+        setCompletionTime(true);
         if (index === data.length - 1) {
             setStatus(false);
             setTimeout(() => {
@@ -55,6 +62,10 @@ export default function Game({ data, animation }) {
                 setPlaneAnimation('animate__backOutRight');
             }, 1500);
             setTimeout(() => {
+                let gameState = getGameState();
+                gameState.index += 1;
+                setGameState(gameState);
+
                 setPlaneAnimation('animate__backInLeft');
                 setButtonAnimation('animate__flipInX');
                 setIndex(i => i + 1);
@@ -87,7 +98,7 @@ export default function Game({ data, animation }) {
     return (
         <Container animation={compAnimation}>
             <div className={styles.timer_wrapper}>
-                <Timer status={status} addTime={addTime} subTime={subTime} animate={animate} unanimate={unanimate} />
+                <Timer status={status} addTime={addTime} subTime={subTime} animate={animate} unanimate={unanimate} updateCompletionTime={updateCompletionTime} stopCompletionTime={stopCompletionTime} />
                 <div className={styles.miniplane_container}>
                     {data && 
                         data.map((_, i) =>

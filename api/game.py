@@ -8,9 +8,10 @@ from api.app import db
 from api.models import Aircraft, Quote
 
 
-def get_quote():
+def get_quote(seed):
     '''Grabs a quote from the database.'''
     num_rows = db.session.execute(db.select(func.count(Quote.index))).scalar_one()
+    random.seed(seed)
     id = random.randint(0, num_rows)
     query = db.session.execute(db.select(Quote).where(Quote.index == id)).scalar_one()
     return {'quote': query.quote, 'author': query.author}

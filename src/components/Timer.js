@@ -3,6 +3,7 @@ import { render } from '../utils/Helpers';
 import { useSelector, useDispatch } from "react-redux";
 import { increment, selectTime } from '../store/timerSlice';
 import styles from '../styles/Timer.module.css';
+import { getGameState, setGameState } from '../utils/Storage';
 
 function useInterval(callback, delay) {
     const savedCallback = useRef();
@@ -22,7 +23,7 @@ function useInterval(callback, delay) {
     }, [delay]);
 }
 
-export default function Timer({ status, addTime, subTime, animate, unanimate }) {
+export default function Timer({ status, addTime, subTime, animate, unanimate, updateCompletionTime, stopCompletionTime }) {
     const time = useSelector(selectTime);
     const dispatch = useDispatch();
 
@@ -36,6 +37,15 @@ export default function Timer({ status, addTime, subTime, animate, unanimate }) 
             subTime();
         }
     }, [addTime, subTime, dispatch]);
+
+    useEffect(() => {
+        if (updateCompletionTime) {
+            let gameState = getGameState();
+            gameState.completionTime = time;
+            setGameState(gameState);
+            stopCompletionTime();
+        }
+    }, [updateCompletionTime, stopCompletionTime, time])
 
     return (
         <div className={styles.timer}>

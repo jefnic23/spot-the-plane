@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { updateMiniplanes } from '../store/counterSlice';
+import { getGameState, setGameState } from "../utils/Storage";
 
 export default function Counter({ id, index, incCounter, decCounter, stopCount, answered, nextQuestion }) {
     const [used, setUsed] = useState(false);
@@ -28,6 +29,9 @@ export default function Counter({ id, index, incCounter, decCounter, stopCount, 
                 }, 100);
             }
             if (answered) {
+                let gameState = getGameState();
+                gameState.rgb.push({r: red, g: green, b: blue});
+                setGameState(gameState);
                 dispatch(updateMiniplanes({r: red, g: green, b: blue}));
                 nextQuestion();
             }
