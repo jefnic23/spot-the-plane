@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
 import { useSelector, useDispatch } from "react-redux";
-import { endGame, selectGameOver } from './store/gameSlice';
+import { setIndex, endGame, selectGameOver } from './store/gameSlice';
 import { setDay } from './store/mainSlice';
 import { increment } from './store/timerSlice';
 import { setMiniplanes } from './store/counterSlice';
 import { selectGameStarted } from './store/pregameSlice';
 import { selectNoShare } from './store/resultsSlice';
 import { compDay } from './utils/Helpers';
-import { getGameState, getStatistics, setGameState, setStatistics } from './utils/Storage';
+import { getGameState, getStatistics, setGameState, setStatistics, resetGameState } from './utils/Storage';
 import Loader from "./components/Loader";
 import Error from "./components/Error";
 import Navbar from "./components/Navbar";
@@ -34,6 +34,7 @@ export default function App() {
     const [loaded, setLoaded] = useState(false);
     const [animation, setAnimation] = useState('animate__fadeIn');
     const [menuAnimation, setMenuAnimation] = useState();
+    const [resumed, setResumed] = useState(false);
     const [info, setInfo] = useState(false);
     const [stats, setStats] = useState(false);
     const [begun, setBegun] = useState(false);
@@ -47,15 +48,20 @@ export default function App() {
     useEffect(() => {
         let gameState = getGameState();
         let statistics = getStatistics();
-        if (!gameState || gameState.status === 'not_started' || compDay() > statistics.lastPlayed || statistics.lastPlayed === 'Never') {
-            fetch(`/api/game?seed=${compDay()}`, { method: "GET" })
+        
+        let today = compDay();
+        let status = gameState.status;
+
+        if (today > statistics.lastPlayed || statistics.lastPlayed === 'Never') {
+            fetch(`/api/game?seed=${today}`, { method: "GET" })
             .then(res => res.json())
             .then(data => {
                 // update game state
-                gameState.status = 'in_progress';
-                gameState.data = data.data;
-                gameState.images = data.images;
-
+                gameState = resetGameState(data.data, data.images);
+                statistics.lastPlayed = today;
+                setGameState(gameState);
+                setStatistics(statistics);
+                
                 dispatch(setDay(data.day));
                 setData(data.data);
                 cacheImages(data.images);
@@ -64,12 +70,20 @@ export default function App() {
                 console.log(err);
                 setError(true);
                 setLoaded(true);
-            });                
-        } else if (gameState.status === 'in_progress') {
+            }); 
+        }
+        
+        if (status === 'in_progress') {
+            dispatch(setDay(today));
+            dispatch(setIndex(gameState.rgb.length));
+            dispatch(setMiniplanes(gameState.rgb));
+            dispatch(increment(gameState.completionTime));
+            setData(gameState.data);
+            setResumed(true);
             cacheImages(gameState.images);
-            setBegun(true);
-            setLoaded(true);
-        } else {
+        }
+    
+        if (status === 'complete' && today === statistics.lastPlayed) {
             dispatch(setDay(statistics.lastPlayed));
             dispatch(increment(gameState.completionTime));
             dispatch(setMiniplanes(gameState.rgb));
@@ -77,8 +91,6 @@ export default function App() {
             setLoaded(true);
             dispatch(endGame());
         }
-        setGameState(gameState);
-        setStatistics(statistics);
     }, [dispatch]);
 
     useEffect(() => {
@@ -146,7 +158,7 @@ export default function App() {
                 :
                     <>
                         {!begun && <Pregame animation={animation} />}
-                        {begun && !gameOver && <Game data={data} animation={animation} />}
+                        {begun && !gameOver && <Game data={data} animation={animation} resumed={resumed} />}
                         {gameOver && <Postgame notify={notify} />}
                     </>
             :

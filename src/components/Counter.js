@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { updateMiniplanes } from '../store/counterSlice';
+import { useDispatch, useSelector } from "react-redux";
+import { selectMiniplanes, updateMiniplanes } from '../store/counterSlice';
 import { getGameState, setGameState } from "../utils/Storage";
 
-export default function Counter({ id, index, incCounter, decCounter, stopCount, answered, nextQuestion }) {
+export default function Counter({ id, index, incCounter, decCounter, stopCount, answered, nextQuestion, resumed }) {
     const [used, setUsed] = useState(false);
     const [red, setRed] = useState(0);
     const [green, setGreen] = useState(255);
     const [blue, setBlue] = useState(255);
     const [opacity, setOpacity] = useState(0.21);
+    const miniplanes = useSelector(selectMiniplanes);
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -38,6 +39,17 @@ export default function Counter({ id, index, incCounter, decCounter, stopCount, 
             return () => clearInterval(interval);
         } 
     }, [id, index, red, green, blue, incCounter, decCounter, stopCount, answered, nextQuestion, dispatch]);
+
+    useEffect(() => {
+        if (resumed && id < index) {
+            console.log(miniplanes[id]);
+            setUsed(true);
+            setBlue(0);
+            setOpacity(1);
+            setRed(miniplanes[id].r);
+            setGreen(miniplanes[id].g);
+        }
+    }, [resumed, id, index, miniplanes]);
 
     return (
         <span 

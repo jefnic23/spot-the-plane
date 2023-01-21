@@ -1,13 +1,11 @@
 export function getGameState() {
     // create empty game state object
     let defaultGameState = {
-        'completionTime': '', 
-        'answers': [], 
+        'completionTime': '',
         'status': 'not_started', 
         'rgb': [],
         'data': [],
-        'images': [],
-        'index': 0
+        'images': []
     };
     // check to see if game state object exists in local storage
     let storedGameState = localStorage.getItem('game_state');
@@ -17,6 +15,16 @@ export function getGameState() {
 
 export function setGameState(gameState) {
     return localStorage.setItem('game_state', JSON.stringify(gameState));
+}
+
+export function resetGameState(data, images) {
+    return {
+        'completionTime': '',
+        'status': 'in_progress', 
+        'rgb': [],
+        'data': data,
+        'images': images
+    }
 }
 
 export function getStatistics() {
