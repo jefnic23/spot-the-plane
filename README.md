@@ -1,12 +1,13 @@
 # TODO
 
 - [ ] Add some sort of review tab where photos of the day are stored with links
-- [ ] Keep track of game state in local storage so that users can't reload page to restart game
+- [x] Keep track of game state in local storage so that users can't reload page to restart game
 - [ ] If a user leaves the game before finishing, prompt to continue playing when they go to resume
 - [ ] Add support buttons (BuyMeACoffee, etc.) to postgame screen
 - [x] Add Google analytics
 - [x] Store best time in local storage
-- [x] Move as many state variables to redux as possible
+- [x] ~~~Move as many state variables to redux as possible~~~
+- [ ] Create custom global storage; move most logic there
 - [ ] localStorage hooks
 - [ ] Logging
 - [ ] Refactor animations (to avoid using classes with timeouts)
