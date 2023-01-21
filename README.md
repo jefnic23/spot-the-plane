@@ -6,7 +6,7 @@
 - [ ] Add support buttons (BuyMeACoffee, etc.) to postgame screen
 - [x] Add Google analytics
 - [x] Store best time in local storage
-- [x] ~~~Move as many state variables to redux as possible~~~
+- [x] ~~Move as many state variables to redux as possible~~
 - [ ] Create custom global storage; move most logic there
 - [ ] localStorage hooks
 - [ ] Logging
