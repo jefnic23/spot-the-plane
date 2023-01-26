@@ -52,7 +52,7 @@ export default function App() {
         let today = compDay();
         let status = gameState.status;
 
-        if (today > statistics.lastPlayed || statistics.lastPlayed === 'Never') {
+        if ((today > statistics.lastPlayed || statistics.lastPlayed === 'Never') && status !== 'in_progress') {
             fetch(`/api/game?seed=${today}`, { method: "GET" })
             .then(res => res.json())
             .then(data => {
@@ -74,6 +74,7 @@ export default function App() {
         }
         
         if (status === 'in_progress') {
+            // resume game
             dispatch(setDay(today));
             dispatch(setIndex(gameState.rgb.length));
             dispatch(setMiniplanes(gameState.rgb));

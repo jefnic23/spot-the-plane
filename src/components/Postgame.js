@@ -8,6 +8,7 @@ import Countdown from "./Countdown";
 import Shareable from './Shareable';
 import styles from '../styles/Postgame.module.css';
 import Container from "./Container";
+import { getGameState, getStatistics, setGameState, setStatistics } from "../utils/Storage";
 
 export default function Postgame({ notify }) {
     const completionTime = useSelector(selectTime);
@@ -15,26 +16,27 @@ export default function Postgame({ notify }) {
     const miniplanes = useSelector(selectMiniplanes);
 
     useEffect(() => {
-        let gameState = localStorage.getItem('game_state') ? 
-            JSON.parse(localStorage.getItem('game_state')) :  {'completionTime': '', 'answers': [], 'status': 'in_progress', 'rgb': []}
-        ;
-        let statistics = (localStorage.getItem('statistics') && !JSON.parse(localStorage.getItem('statistics')).avgTimePerQuestion) ?
-            JSON.parse(localStorage.getItem('statistics')) : {'daysPlayed': 0, 'totalGameTime': 0, 'avgTime': 0, 'bestTime': null, 'lastPlayed': 'Never'}
-        ;
+        let gameState = getGameState();
+        let statistics = getStatistics();
+
         if (day > statistics.lastPlayed || statistics.lastPlayed === "Never") {
             gameState.completionTime = completionTime;
             gameState.status = 'complete';
             gameState.rgb = miniplanes;
-            localStorage.setItem('game_state', JSON.stringify(gameState));
+            
             statistics.daysPlayed += 1;
             statistics.totalGameTime += completionTime;
             statistics.avgTime = statistics.totalGameTime / statistics.daysPlayed;
             statistics.bestTime = (statistics.bestTime == null || completionTime < statistics.bestTime) ? completionTime : statistics.bestTime;
             statistics.lastPlayed = day;
-            if (JSON.parse(localStorage.getItem('statistics')).avgTimePerQuestion) {
-                localStorage.removeItem('statistics');
-            }
-            localStorage.setItem('statistics', JSON.stringify(statistics));
+
+            // probably not needed anymore; code for legacy users (nobody, likely)
+            // if (JSON.parse(localStorage.getItem('statistics')).avgTimePerQuestion) {
+            //     localStorage.removeItem('statistics');
+            // }
+
+            setGameState(gameState);
+            setStatistics(statistics);
         }
     }, [completionTime, miniplanes, day]);
 
