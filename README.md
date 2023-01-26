@@ -1,18 +1,20 @@
 # TODO
 
 - [ ] Add some sort of review tab where photos of the day are stored with links
-- [ ] Keep track of game state in local storage so that users can't reload page to restart game
+- [x] Keep track of game state in local storage so that users can't reload page to restart game
+- [ ] If a user leaves the game before finishing, prompt to continue playing when they go to resume
 - [ ] Add support buttons (BuyMeACoffee, etc.) to postgame screen
 - [x] Add Google analytics
 - [x] Store best time in local storage
-- [x] Move as many state variables to redux as possible
+- [x] ~~Move as many state variables to redux as possible~~
+- [ ] Create custom global storage; move most logic there
 - [ ] localStorage hooks
 - [ ] Logging
 - [ ] Refactor animations (to avoid using classes with timeouts)
 - [ ] CSS overhaul (sass modules?)
 - [x] Add quotes to loading screen (get permission first)
 - [ ] Quote reveal animation: slide border from right to left
-- [ ] Normalize quotes/authors in database
+- [ ] Normalize quotes/authors in database (remove new lines, i.e., \n)
 - [x] Instead of ERJ and E-Jet, use specific models
 - [ ] Add feedback button
 - [ ] Add button to mark planes with incorrect metadata
@@ -22,7 +24,9 @@
 - [x] Create container component to get consistent styling
 - [ ] PWA (make a shell in app stores)
 - [ ] If a mobile device hits the website, prompt to add to home screen
-- [ ] create_game() should be a class, not function
+- [x] create_game() should be a class, not function
+- [ ] rate limiting? e.g. Flask-Limiter
+- [x] move Main.js code into App.js
 
 ---
 
@@ -57,3 +61,4 @@
 
 - What are the optimum weights?
 - Should planes be grouped by make/model?
+- Create ML model to classify images; use the model to score images based on likelihood of being mislabeled

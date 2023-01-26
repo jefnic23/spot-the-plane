@@ -1,5 +1,7 @@
 import React from 'react';
 
+// get current day as YYYYMMDD from the client
+// to use as the seed for generating the game
 export function compDay() {
     let today = new Date();
     let yyyy = today.getFullYear();

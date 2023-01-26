@@ -1,16 +1,18 @@
 from flask import Blueprint, request
 
-from api.data import create_game, get_quote
+from api.game import Game, get_quote
 
 bp = Blueprint('game', __name__)
 
 
-@bp.route('/api/game', methods=['POST']) 
+@bp.route('/api/game', methods=['GET']) 
 def game():
-    seed = request.get_json()['seed']
-    return create_game(seed)
+    seed = int(request.args.get('seed'))
+    game = Game(seed)
+    return game.create_game()
 
 
 @bp.route('/api/quote', methods=['GET'])
 def quote():
-    return get_quote()
+    seed = int(request.args.get('seed'))
+    return get_quote(seed)

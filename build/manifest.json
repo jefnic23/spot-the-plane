@@ -1,6 +1,7 @@
 {
   "short_name": "SpotThePlane",
   "name": "SpotThePlane",
+  "description": "Guess the plane.",
   "icons": [
     {
       "src": "favicon.ico",
@@ -9,6 +10,6 @@
     }
   ],
   "start_url": ".",
-  "display": "fullscreen",
+  "display": "standalone",
   "theme_color": "#0033a1"
 }
