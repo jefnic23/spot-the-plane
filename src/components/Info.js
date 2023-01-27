@@ -25,7 +25,7 @@ export default function Info({ animation, closeMenu }) {
                     <Coffee />
                 </div>
             </div>
-            <div className={styles.footnote}>&copy; 2022 Jeff Nicholas</div>
+            <div className={styles.footnote}>&copy; 2023 Jeff Nicholas</div>
         </div>
     );
 }

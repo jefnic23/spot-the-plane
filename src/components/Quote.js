@@ -1,28 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+import { useSelector } from 'react-redux';
+import { selectAuthor, selectQuote } from '../store/quoteSlice';
 import styles from '../styles/Quote.module.css';
-import { compDay } from '../utils/Helpers';
-import { getGameState } from '../utils/Storage';
 
 export default function Quote() {
-    const [quote, setQuote] = useState("");
-    const [author, setAuthor] = useState("");
-    
-    useEffect(() => {
-        let gameState = getGameState();
-        let isGameOver = gameState.status === 'complete';
-
-        if (!isGameOver) {
-            fetch(`/api/quote?seed=${compDay()}`, { method: "GET" })
-            .then(res => res.json())
-            .then(data => {
-                setQuote(data.quote);
-                setAuthor(data.author);
-            })
-            .catch(err => {
-                console.log(err);
-            });
-        }
-    }, []);
+    const quote = useSelector(selectQuote);
+    const author = useSelector(selectAuthor);
 
     return (
         <div className={styles.container}>

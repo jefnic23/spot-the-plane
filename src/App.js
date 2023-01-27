@@ -19,6 +19,7 @@ import Info from './components/Info';
 import Stats from './components/Stats';
 import Results from './components/Results';
 import './index.css';
+import { setQuote } from './store/quoteSlice';
 
 const notify = (msg) => toast(msg, {
     style: {
@@ -53,12 +54,21 @@ export default function App() {
         let status = gameState.status;
 
         if ((today > statistics.lastPlayed || statistics.lastPlayed === 'Never') && status !== 'in_progress') {
+            fetch(`/api/quote?seed=${compDay()}`, { method: "GET" })
+            .then(res => res.json())
+            .then(data => {
+                dispatch(setQuote({quote: data.quote, author: data.author}));
+            })
+            .catch(err => {
+                console.log(err);
+            });
+
             fetch(`/api/game?seed=${today}`, { method: "GET" })
             .then(res => res.json())
             .then(data => {
                 // update game state
                 gameState = resetGameState(data.data, data.images);
-                statistics.lastPlayed = today;
+                // statistics.lastPlayed = today;
                 setGameState(gameState);
                 setStatistics(statistics);
                 
@@ -158,7 +168,7 @@ export default function App() {
                     <Error />
                 :
                     <>
-                        {!begun && <Pregame animation={animation} />}
+                        {!begun && <Pregame animation={animation} resumed={resumed} />}
                         {begun && !gameOver && <Game data={data} animation={animation} resumed={resumed} />}
                         {gameOver && <Postgame notify={notify} />}
                     </>

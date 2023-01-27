@@ -5,6 +5,7 @@ import mainReducer from './store/mainSlice';
 import resultsReducer from './store/resultsSlice';
 import timerReducer from './store/timerSlice';
 import pregameReducer from './store/pregameSlice';
+import quoteReducer from './store/quoteSlice';
 
 export default configureStore({
     reducer: {
@@ -13,6 +14,7 @@ export default configureStore({
         main: mainReducer,
         results: resultsReducer,
         timer: timerReducer,
-        pregame: pregameReducer
+        pregame: pregameReducer,
+        quote: quoteReducer
     },
 });
