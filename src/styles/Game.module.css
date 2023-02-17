@@ -7,6 +7,7 @@
 .plane_wrapper {
 	display: flex;
 	flex-direction: column;
+	max-width: 100%;
 }
 
 .miniplane_container {

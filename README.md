@@ -1,11 +1,8 @@
 # TODO
 
 - [ ] Add some sort of review tab where photos of the day are stored with links
-- [x] Keep track of game state in local storage so that users can't reload page to restart game
 - [ ] If a user leaves the game before finishing, prompt to continue playing when they go to resume
 - [ ] Add support buttons (BuyMeACoffee, etc.) to postgame screen
-- [x] Add Google analytics
-- [x] Store best time in local storage
 - [x] ~~Move as many state variables to redux as possible~~
 - [ ] Create custom global storage; move most logic there
 - [ ] localStorage hooks
@@ -21,12 +18,9 @@
 - [x] Fix miniplane borders on shareable
 - [ ] Improve Lighthouse scores
 - [ ] Change fullscreen menus into smaller modals (only on desktop)
-- [x] Create container component to get consistent styling
 - [ ] PWA (make a shell in app stores)
 - [ ] If a mobile device hits the website, prompt to add to home screen
-- [x] create_game() should be a class, not function
 - [ ] rate limiting? e.g. Flask-Limiter
-- [x] move Main.js code into App.js
 
 ---
 

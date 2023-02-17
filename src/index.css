@@ -1,13 +1,17 @@
 * {
 	font-family: "Roboto", sans-serif;
-	overflow: hidden;
 	color: #fff;
 	box-sizing: border-box;
 }
 
+html, body {
+	margin: 0;
+	height: 100%;
+	overflow: hidden;
+}
+
 body {
     background: #121213;
-	margin: 0;
 }
 
 hr {
