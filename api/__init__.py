@@ -1,1 +1,1 @@
-from api.app import create_app, db
+from api.main import create_app, db

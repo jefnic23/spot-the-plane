@@ -1,1 +1,1 @@
-web: gunicorn --chdir api spot_the_plane:app --preload
+web: uvicorn --chdir api spot_the_plane:app --reload

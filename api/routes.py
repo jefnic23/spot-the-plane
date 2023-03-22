@@ -1,18 +1,16 @@
-from flask import Blueprint, request
+from fastapi import APIRouter
 
 from api.game import Game, get_quote
 
-bp = Blueprint('game', __name__)
+router = APIRouter()
 
 
-@bp.route('/api/game', methods=['GET']) 
-def game():
-    seed = int(request.args.get('seed'))
+@router.get('/api/game') 
+async def game(seed: int):
     game = Game(seed)
     return game.create_game()
 
 
-@bp.route('/api/quote', methods=['GET'])
-def quote():
-    seed = int(request.args.get('seed'))
+@router.get('/api/quote')
+async def quote(seed: int):
     return get_quote(seed)

@@ -18,7 +18,7 @@
 - [x] Fix miniplane borders on shareable
 - [ ] Improve Lighthouse scores
 - [ ] Change fullscreen menus into smaller modals (only on desktop)
-- [ ] PWA (make a shell in app stores)
+- [ ] PWA
 - [ ] If a mobile device hits the website, prompt to add to home screen
 - [ ] rate limiting? e.g. Flask-Limiter
 

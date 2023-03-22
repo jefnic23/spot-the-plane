@@ -1,4 +1,4 @@
-from api.app import db
+from api.main import db
 
 
 class Aircraft(db.Model):

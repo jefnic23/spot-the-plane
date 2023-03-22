@@ -4,7 +4,7 @@ import time
 import requests
 from sqlalchemy import func
 
-from api.app import db
+from api.main import db
 from api.models import Aircraft, Quote
 
 
