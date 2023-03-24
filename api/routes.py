@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 
-from api.game import Game, get_quote
+from game import Game, get_quote
 
 router = APIRouter()
 

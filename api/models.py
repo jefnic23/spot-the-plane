@@ -1,25 +1,29 @@
-from api.main import db
+from sqlalchemy import Column, Integer, String, Boolean, Float
+from sqlalchemy.orm import declarative_base
 
 
-class Aircraft(db.Model):
+Base = declarative_base()
+
+
+class Aircraft(Base):
     __tablename__ = "aircraft"
-    registration = db.Column(db.String(), primary_key=True)
-    manufacturericao = db.Column(db.String(), nullable=False)
-    model = db.Column(db.String(), nullable=False)
-    typecode = db.Column(db.String(), nullable=False)
-    viable = db.Column(db.Boolean, nullable=False, default=True)
+    registration = Column(String(255), primary_key=True)
+    manufacturericao = Column(String(255), nullable=False)
+    model = Column(String(255), nullable=False)
+    typecode = Column(String(255), nullable=False)
+    viable = Column(Boolean, nullable=False, default=True)
 
 
-class PlaneType(db.Model):
+class PlaneType(Base):
     __tablename__ = "planetypes"
-    model = db.Column(db.String(), primary_key=True)
-    num_planes = db.Column(db.Integer, nullable=False)
-    weight = db.Column(db.Float, nullable=True)
+    model = Column(String(255), primary_key=True)
+    num_planes = Column(Integer, nullable=False)
+    weight = Column(Float, nullable=True)
 
 
-class Quote(db.Model):
+class Quote(Base):
     __tablename__ = "quotes"
-    index = db.Column(db.Integer, primary_key=True)
-    quote = db.Column(db.String(), nullable=False)
-    author = db.Column(db.String(), nullable=False)
+    index = Column(Integer, primary_key=True)
+    quote = Column(String(255), nullable=False)
+    author = Column(String(255), nullable=False)
     

@@ -2,10 +2,12 @@ import random
 import time
 
 import requests
+from models import Aircraft, Quote
 from sqlalchemy import func
+from sqlalchemy.orm import Session
 
-from api.main import db
-from api.models import Aircraft, Quote
+
+db = Session()
 
 
 def get_quote(seed):
