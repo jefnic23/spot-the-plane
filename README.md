@@ -20,7 +20,8 @@
 - [ ] Change fullscreen menus into smaller modals (only on desktop)
 - [ ] PWA
 - [ ] If a mobile device hits the website, prompt to add to home screen
-- [ ] rate limiting? e.g. Flask-Limiter
+- [ ] rate limiting?
+- [ ] Model and Planes tables should be foreign-keyed
 
 ---
 
