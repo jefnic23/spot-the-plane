@@ -1,20 +1,22 @@
+import asyncio
 import random
-import time
 
-import requests
+import aiohttp
 from database import db
 from models import Aircraft, Quote
 from sqlalchemy import func
 from sqlalchemy.future import select
 
 
-async def get_quote(seed):
+async def get_quote(seed: int) -> dict[str, str]:
     '''Grabs a quote from the database.'''
-    num_rows = await db.execute(select(func.count(Quote.index))).scalar_one()
-    random.seed(seed)
-    id = random.randint(0, num_rows)
-    query = await db.execute(select(Quote).where(Quote.index == id)).scalar_one()
-    return {'quote': query.quote, 'author': query.author}
+    async with db.session() as conn:
+        num_rows = await conn.execute(select(func.count(Quote.index)))
+        random.seed(seed)
+        id = random.randint(0, num_rows.scalar_one())
+        query = await conn.execute(select(Quote).where(Quote.index == id))
+        res = query.scalars().first()
+        return {'quote': res.quote, 'author': res.author}
 
 
 class Game:
@@ -82,26 +84,28 @@ class Game:
     # make call to planespotters.net
     async def call_api(self, plane: Aircraft, base_url=BASE_URL, headers=HEADERS):
         url = f'{base_url}{plane.registration}'
-        res = requests.get(url, headers=headers)
-        if res.status_code not in [200, 201]:
-            res.raise_for_status()
-        else:
-            if res.json()['photos']:
-                data = res.json()['photos'][0]
-                pic = data['thumbnail_large']['src']
-                link = data['link']
-                photog = data['photographer']
-                return {
-                    "pic": pic,
-                    "link": link,
-                    "copyright": f'\u00a9 {photog}'
-                }
-            else:
-                # planespotters.net has no pics of this plane; mark it as non-viable
-                plane.viable = False
-                await db.commit()
-
-                return False
+        async with aiohttp.ClientSession() as client:
+            async with client.get(url, headers=headers) as res:
+                if res.status not in [200, 201]:
+                    await res.raise_for_status()
+                else:
+                    response = await res.json()
+                    if response['photos']:
+                        data = response['photos'][0]
+                        pic = data['thumbnail_large']['src']
+                        link = data['link']
+                        photog = data['photographer']
+                        return {
+                            "pic": pic,
+                            "link": link,
+                            "copyright": f'\u00a9 {photog}'
+                        }
+                    else:
+                        # planespotters.net has no pics of this plane; mark it as non-viable
+                        async with db.session() as session:
+                            plane.viable = False
+                            await session.commit()
+                        return False
 
     # create the game
     async def create_game(self):
@@ -115,7 +119,7 @@ class Game:
                     query = await session.execute(select(Aircraft).filter_by(typecode=plane_type, viable=True).where(~Aircraft.registration.in_(self.used)))
                     plane = random.choice(query.scalars().all())
                     details = await self.call_api(plane) 
-                    time.sleep(random.uniform(0.21, 0.55))
+                    await asyncio.sleep(random.uniform(0.21, 0.55))
 
                 # add plane to the game
                 self.used.append(plane.registration)
