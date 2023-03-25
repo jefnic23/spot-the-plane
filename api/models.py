@@ -1,8 +1,5 @@
-from sqlalchemy import Column, Integer, String, Boolean, Float
-from sqlalchemy.orm import declarative_base
-
-
-Base = declarative_base()
+from sqlalchemy import Boolean, Column, Float, Integer, String
+from database import Base
 
 
 class Aircraft(Base):
