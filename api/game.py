@@ -75,7 +75,12 @@ class Game:
 
 
     # make call to planespotters.net
-    async def call_api(self, plane: Aircraft, base_url=BASE_URL, headers=HEADERS):
+    async def call_api(
+            self, 
+            plane: Aircraft, 
+            base_url: str = BASE_URL, 
+            headers: dict[str, str] = HEADERS
+        ) -> dict[str, str] | bool:
         url = f'{base_url}{plane.registration}'
         json = await request_async(url, headers=headers)
         if json['photos']:
