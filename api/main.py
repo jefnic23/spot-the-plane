@@ -16,6 +16,10 @@ def create_app():
         allow_headers=["*"],
     )
 
+    app.include_router(router)
+
+    app.mount('/', StaticFiles(directory='../build/'), name='static')
+
     @app.on_event('startup')
     async def startup():
         await db.get_session()
@@ -23,10 +27,6 @@ def create_app():
     @app.on_event('shutdown')
     async def shutdown():
         await db.close()
-
-    app.include_router(router)
-
-    app.mount('/', StaticFiles(directory='../build/'), name='static')
 
     @app.get('/')
     def index():
