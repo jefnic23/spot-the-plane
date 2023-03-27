@@ -1,1 +1,1 @@
-web: uvicorn --chdir api main:app --reload
+web: uvicorn api.main:app --reload
