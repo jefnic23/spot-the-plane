@@ -8,7 +8,11 @@ Base = declarative_base()
 
 class Database:
     def __init__(self):
-        self.engine = create_async_engine(settings.DATABASE_URL, echo=True, future=True)
+        self.engine = create_async_engine(
+            settings.DATABASE_URL.replace('postgres', 'postgresql+asyncpg'),
+            echo=True,
+            future=True
+        )
         self.session = async_sessionmaker(
             self.engine, 
             expire_on_commit=False, 
