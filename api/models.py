@@ -1,25 +1,29 @@
-from api.app import db
+from database import Base
+from sqlalchemy import ForeignKey
+from sqlalchemy.orm import Mapped, mapped_column
 
 
-class Aircraft(db.Model):
+class Aircraft(Base):
     __tablename__ = "aircraft"
-    registration = db.Column(db.String(), primary_key=True)
-    manufacturericao = db.Column(db.String(), nullable=False)
-    model = db.Column(db.String(), nullable=False)
-    typecode = db.Column(db.String(), nullable=False)
-    viable = db.Column(db.Boolean, nullable=False, default=True)
+
+    registration: Mapped[str] = mapped_column(primary_key=True)
+    manufacturericao: Mapped[str] = mapped_column(nullable=False)
+    model: Mapped[str] = mapped_column(nullable=False)
+    typecode: Mapped[str] = mapped_column(ForeignKey('planetypes.model'), nullable=False)
+    viable: Mapped[bool] = mapped_column(nullable=False, default=True)
 
 
-class PlaneType(db.Model):
+class PlaneType(Base):
     __tablename__ = "planetypes"
-    model = db.Column(db.String(), primary_key=True)
-    num_planes = db.Column(db.Integer, nullable=False)
-    weight = db.Column(db.Float, nullable=True)
+
+    model: Mapped[str] = mapped_column(primary_key=True)
+    num_planes: Mapped[int] = mapped_column(nullable=False)
+    weight: Mapped[float] = mapped_column(nullable=True)
 
 
-class Quote(db.Model):
+class Quote(Base):
     __tablename__ = "quotes"
-    index = db.Column(db.Integer, primary_key=True)
-    quote = db.Column(db.String(), nullable=False)
-    author = db.Column(db.String(), nullable=False)
-    
+
+    index: Mapped[int] = mapped_column(primary_key=True)
+    quote: Mapped[str] = mapped_column(nullable=False)
+    author: Mapped[str] = mapped_column(nullable=False)

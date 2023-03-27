@@ -53,7 +53,7 @@ export default function App() {
         let today = compDay();
         let status = gameState.status;
 
-        if ((today > statistics.lastPlayed || statistics.lastPlayed === 'Never') && status !== 'in_progress') {
+        if (today > statistics.lastPlayed || today > gameState.day) {
             fetch(`/api/quote?seed=${compDay()}`, { method: "GET" })
             .then(res => res.json())
             .then(data => {
@@ -67,7 +67,7 @@ export default function App() {
             .then(res => res.json())
             .then(data => {
                 // update game state
-                gameState = resetGameState(data.data, data.images);
+                gameState = resetGameState(data.data, data.images, today);
                 // statistics.lastPlayed = today;
                 setGameState(gameState);
                 setStatistics(statistics);
@@ -83,7 +83,7 @@ export default function App() {
             }); 
         }
         
-        if (status === 'in_progress') {
+        if (status === 'in_progress' && today === gameState.day) {
             // resume game
             dispatch(setDay(today));
             dispatch(setIndex(gameState.rgb.length));

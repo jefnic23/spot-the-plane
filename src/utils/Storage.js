@@ -5,7 +5,8 @@ export function getGameState() {
         'status': 'not_started', 
         'rgb': [],
         'data': [],
-        'images': []
+        'images': [],
+        'day': 0
     };
     // check to see if game state object exists in local storage
     let storedGameState = localStorage.getItem('game_state');
@@ -17,13 +18,14 @@ export function setGameState(gameState) {
     return localStorage.setItem('game_state', JSON.stringify(gameState));
 }
 
-export function resetGameState(data, images) {
+export function resetGameState(data, images, day) {
     return {
         'completionTime': '',
         'status': 'in_progress', 
         'rgb': [],
         'data': data,
-        'images': images
+        'images': images,
+        'day': day
     }
 }
 

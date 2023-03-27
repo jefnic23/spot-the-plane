@@ -1,7 +1,7 @@
 # TODO
 
 - [ ] Add some sort of review tab where photos of the day are stored with links
-- [ ] If a user leaves the game before finishing, prompt to continue playing when they go to resume
+- [x] If a user leaves the game before finishing, prompt to continue playing when they go to resume
 - [ ] Add support buttons (BuyMeACoffee, etc.) to postgame screen
 - [x] ~~Move as many state variables to redux as possible~~
 - [ ] Create custom global storage; move most logic there
@@ -18,36 +18,37 @@
 - [x] Fix miniplane borders on shareable
 - [ ] Improve Lighthouse scores
 - [ ] Change fullscreen menus into smaller modals (only on desktop)
-- [ ] PWA (make a shell in app stores)
+- [ ] PWA
 - [ ] If a mobile device hits the website, prompt to add to home screen
-- [ ] rate limiting? e.g. Flask-Limiter
+- [ ] rate limiting?
+- [ ] Model and Planes tables should be foreign-keyed
 
 ---
 
 - Check all planes in DB for viability
-    - [x] ERJ 140
-    - [x] C-130
-    - [x] ERJ 190
-    - [ ] 757
-    - [ ] 737
-    - [ ] A330
-    - [x] DC-3
-    - [ ] 767
-    - [ ] A350
-    - [ ] Dash 8
-    - [x] ERJ 135
-    - [ ] A320
-    - [ ] A340
-    - [x] MD-11
-    - [ ] CRJ
-    - [ ] ERJ 170
-    - [ ] 777
-    - [ ] 787
-    - [x] 727
-    - [ ] MD-80
-    - [ ] 747
-    - [x] Learjet
-    - [ ] A380
+  - [x] ERJ 140
+  - [x] C-130
+  - [x] ERJ 190
+  - [ ] 757
+  - [ ] 737
+  - [ ] A330
+  - [x] DC-3
+  - [ ] 767
+  - [ ] A350
+  - [ ] Dash 8
+  - [x] ERJ 135
+  - [ ] A320
+  - [ ] A340
+  - [x] MD-11
+  - [ ] CRJ
+  - [ ] ERJ 170
+  - [ ] 777
+  - [ ] 787
+  - [x] 727
+  - [ ] MD-80
+  - [ ] 747
+  - [x] Learjet
+  - [ ] A380
 
 ---
 
