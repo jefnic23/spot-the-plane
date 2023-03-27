@@ -1,6 +1,7 @@
-from database import Base
 from sqlalchemy import ForeignKey
 from sqlalchemy.orm import Mapped, mapped_column
+
+from api.database import Base
 
 
 class Aircraft(Base):

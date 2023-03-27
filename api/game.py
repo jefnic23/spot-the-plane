@@ -1,9 +1,9 @@
 import asyncio
 import random
 
-from models import Aircraft
-from schemas import GameData, Photo
-from services import get_plane, request_async, update_plane
+from api.models import Aircraft
+from api.schemas import GameData, Photo
+from api.services import get_plane, request_async, update_plane
 
 
 class Game:

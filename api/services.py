@@ -1,10 +1,11 @@
 import random
 
 import aiohttp
-from database import db
-from models import Aircraft, Quote
 from sqlalchemy import func
 from sqlalchemy.future import select
+
+from api.database import db
+from api.models import Aircraft, Quote
 
 
 async def get_plane(
