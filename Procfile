@@ -1,1 +1,1 @@
-web: uvicorn --chdir api spot_the_plane:app --reload
+web: uvicorn --chdir api main:app --reload
