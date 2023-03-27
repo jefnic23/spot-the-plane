@@ -1,7 +1,7 @@
 # TODO
 
 - [ ] Add some sort of review tab where photos of the day are stored with links
-- [ ] If a user leaves the game before finishing, prompt to continue playing when they go to resume
+- [x] If a user leaves the game before finishing, prompt to continue playing when they go to resume
 - [ ] Add support buttons (BuyMeACoffee, etc.) to postgame screen
 - [x] ~~Move as many state variables to redux as possible~~
 - [ ] Create custom global storage; move most logic there

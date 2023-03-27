@@ -27,4 +27,3 @@ class Quote(Base):
     index: Mapped[int] = mapped_column(primary_key=True)
     quote: Mapped[str] = mapped_column(nullable=False)
     author: Mapped[str] = mapped_column(nullable=False)
-    

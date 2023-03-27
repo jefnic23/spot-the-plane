@@ -2,11 +2,15 @@ import asyncio
 import random
 
 from models import Aircraft
+from schemas import GameData, Photo
 from services import get_plane, request_async, update_plane
 
 
 class Game:
-    # weights applied to each model
+    '''A class to represent a game of Spot the Plane.'''
+    
+    BASE_URL = 'https://api.planespotters.net/pub/photos/reg/'
+    HEADERS  = {'user-agent': 'spottheplane'}
     MODELS = {
         '737'    : 0.889,
         'A320'   : 0.853,
@@ -34,53 +38,60 @@ class Game:
     }
 
 
-    # planespotters.net api
-    BASE_URL = 'https://api.planespotters.net/pub/photos/reg/'
-    HEADERS  = {'user-agent': 'spottheplane'}
-
-
-    # create a new game instance
     def __init__(self, seed: int):
-        self.seed = seed
+        self.seed: int = seed
         self.chaos_seed: float = seed / 100000000
-        self.data = []
-        self.images = []
-        self.used = []    
+        self.data: list[dict[str, any]] = []
+        self.images: list[str] = []
+        self.used: list[str] = []    
         self.planes = self.get_planes()
 
 
-    # initialize the game by selecting ten planes at random
-    def get_planes(self):
+    def get_planes(self) -> list[str]:
+        '''Select ten models at random.'''
         random.seed(self.seed)
-        return random.choices(list(self.MODELS.keys()), weights=list(self.MODELS.values()), k=10)
+        return random.choices(
+            list(self.MODELS.keys()), 
+            weights=list(self.MODELS.values()), 
+            k=10
+        )
 
 
-    # for each plane in the game, grab three different planes as incorrect answers
-    def get_answers(self, plane):
+    def get_answers(self, typecode: str) -> list[dict[str, bool]]:
+        '''Get three incorrect answers for a plane.'''
         random.seed(self.chaos_seed)
-        return random.sample([{'model': model, 'answer': False} for model in list(self.MODELS.keys()) if model != plane and model[:3] != plane[:3]], k=3)
+        return random.sample(
+            [{'model': model, 'answer': False} 
+             for model in list(self.MODELS.keys()) 
+             if model != typecode and model[:3] != typecode[:3]
+            ],
+            k=3
+        )
 
 
-    # shuffle the set of answers in a question
-    def shuffle(self, data, chaos=True):
-        # determine which seed to use
+    def shuffle(
+            self, 
+            data: list[dict[str, any]],
+            chaos: bool = True
+        ) -> list[dict[str, any]]:
+        '''Shuffle a list of answers.'''
         seed = self.chaos_seed if chaos else self.seed
         random.seed(seed)
         return random.sample(data, len(data)) 
 
 
-    # generate a new seed
-    def new_seed(self):
+    def new_seed(self) -> float:
+        '''Generate a new seed chaotically.'''
         return 3.9 * self.chaos_seed * (1 - self.chaos_seed)
 
 
-    # make call to planespotters.net
     async def call_api(
-            self, 
-            plane: Aircraft, 
-            base_url: str = BASE_URL, 
-            headers: dict[str, str] = HEADERS
-        ) -> dict[str, str] | bool:
+        self, 
+        plane: Aircraft, 
+        base_url: str = BASE_URL, 
+        headers: dict[str, str] = HEADERS
+    ) -> Photo | bool:
+        '''Call the Planespotters.net API to get a photo of the plane.'''
         url = f'{base_url}{plane.registration}'
         json = await request_async(url, headers=headers)
         if json['photos']:
@@ -99,8 +110,7 @@ class Game:
             return False
 
 
-    # TODO: add TypedDict return type
-    async def create_game(self):
+    async def create_game(self) -> GameData:
         '''Create a new game instance.'''
         for plane_type in self.planes:
             details = False

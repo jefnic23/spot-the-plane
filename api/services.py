@@ -14,7 +14,11 @@ async def get_plane(
 ) -> Aircraft:
     '''Gets a list of aircraft from the database.'''
     async with db.session() as session:
-        query = select(Aircraft).filter_by(viable=True, typecode=plane_type).where(~Aircraft.registration.in_(used_aircraft))
+        query = (
+            select(Aircraft)
+            .filter_by(viable=True, typecode=plane_type)
+            .where(~Aircraft.registration.in_(used_aircraft))
+        )
         res = await session.execute(query)
         random.seed(seed)
         return random.choice(res.scalars().all())
