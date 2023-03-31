@@ -21,7 +21,7 @@
 - [ ] PWA
 - [ ] If a mobile device hits the website, prompt to add to home screen
 - [ ] rate limiting?
-- [ ] Model and Planes tables should be foreign-keyed
+- [x] Model and Planes tables should be foreign-keyed
 - [ ] pip install fake-useragent
 ---
 
