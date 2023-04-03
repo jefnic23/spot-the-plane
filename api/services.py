@@ -1,8 +1,7 @@
 import random
 
 import aiohttp
-from sqlalchemy import func
-from sqlalchemy.future import select
+from sqlalchemy import func, select
 
 from api.database import db
 from api.models import Aircraft, Quote
