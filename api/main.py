@@ -19,7 +19,7 @@ def create_app():
 
     app.include_router(router)
 
-    app.mount('/', StaticFiles(directory='build/'), name='static')
+    app.mount('/', StaticFiles(directory='build/', html=True), name='static')
 
     @app.on_event('startup')
     async def startup():

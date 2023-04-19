@@ -10,7 +10,10 @@ class Aircraft(Base):
     registration: Mapped[str] = mapped_column(primary_key=True)
     manufacturericao: Mapped[str] = mapped_column(nullable=False)
     model: Mapped[str] = mapped_column(nullable=False)
-    typecode: Mapped[str] = mapped_column(ForeignKey('planetypes.model'), nullable=False)
+    typecode: Mapped[str] = mapped_column(
+        ForeignKey('planetypes.model'), 
+        nullable=False
+    )
     viable: Mapped[bool] = mapped_column(nullable=False, default=True)
 
 
