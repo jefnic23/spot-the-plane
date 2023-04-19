@@ -54,7 +54,7 @@ export default function App() {
         let status = gameState.status;
 
         if (today > statistics.lastPlayed || today > gameState.day) {
-            fetch(`/api/quote?seed=${compDay()}`, { method: "GET" })
+            fetch(`/api/quote?seed=${today}`, { method: "GET" })
             .then(res => res.json())
             .then(data => {
                 dispatch(setQuote({quote: data.quote, author: data.author}));
