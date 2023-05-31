@@ -1,9 +1,12 @@
 import asyncio
 import random
 
+from sqlalchemy.ext.asyncio import AsyncSession
+
+from api.repo import Repo
 from api.models import Aircraft
 from api.schemas import GameData, Photo
-from api.services import get_plane, request_async, update_plane
+from api.services import request_async
 
 
 class Game:
@@ -38,7 +41,9 @@ class Game:
     }
 
 
-    def __init__(self, seed: int):
+    def __init__(self, seed: int, repo: Repo) -> None:
+        '''Initializes a game of Spot the Plane.'''
+        self.repo: Repo = repo
         self.seed: int = seed
         self.chaos_seed: float = seed / 100000000
         self.data: list[dict[str, any]] = []
@@ -64,7 +69,7 @@ class Game:
             [{'model': model, 'answer': False} 
              for model in list(self.MODELS.keys()) 
              if model != typecode and model[:3] != typecode[:3]
-            ],
+            ], # type: ignore
             k=3
         )
 
@@ -106,7 +111,7 @@ class Game:
             }
         else:
             # planespotters.net has no pics of this plane; mark it as non-viable
-            await update_plane(plane)
+            await self.repo.update_plane(plane)
             return False
 
 
@@ -115,8 +120,9 @@ class Game:
         for plane_type in self.planes:
             details = False
             while not details:
-                plane = await get_plane(self.seed, plane_type, self.used)
+                plane = await self.repo.get_plane(self.seed, plane_type, self.used)
                 details = await self.call_api(plane) 
+                print(f'{plane.registration} {details}')
                 await asyncio.sleep(random.uniform(0.21, 0.55))
 
             self.used.append(plane.registration)
