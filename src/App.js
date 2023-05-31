@@ -19,7 +19,7 @@ import Info from './components/Info';
 import Stats from './components/Stats';
 import Results from './components/Results';
 import './index.css';
-import { setQuote } from './store/quoteSlice';
+// import { setQuote } from './store/quoteSlice';
 
 const notify = (msg) => toast(msg, {
     style: {
@@ -54,15 +54,6 @@ export default function App() {
         let status = gameState.status;
 
         if (today > statistics.lastPlayed || today > gameState.day) {
-            fetch(`/api/quote?seed=${today}`, { method: "GET" })
-            .then(res => res.json())
-            .then(data => {
-                dispatch(setQuote({quote: data.quote, author: data.author}));
-            })
-            .catch(err => {
-                console.log(err);
-            });
-
             fetch(`/api/game?seed=${today}`, { method: "GET" })
             .then(res => res.json())
             .then(data => {

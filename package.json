@@ -37,7 +37,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "start-api": "api/venv/Scripts/uvicorn api.main:app --reload",
+    "start-api": "uvicorn api.main:app --reload",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
