@@ -1,8 +1,8 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
-
 from api.database import db
+
 from api.routes import router
 
 
@@ -25,13 +25,9 @@ def create_app():
     async def startup():
         await db.get_session()
 
-    @app.on_event('shutdown')
-    async def shutdown():
-        await db.close()
-
     @app.get('/')
     def index():
-        return app.send_static_file('index.html')
+        return app.send_static_file('index.html') # type: ignore
     
     return app
 

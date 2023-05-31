@@ -1,46 +1,47 @@
 import random
+from typing import AsyncGenerator
 
 import aiohttp
 from sqlalchemy import func
+from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select
 
-from api.database import db
+from api.database import Database, db
 from api.models import Aircraft, Quote
+from api.repo import Repo
 
 
 async def get_plane(
+    db: AsyncSession,
     seed: int,
-    plane_type: str = None,
-    used_aircraft: list[str] = None
+    plane_type: str = '',
+    used_aircraft: list[str] = []
 ) -> Aircraft:
     '''Gets a list of aircraft from the database.'''
-    async with db.session() as session:
-        query = (
-            select(Aircraft)
-            .filter_by(viable=True, typecode=plane_type)
-            .where(~Aircraft.registration.in_(used_aircraft))
-        )
-        res = await session.execute(query)
-        random.seed(seed)
-        return random.choice(res.scalars().all())
+    query = (
+        select(Aircraft)
+        .filter_by(viable=True, typecode=plane_type)
+        .where(~Aircraft.registration.in_(used_aircraft))
+    )
+    res = await db.execute(query)
+    random.seed(seed)
+    return random.choice(res.scalars().all())
     
 
-async def update_plane(plane: Aircraft) -> None:
+async def update_plane(db: AsyncSession, plane: Aircraft) -> None:
     '''Updates a plane's viable status in the database.'''
-    async with db.session() as session:
-        plane.viable = False
-        await session.commit()
+    plane.viable = False
+    await db.commit()
     
 
-async def get_quote(seed: int) -> dict[str, str]:
+async def get_quote(db: AsyncSession, seed: int) -> dict[str, str]:
     '''Gets a quote from the database.'''
-    async with db.session() as session:
-        num_rows = await session.execute(select(func.count(Quote.index)))
-        random.seed(seed)
-        id = random.randint(0, num_rows.scalar_one())
-        query = await session.execute(select(Quote).where(Quote.index == id))
-        res = query.scalars().first()
-        return {'quote': res.quote, 'author': res.author}
+    num_rows = await db.execute(select(func.count(Quote.index)))
+    random.seed(seed)
+    id = random.randint(0, num_rows.scalar_one())
+    query = await db.execute(select(Quote).where(Quote.index == id))
+    res = query.scalars().first()
+    return {'quote': res.quote, 'author': res.author}
     
 
 async def request_async(
@@ -54,3 +55,10 @@ async def request_async(
                 await res.raise_for_status()
             else:
                 return await res.json()
+
+
+async def get_db() -> AsyncGenerator[Repo, None]:
+    '''Gets a database session.'''
+    async with db.session() as session:
+        async with session.begin():
+            yield Repo(session)
