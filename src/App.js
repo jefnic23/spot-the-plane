@@ -1,25 +1,25 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
-import { useSelector, useDispatch } from "react-redux";
-import { setIndex, endGame, selectGameOver } from './store/gameSlice';
-import { setDay } from './store/mainSlice';
-import { increment } from './store/timerSlice';
+import { useDispatch, useSelector } from "react-redux";
+import Error from "./components/Error";
+import Game from "./components/Game";
+import Info from './components/Info';
+import Loader from "./components/Loader";
+import Navbar from "./components/Navbar";
+import Postgame from './components/Postgame';
+import Pregame from './components/Pregame';
+import Results from './components/Results';
+import Stats from './components/Stats';
+import './index.css';
 import { setMiniplanes } from './store/counterSlice';
+import { endGame, selectGameOver, setIndex } from './store/gameSlice';
+import { setDay } from './store/mainSlice';
 import { selectGameStarted } from './store/pregameSlice';
 import { selectNoShare } from './store/resultsSlice';
+import { increment } from './store/timerSlice';
 import { compDay } from './utils/Helpers';
-import { getGameState, getStatistics, setGameState, setStatistics, resetGameState } from './utils/Storage';
-import Loader from "./components/Loader";
-import Error from "./components/Error";
-import Navbar from "./components/Navbar";
-import Game from "./components/Game";
-import Pregame from './components/Pregame';
-import Postgame from './components/Postgame';
-import Info from './components/Info';
-import Stats from './components/Stats';
-import Results from './components/Results';
-import './index.css';
-import { setQuote } from './store/quoteSlice';
+import { getGameState, getStatistics, resetGameState, setGameState, setStatistics } from './utils/Storage';
+// import { setQuote } from './store/quoteSlice';
 
 const notify = (msg) => toast(msg, {
     style: {
@@ -54,15 +54,6 @@ export default function App() {
         let status = gameState.status;
 
         if (today > statistics.lastPlayed || today > gameState.day) {
-            fetch(`/api/quote?seed=${compDay()}`, { method: "GET" })
-            .then(res => res.json())
-            .then(data => {
-                dispatch(setQuote({quote: data.quote, author: data.author}));
-            })
-            .catch(err => {
-                console.log(err);
-            });
-
             fetch(`/api/game?seed=${today}`, { method: "GET" })
             .then(res => res.json())
             .then(data => {
