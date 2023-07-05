@@ -9,8 +9,8 @@ from api.models import Aircraft, Quote
 
 async def get_plane(
     seed: int,
-    plane_type: str = None,
-    used_aircraft: list[str] = None
+    plane_type: str = '',
+    used_aircraft: list[str] = []
 ) -> Aircraft:
     '''Gets a list of aircraft from the database.'''
     async with db.session() as session:
