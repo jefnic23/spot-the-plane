@@ -6,7 +6,7 @@ from sqlalchemy import func
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select
 
-from api.database import Database, db
+from api.database import db
 from api.models import Aircraft, Quote
 from api.repo import Repo
 

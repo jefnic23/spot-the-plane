@@ -1,7 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
-from api.database import db
 
 from api.routes import router
 
@@ -20,10 +19,6 @@ def create_app():
     app.include_router(router)
 
     app.mount('/', StaticFiles(directory='build/', html=True), name='static')
-
-    @app.on_event('startup')
-    async def startup():
-        await db.get_session()
 
     @app.get('/')
     def index():
