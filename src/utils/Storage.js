@@ -1,7 +1,7 @@
 export function getGameState() {
     // create empty game state object
     let defaultGameState = {
-        'completionTime': '',
+        'completionTime': 0,
         'status': 'not_started', 
         'rgb': [],
         'data': [],
