@@ -1,10 +1,9 @@
 import React, { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { selectAuthor, selectQuote } from '../store/quoteSlice';
-import { getGameState, getStatistics } from '../utils/Storage';
-import { setQuote } from '../store/quoteSlice';
-import { compDay } from '../utils/Helpers';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectAuthor, selectQuote, setQuote } from '../store/quoteSlice';
 import styles from '../styles/Quote.module.css';
+import { compDay } from '../utils/Helpers';
+import { getGameState, getStatistics } from '../utils/Storage';
 
 export default function Quote() {
     const quote = useSelector(selectQuote);
@@ -16,8 +15,9 @@ export default function Quote() {
         let statistics = getStatistics();
         
         let today = compDay();
+        let status = gameState.status;
 
-        if (today > statistics.lastPlayed || today > gameState.day) {
+        if ((today > statistics.lastPlayed || today > gameState.day) && (status === 'not_started' || status === 'complete')) {
             fetch(`/api/quote?seed=${today}`, { method: "GET" })
             .then(res => res.json())
             .then(data => {

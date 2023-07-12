@@ -53,7 +53,7 @@ export default function App() {
         let today = compDay();
         let status = gameState.status;
 
-        if ((today > statistics.lastPlayed || today > gameState.day) && !status === 'in_progress') {
+        if ((today > statistics.lastPlayed || today > gameState.day) && (status === 'not_started' || status === 'complete')) {
             fetch(`/api/game?seed=${today}`, { method: "GET" })
             .then(res => res.json())
             .then(data => {
