@@ -82,3 +82,11 @@
 .miniplane_container > img:not(:first-child, :last-child) {
 	margin: 0 2px;
 }
+
+.miniplane_container > img:first-child {
+    margin-right: 2px;
+}
+
+.miniplane_container > img:last-child {
+    margin-left: 2px;
+}
