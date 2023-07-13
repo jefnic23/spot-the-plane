@@ -17,17 +17,21 @@ export default function Quote() {
         let today = compDay();
         let status = gameState.status;
 
-        if ((today > statistics.lastPlayed || today > gameState.day) && (status === 'not_started' || status === 'complete')) {
-            fetch(`/api/quote?seed=${today}`, { method: "GET" })
-            .then(res => res.json())
-            .then(data => {
-                dispatch(setQuote({quote: data.quote, author: data.author}));
-            })
-            .catch(err => {
-                console.log(err);
-            });
+        if ((today > statistics.lastPlayed || today > gameState.day) && (status === 'not_started' || status === 'complete') || (status === 'in_progress' && today !== gameState.day)) {
+            fetchQuote(today)
         }
     }, [dispatch]);
+
+    const fetchQuote = (seed) => {
+        fetch(`/api/quote?seed=${seed}`, { method: "GET" })
+        .then(res => res.json())
+        .then(data => {
+            dispatch(setQuote({quote: data.quote, author: data.author}));
+        })
+        .catch(err => {
+            console.log(err);
+        })
+    }
 
     return (
         <div className={styles.container}>

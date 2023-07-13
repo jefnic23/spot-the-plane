@@ -19,7 +19,6 @@ import { selectNoShare } from './store/resultsSlice';
 import { increment } from './store/timerSlice';
 import { compDay } from './utils/Helpers';
 import { getGameState, getStatistics, resetGameState, setGameState, setStatistics } from './utils/Storage';
-// import { setQuote } from './store/quoteSlice';
 
 const notify = (msg) => toast(msg, {
     style: {
@@ -53,36 +52,24 @@ export default function App() {
         let today = compDay();
         let status = gameState.status;
 
-        if ((today > statistics.lastPlayed || today > gameState.day) && (status === 'not_started' || status === 'complete')) {
-            fetch(`/api/game?seed=${today}`, { method: "GET" })
-            .then(res => res.json())
-            .then(data => {
-                // update game state
-                gameState = resetGameState(data.data, data.images, today);
-                // statistics.lastPlayed = today;
-                setGameState(gameState);
-                setStatistics(statistics);
-                
-                dispatch(setDay(data.day));
-                setData(data.data);
-                cacheImages(data.images);
-            })
-            .catch(err => {
-                console.log(err);
-                setError(true);
-                setLoaded(true);
-            }); 
+        if (status === 'in_progress') {
+            if (today === gameState.day) {
+                    // resume game
+                dispatch(setDay(today));
+                dispatch(setIndex(gameState.rgb.length));
+                dispatch(setMiniplanes(gameState.rgb));
+                dispatch(increment(gameState.completionTime));
+                setData(gameState.data);
+                setResumed(true);
+                cacheImages(gameState.images);
+            } else {
+                // start new game
+                fetchGame(today, gameState, statistics);
+            }
         }
-        
-        if (status === 'in_progress' && today === gameState.day) {
-            // resume game
-            dispatch(setDay(today));
-            dispatch(setIndex(gameState.rgb.length));
-            dispatch(setMiniplanes(gameState.rgb));
-            dispatch(increment(gameState.completionTime));
-            setData(gameState.data);
-            setResumed(true);
-            cacheImages(gameState.images);
+
+        if ((today > statistics.lastPlayed || today > gameState.day) && (status === 'not_started' || status === 'complete')) {
+            fetchGame(today, gameState, statistics);
         }
     
         if (status === 'complete' && today === statistics.lastPlayed) {
@@ -104,6 +91,27 @@ export default function App() {
             }, 500); 
         }
     }, [gameStarted]);
+
+    const fetchGame = (seed, gameState, statistics) => {
+        fetch(`/api/game?seed=${seed}`, { method: "GET" })
+        .then(res => res.json())
+        .then(data => {
+            // update game state
+            gameState = resetGameState(data.data, data.images, seed);
+            // statistics.lastPlayed = today;
+            setGameState(gameState);
+            setStatistics(statistics);
+            
+            dispatch(setDay(data.day));
+            setData(data.data);
+            cacheImages(data.images);
+        })
+        .catch(err => {
+            console.log(err);
+            setError(true);
+            setLoaded(true);
+        }); 
+    }
 
     const cacheImages = async (imgs) => {
         const promises = await imgs.map(src => {
