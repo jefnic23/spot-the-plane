@@ -53,6 +53,17 @@ export default function App() {
         let today = compDay();
         let status = gameState.status;
 
+        if (status === 'in_progress' && today === gameState.day) {
+            // resume game
+            dispatch(setDay(today));
+            dispatch(setIndex(gameState.rgb.length));
+            dispatch(setMiniplanes(gameState.rgb));
+            dispatch(increment(gameState.completionTime));
+            setData(gameState.data);
+            setResumed(true);
+            cacheImages(gameState.images);
+        }
+
         if ((today > statistics.lastPlayed || today > gameState.day) && (status === 'not_started' || status === 'complete')) {
             fetch(`/api/game?seed=${today}`, { method: "GET" })
             .then(res => res.json())
@@ -72,17 +83,6 @@ export default function App() {
                 setError(true);
                 setLoaded(true);
             }); 
-        }
-        
-        if (status === 'in_progress' && today === gameState.day) {
-            // resume game
-            dispatch(setDay(today));
-            dispatch(setIndex(gameState.rgb.length));
-            dispatch(setMiniplanes(gameState.rgb));
-            dispatch(increment(gameState.completionTime));
-            setData(gameState.data);
-            setResumed(true);
-            cacheImages(gameState.images);
         }
     
         if (status === 'complete' && today === statistics.lastPlayed) {
