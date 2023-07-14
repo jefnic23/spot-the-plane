@@ -11,27 +11,27 @@ export default function Quote() {
     const dispatch = useDispatch();
 
     useEffect(() => {
+        const fetchQuote = (seed) => {
+            fetch(`/api/quote?seed=${seed}`, { method: "GET" })
+            .then(res => res.json())
+            .then(data => {
+                dispatch(setQuote({quote: data.quote, author: data.author}));
+            })
+            .catch(err => {
+                console.log(err);
+            })
+        }
+
         let gameState = getGameState();
         let statistics = getStatistics();
         
         let today = compDay();
         let status = gameState.status;
 
-        if ((today > statistics.lastPlayed || today > gameState.day) && (status === 'not_started' || status === 'complete') || (status === 'in_progress' && today !== gameState.day)) {
+        if ((today > statistics.lastPlayed || today > gameState.day) && (status === 'not_started' || status === 'complete' || (status === 'in_progress' && today !== gameState.day))) {
             fetchQuote(today)
         }
     }, [dispatch]);
-
-    const fetchQuote = (seed) => {
-        fetch(`/api/quote?seed=${seed}`, { method: "GET" })
-        .then(res => res.json())
-        .then(data => {
-            dispatch(setQuote({quote: data.quote, author: data.author}));
-        })
-        .catch(err => {
-            console.log(err);
-        })
-    }
 
     return (
         <div className={styles.container}>

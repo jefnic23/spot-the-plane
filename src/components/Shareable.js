@@ -21,8 +21,8 @@ export default function Shareable ({ notify }) {
     const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
 
     const HtmlToImage = async (el) => {
-        let canvas = await html2canvas(el, { imageTimeout: 0, scale: 1 });
-        dispatch(setUrl(canvas.toDataURL()));
+        let canvas = await html2canvas(el, { scale: 2 });
+        dispatch(setUrl(canvas.toDataURL('image/png', 1.0)));
         canvas.toBlob((blob) => {
             if (navigator.canShare && isMobile) {
                 let f = [new File([blob], 'spottheplane.png', {type: blob.type, lastModified: day})];
@@ -32,7 +32,7 @@ export default function Shareable ({ notify }) {
             } else {
                 if (typeof window.ClipboardItem != 'undefined' && !isSafari) {
                     navigator.clipboard.write(
-                        [new window.ClipboardItem({'image/png': blob})]
+                        [new window.ClipboardItem({[blob.type]: blob})]
                     ).then(() => {
                         notify('Results copied to clipboard.');
                     });
@@ -42,7 +42,7 @@ export default function Shareable ({ notify }) {
                     notify('Right click/hold to copy.');
                 }
             }
-        });
+        }, 'image/png', 1);
     }
 
     return (
@@ -57,7 +57,7 @@ export default function Shareable ({ notify }) {
                 ref={ref} 
                 style={{
                     position: 'fixed',
-                    top: '-1000%',
+                    top: '-100%',
                     width: '300px',
                     display: 'flex',
                     flexDirection: 'column',
