@@ -21,12 +21,13 @@ export default function Shareable ({ notify }) {
     const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
 
     const HtmlToImage = async (el) => {
-        let canvas = await html2canvas(el, { scale: 2 });
-        dispatch(setUrl(canvas.toDataURL('image/png', 1.0)));
+        let canvas = await html2canvas(el);
+        dispatch(setUrl(canvas.toDataURL()));
         canvas.toBlob((blob) => {
             if (navigator.canShare && isMobile) {
-                let f = [new File([blob], 'spottheplane.png', {type: blob.type, lastModified: day})];
-                navigator.share({files: f})
+                navigator.share(
+                    {files: [new File([blob], 'spottheplane.png', {type: blob.type, lastModified: day})]}
+                )
                 .then(() => console.log('Share successful.'))
                 .catch((error) => console.log('Share failed', error));
             } else {
@@ -42,7 +43,7 @@ export default function Shareable ({ notify }) {
                     notify('Right click/hold to copy.');
                 }
             }
-        }, 'image/png', 1);
+        }, 'image/png');
     }
 
     return (
