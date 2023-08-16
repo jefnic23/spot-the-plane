@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Depends
-from api.database import Database
+
 from api.game import Game
 from api.repo import Repo
 from api.services import get_db
