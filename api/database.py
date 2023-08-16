@@ -3,8 +3,8 @@ from sqlalchemy.orm import declarative_base
 
 from api.config import settings
 
-Base = declarative_base()
 
+Base = declarative_base()
 
 class Database:
     def __init__(self):
