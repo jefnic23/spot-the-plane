@@ -19,7 +19,6 @@ import { selectNoShare } from './store/resultsSlice';
 import { increment } from './store/timerSlice';
 import { compDay } from './utils/Helpers';
 import { getGameState, getStatistics, resetGameState, setGameState, setStatistics } from './utils/Storage';
-// import { setQuote } from './store/quoteSlice';
 
 const notify = (msg) => toast(msg, {
     style: {
@@ -47,18 +46,12 @@ export default function App() {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        let gameState = getGameState();
-        let statistics = getStatistics();
-        
-        let today = compDay();
-        let status = gameState.status;
-
-        if (today > statistics.lastPlayed || today > gameState.day) {
-            fetch(`/api/game?seed=${today}`, { method: "GET" })
+        const fetchGame = (seed, gameState, statistics) => {
+            fetch(`/api/game?seed=${seed}`, { method: "GET" })
             .then(res => res.json())
             .then(data => {
                 // update game state
-                gameState = resetGameState(data.data, data.images, today);
+                gameState = resetGameState(data.data, data.images, seed);
                 // statistics.lastPlayed = today;
                 setGameState(gameState);
                 setStatistics(statistics);
@@ -73,9 +66,15 @@ export default function App() {
                 setLoaded(true);
             }); 
         }
+
+        let gameState = getGameState();
+        let statistics = getStatistics();
         
+        let today = compDay();
+        let status = gameState.status;
+
         if (status === 'in_progress' && today === gameState.day) {
-            // resume game
+                // resume game
             dispatch(setDay(today));
             dispatch(setIndex(gameState.rgb.length));
             dispatch(setMiniplanes(gameState.rgb));
@@ -83,6 +82,10 @@ export default function App() {
             setData(gameState.data);
             setResumed(true);
             cacheImages(gameState.images);
+        }
+
+        if ((today > statistics.lastPlayed || today > gameState.day) && (status === 'not_started' || status === 'complete' || (status === 'in_progress' && today !== gameState.day))) {
+            fetchGame(today, gameState, statistics);
         }
     
         if (status === 'complete' && today === statistics.lastPlayed) {

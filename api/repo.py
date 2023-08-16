@@ -10,8 +10,8 @@ from api.models import Aircraft, Quote
 class Repo():
     def __init__(self, session: AsyncSession):
         self.db: AsyncSession = session
-        
-        
+
+
     async def get_plane(
         self,
         seed: int,

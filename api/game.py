@@ -1,6 +1,9 @@
 import asyncio
 import random
 
+from sqlalchemy.ext.asyncio import AsyncSession
+
+from api.repo import Repo
 from api.models import Aircraft
 from api.repo import Repo
 from api.schemas import GameData, Photo

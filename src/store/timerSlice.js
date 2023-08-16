@@ -7,7 +7,7 @@ export const timerSlice = createSlice({
     },
     reducers: {
         increment: (state, action) => {
-            state.value += action.payload
+            state.value += parseInt(action.payload);
         },
     },
 })
