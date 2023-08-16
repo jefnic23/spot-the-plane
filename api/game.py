@@ -1,11 +1,8 @@
 import asyncio
 import random
 
-from sqlalchemy.ext.asyncio import AsyncSession
-
 from api.repo import Repo
 from api.models import Aircraft
-from api.repo import Repo
 from api.schemas import GameData, Photo
 from api.services import request_async
 
@@ -125,7 +122,6 @@ class Game:
             while not details:
                 plane = await self.repo.get_plane(self.seed, plane_type, self.used)
                 details = await self.call_api(plane) 
-                print(f'{plane.registration} {details}')
                 await asyncio.sleep(random.uniform(0.21, 0.55))
 
             self.used.append(plane.registration)
