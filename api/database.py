@@ -3,8 +3,8 @@ from sqlalchemy.orm import declarative_base
 
 from api.config import settings
 
-Base = declarative_base()
 
+Base = declarative_base()
 
 class Database:
     def __init__(self):
@@ -18,9 +18,5 @@ class Database:
             expire_on_commit=False, 
             class_=AsyncSession
         )
-
-    async def get_session(self) -> async_sessionmaker[AsyncSession]:
-        async with self.engine.begin() as conn:
-            await conn.run_sync(Base.metadata.create_all)
 
 db = Database()

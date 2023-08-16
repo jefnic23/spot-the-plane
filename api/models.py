@@ -3,7 +3,6 @@ from sqlalchemy.orm import Mapped, mapped_column
 
 from api.database import Base
 
-
 class Aircraft(Base):
     __tablename__ = "aircraft"
 

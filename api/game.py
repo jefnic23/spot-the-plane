@@ -1,8 +1,6 @@
 import asyncio
 import random
 
-from sqlalchemy.ext.asyncio import AsyncSession
-
 from api.repo import Repo
 from api.models import Aircraft
 from api.schemas import GameData, Photo
@@ -44,8 +42,8 @@ class Game:
     def __init__(self, seed: int, repo: Repo) -> None:
         '''Initializes a game of Spot the Plane.'''
         self.repo: Repo = repo
-        self.seed: int = seed
-        self.chaos_seed: float = seed / 100000000
+        self.initial_seed: int = seed
+        self.seed: float = self.new_seed(init=True)
         self.data: list[dict[str, any]] = []
         self.images: list[str] = []
         self.used: list[str] = []    
@@ -54,7 +52,7 @@ class Game:
 
     def get_planes(self) -> list[str]:
         '''Select ten models at random.'''
-        random.seed(self.seed)
+        random.seed(self.initial_seed)
         return random.choices(
             list(self.MODELS.keys()), 
             weights=list(self.MODELS.values()), 
@@ -64,7 +62,7 @@ class Game:
 
     def get_answers(self, typecode: str) -> list[dict[str, bool]]:
         '''Get three incorrect answers for a plane.'''
-        random.seed(self.chaos_seed)
+        random.seed(self.seed)
         return random.sample(
             [{'model': model, 'answer': False} 
              for model in list(self.MODELS.keys()) 
@@ -80,14 +78,16 @@ class Game:
             chaos: bool = True
         ) -> list[dict[str, any]]:
         '''Shuffle a list of answers.'''
-        seed = self.chaos_seed if chaos else self.seed
+        seed = self.seed if chaos else self.initial_seed
         random.seed(seed)
         return random.sample(data, len(data)) 
 
 
-    def new_seed(self) -> float:
+    def new_seed(self, init: bool = False) -> float:
         '''Generate a new seed chaotically.'''
-        return 3.9 * self.chaos_seed * (1 - self.chaos_seed)
+        seed = self.initial_seed if init else self.seed
+        random.seed(seed)
+        return random.uniform(-1, 1)
 
 
     async def call_api(
@@ -122,7 +122,6 @@ class Game:
             while not details:
                 plane = await self.repo.get_plane(self.seed, plane_type, self.used)
                 details = await self.call_api(plane) 
-                print(f'{plane.registration} {details}')
                 await asyncio.sleep(random.uniform(0.21, 0.55))
 
             self.used.append(plane.registration)
@@ -139,10 +138,10 @@ class Game:
             question.extend(answers)
             self.data.append(self.shuffle(question))
 
-            self.chaos_seed = self.new_seed()
+            self.seed = self.new_seed()
 
         return {
             'data': self.shuffle(self.data, chaos=False), 
             'images': self.images, 
-            'day': self.seed
+            'day': self.initial_seed
         }
