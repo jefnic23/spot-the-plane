@@ -3,6 +3,7 @@ from sqlalchemy.orm import Mapped, mapped_column
 
 from api.database import Base
 
+
 class Aircraft(Base):
     __tablename__ = "aircraft"
 
@@ -10,8 +11,7 @@ class Aircraft(Base):
     manufacturericao: Mapped[str] = mapped_column(nullable=False)
     model: Mapped[str] = mapped_column(nullable=False)
     typecode: Mapped[str] = mapped_column(
-        ForeignKey('planetypes.model'), 
-        nullable=False
+        ForeignKey("planetypes.model"), nullable=False
     )
     viable: Mapped[bool] = mapped_column(nullable=False, default=True)
 
