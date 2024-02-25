@@ -1,6 +1,8 @@
 import asyncio
 import random
 
+from fake_useragent import UserAgent
+
 from api.models import Aircraft
 from api.repo import Repo
 from api.schemas import GameData, Photo
@@ -11,7 +13,7 @@ class Game:
     """A class to represent a game of Spot the Plane."""
 
     BASE_URL = "https://api.planespotters.net/pub/photos/reg/"
-    HEADERS = {"user-agent": "spottheplane"}
+    HEADERS = {"user-agent": UserAgent().random}
     MODELS = {
         "737": 0.889,
         "A320": 0.853,
