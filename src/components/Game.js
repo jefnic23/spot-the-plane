@@ -65,10 +65,10 @@ export default function Game({ data, animation, resumed }) {
                 setButtonAnimation('animate__flipOutX');
             }, 1000);
             setTimeout(() => {
-                setPlaneAnimation('animate__backOutRight');
+                setPlaneAnimation('animate__zoomOut');
             }, 1500);
             setTimeout(() => {
-                setPlaneAnimation('animate__backInLeft');
+                setPlaneAnimation('animate__zoomIn');
                 setButtonAnimation('animate__flipInX');
                 dispatch(incrementIndex());
                 setDisabled(false);
