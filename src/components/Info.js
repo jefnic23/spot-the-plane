@@ -2,6 +2,8 @@ import React from 'react';
 import Coffee from './Coffee';
 import styles from '../styles/Info.module.css';
 
+const year = new Date().getFullYear();
+
 export default function Info({ animation, closeMenu }) {
     return (
         <div className={`share_overlay animate__animated ${animation} animate__faster`}>
@@ -25,7 +27,7 @@ export default function Info({ animation, closeMenu }) {
                     <Coffee />
                 </div>
             </div>
-            <div className={styles.footnote}>&copy; 2023 Jeff Nicholas</div>
+            <div className={styles.footnote}>&copy; {year} Jeff Nicholas</div>
         </div>
     );
 }
