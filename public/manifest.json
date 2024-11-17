@@ -1,7 +1,7 @@
 {
   "short_name": "SpotThePlane",
-  "name": "SpotThePlane",
-  "description": "Guess the plane.",
+  "name": "Spot the Plane",
+  "description": "Planespotting trivia game.",
   "icons": [
     {
       "src": "favicon.png",
