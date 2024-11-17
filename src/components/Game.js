@@ -63,7 +63,7 @@ export default function Game({ data, animation, resumed }) {
         } else {
             setTimeout(() => {
                 setButtonAnimation('animate__flipOutX');
-            }, 1000);
+            }, 1250);
             setTimeout(() => {
                 setPlaneAnimation('animate__zoomOut');
             }, 1500);
