@@ -20,6 +20,7 @@ import { selectNoShare } from './store/resultsSlice';
 import { increment } from './store/timerSlice';
 import { compDay } from './utils/Helpers';
 import { getGameState, getStatistics, resetGameState, setGameState, setStatistics } from './utils/Storage';
+import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 
 const notify = (msg) => toast(msg, {
     style: {
@@ -40,6 +41,7 @@ export default function App() {
     const [stats, setStats] = useState(false);
     const [begun, setBegun] = useState(false);
     const [data, setData] = useState();
+    const [isUpdateAvailable, setIsUpdateAvailable] = useState(false);
 
     const gameStarted = useSelector(selectGameStarted);
     const gameOver = useSelector(selectGameOver);
@@ -151,6 +153,21 @@ export default function App() {
         }, 500);
     }
 
+    serviceWorkerRegistration.register({
+        onUpdate: (registration) => {
+            setIsUpdateAvailable(true);
+            // Save the registration to trigger skipWaiting later
+            window.swRegistration = registration;
+        },
+    });
+
+    const refreshPage = () => {
+        if (window.swRegistration?.waiting) {
+            window.swRegistration.waiting.postMessage({ type: 'SKIP_WAITING' });
+            window.location.reload();
+        }
+    };
+
     return (
         <>
             <Toaster />
@@ -171,6 +188,12 @@ export default function App() {
                 :
                 <Loader />
             }
+            {isUpdateAvailable && (
+                <div className="update-notification">
+                    <p>New version available. Refresh to update?</p>
+                    <button onClick={refreshPage}>Refresh</button>
+                </div>
+            )}
         </>
     );
 }

@@ -4,14 +4,15 @@
 	box-sizing: border-box;
 }
 
-html, body {
+html,
+body {
 	margin: 0;
 	height: 100%;
 	overflow: hidden;
 }
 
 body {
-    background: #121213;
+	background: #121213;
 }
 
 hr {
@@ -70,7 +71,7 @@ button:not(:disabled) {
 	top: 0;
 	left: 0;
 	z-index: 99;
-	background: rgba(18,18,19, 1);
+	background: rgba(18, 18, 19, 1);
 }
 
 .overlay_content {
@@ -100,4 +101,30 @@ button:not(:disabled) {
 
 .miniplane span {
 	visibility: hidden;
+}
+
+.update-notification {
+	position: fixed;
+	bottom: 20px;
+	left: 50%;
+	transform: translateX(-50%);
+	background: #333;
+	color: #fff;
+	padding: 10px 20px;
+	border-radius: 5px;
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.update-notification button {
+	margin-left: 10px;
+	padding: 5px 10px;
+	background: #007bff;
+	color: #fff;
+	border: none;
+	border-radius: 3px;
+	cursor: pointer;
+}
+
+.update-notification button:hover {
+	background: #0056b3;
 }
