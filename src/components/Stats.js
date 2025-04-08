@@ -44,7 +44,7 @@ export default function Stats({ animation, closeMenu, statistics }) {
                     </div>
                     <div className={styles.avg_item}>
                         <p>Last played</p>
-                        <span>{ getDay(statistics.lastPlayed) }</span>
+                        <span>{ statistics.lastPlayed === 0 ? "Never" : getDay(statistics.lastPlayed) }</span>
                     </div>
                 </div>
             </div>

@@ -36,7 +36,7 @@ export function getStatistics() {
         'totalGameTime': 0, 
         'avgTime': 0, 
         'bestTime': null, 
-        'lastPlayed': parseInt(19700101)
+        'lastPlayed': 0
     };
     // check to see if statistics object exists in local storage
     let storedStatistics = localStorage.getItem('statistics');
