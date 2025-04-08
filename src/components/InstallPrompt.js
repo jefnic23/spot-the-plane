@@ -1,13 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import styles from '../styles/InstallPrompt.module.css';
 
-const InstallPrompt = () => {
+export default function InstallPrompt() {
     const [deferredPrompt, setDeferredPrompt] = useState(null);
     const [showModal, setShowModal] = useState(false);
 
     useEffect(() => {
         // Listen for the beforeinstallprompt event
         const handleBeforeInstallPrompt = (e) => {
+            if (navigator.maxTouchPoints < 1) return;
+
+            const dismissed = localStorage.getItem('pwaInstallPromptDismissed');
+            if (dismissed === 'true') return;
+
             e.preventDefault(); // Prevent the default prompt
             setDeferredPrompt(e); // Save the event
             setShowModal(true); // Show the modal
@@ -36,6 +41,7 @@ const InstallPrompt = () => {
     };
 
     const handleCloseModal = () => {
+        localStorage.setItem('pwaInstallPromptDismissed', 'true');
         setShowModal(false);
     };
 
@@ -53,5 +59,3 @@ const InstallPrompt = () => {
         </>
     );
 };
-
-export default InstallPrompt;
