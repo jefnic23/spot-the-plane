@@ -1,7 +1,6 @@
 import asyncio
 import random
 
-from api.config import settings
 from api.models import Aircraft
 from api.repo import Repo
 from api.schemas import GameData, Photo
